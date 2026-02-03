@@ -8,10 +8,59 @@ export default function GovernanceParticipation() {
     <div className="space-y-8">
       <PageHeader
         eyebrow="Terra Classic Governance"
-        title="Participation"
-        subtitle="Governance participation rates, validator turnout, and voting coverage insights."
+        title="Governance Participation"
+        subtitle="Governance participation derived from validator.info indexer API (via local proxy)."
         status="Data source: validator.info indexer (static preview)"
       />
+
+      <Card>
+        <div className="grid gap-4 lg:grid-cols-3">
+          <div className="space-y-3">
+            <p className="text-xs uppercase tracking-wider text-slate-500">
+              Time Window
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {["All time", "Last 2 years", "Last year"].map((label) => (
+                <button
+                  key={label}
+                  type="button"
+                  className="rounded-full border border-slate-800 px-3 py-2 text-xs uppercase tracking-wider text-slate-300 hover:border-amber-300 hover:text-amber-200 transition"
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <p className="text-xs text-slate-500">
+              Window: All time • Proposals: 118
+            </p>
+          </div>
+          <div className="space-y-3">
+            <p className="text-xs uppercase tracking-wider text-slate-500">
+              Active On-Chain Wallets (Last Year)
+            </p>
+            <div className="rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-3 text-sm text-slate-400">
+              120,000
+            </div>
+            <div className="text-xs text-slate-500">Debug: Off</div>
+          </div>
+          <div className="space-y-3">
+            <p className="text-xs uppercase tracking-wider text-slate-500">
+              Actions
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                className="rounded-full border border-slate-800 px-4 py-2 text-xs uppercase tracking-wider text-slate-300 hover:border-amber-300 hover:text-amber-200 transition"
+              >
+                Fetch latest data
+              </button>
+              <span className="text-xs text-slate-500">
+                Last fetched: never
+              </span>
+            </div>
+          </div>
+        </div>
+      </Card>
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <KpiCard
@@ -46,56 +95,88 @@ export default function GovernanceParticipation() {
 
       <Card>
         <SectionTitle
-          title="Participation Distribution"
-          subtitle="Validator non-participation buckets"
-          meta="Window: all time"
+          title="Status"
+          subtitle="Idle. Load cached data or fetch latest."
         />
-        <div className="mt-6 flex h-80 items-center justify-center rounded-xl border border-dashed border-slate-800 bg-slate-950/50 text-sm text-slate-500">
-          Chart placeholder — non-participation distribution
+        <div className="mt-3 space-y-3 text-sm text-slate-400">
+          <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-4">
+            Warning banner placeholder. High non-participation validator clusters
+            will be listed here.
+          </div>
+          <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-4">
+            Vote health card placeholder. Overall governance health summary will
+            appear here.
+          </div>
+        </div>
+      </Card>
+
+      <Card>
+        <SectionTitle title="Debug Sample" subtitle="Debug payload excerpt." />
+        <div className="mt-4 rounded-xl border border-slate-800 bg-slate-950/50 p-4 text-sm text-slate-400">
+          Debug output will populate once API wiring is enabled.
         </div>
       </Card>
 
       <section className="grid gap-4 lg:grid-cols-2">
-        <Card>
-          <SectionTitle
-            title="Validators With High Non-Participation"
-            subtitle="Threshold: &gt; 60% non-participation"
-          />
-          <div className="mt-4 overflow-hidden rounded-xl border border-slate-800">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
-                <tr>
-                  <th className="px-4 py-3">Validator</th>
-                  <th className="px-4 py-3">Voting Power</th>
-                  <th className="px-4 py-3">Non-Participation</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="px-4 py-4 text-slate-500" colSpan={3}>
-                    Table placeholder — validator participation rows pending.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </Card>
-
-        <Card>
-          <SectionTitle
-            title="Participation Notes"
-            subtitle="Health signals and alerts"
-          />
-          <div className="mt-4 space-y-3 text-sm text-slate-400">
-            <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-4">
-              Flag validators with rising non-participation for review.
+        {[
+          "Non-participation distribution",
+          "Top 15 by non-participation",
+          "Overall vote composition",
+          "Delegators per proposal (top 20)",
+        ].map((title) => (
+          <Card key={title}>
+            <SectionTitle title={title} subtitle="Chart placeholder" />
+            <div className="mt-4 flex h-64 items-center justify-center rounded-xl border border-dashed border-slate-800 bg-slate-950/50 text-sm text-slate-500">
+              Chart placeholder
             </div>
-            <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-4">
-              Participation anomalies will be highlighted once data is live.
-            </div>
-          </div>
-        </Card>
+          </Card>
+        ))}
       </section>
+
+      <Card>
+        <SectionTitle
+          title="Validators With > 60% Non-Participation"
+          subtitle="Sorted by non-participation percentage"
+        />
+        <div className="mt-4 overflow-hidden rounded-xl border border-slate-800">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
+              <tr>
+                <th className="px-4 py-3">Validator</th>
+                <th className="px-4 py-3">Voting Power Share</th>
+                <th className="px-4 py-3">Yes</th>
+                <th className="px-4 py-3">No</th>
+                <th className="px-4 py-3">No w/ veto</th>
+                <th className="px-4 py-3">Abstain</th>
+                <th className="px-4 py-3">Did Not Vote</th>
+                <th className="px-4 py-3">Non-Participation %</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="px-4 py-4">Validator A</td>
+                <td className="px-4 py-4">2.8%</td>
+                <td className="px-4 py-4">62%</td>
+                <td className="px-4 py-4">18%</td>
+                <td className="px-4 py-4">3%</td>
+                <td className="px-4 py-4">2%</td>
+                <td className="px-4 py-4">15%</td>
+                <td className="px-4 py-4">38%</td>
+              </tr>
+              <tr className="text-slate-400">
+                <td className="px-4 py-4">Validator B</td>
+                <td className="px-4 py-4">2.1%</td>
+                <td className="px-4 py-4">58%</td>
+                <td className="px-4 py-4">20%</td>
+                <td className="px-4 py-4">4%</td>
+                <td className="px-4 py-4">3%</td>
+                <td className="px-4 py-4">15%</td>
+                <td className="px-4 py-4">41%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </Card>
     </div>
   );
 }

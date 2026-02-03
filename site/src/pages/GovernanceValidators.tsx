@@ -8,8 +8,8 @@ export default function GovernanceValidators() {
     <div className="space-y-8">
       <PageHeader
         eyebrow="Terra Classic Governance"
-        title="Validators"
-        subtitle="Active validator set, voting performance, and income indicators."
+        title="Current Validators Dashboard"
+        subtitle="Active validator set from validator.info (via local proxy)."
         status="Data source: validator.info validator set (static preview)"
       />
 
@@ -45,21 +45,63 @@ export default function GovernanceValidators() {
       </section>
 
       <Card>
-        <SectionTitle
-          title="Voting Power Distribution"
-          subtitle="Share of voting power by validator rank"
-          meta="Top 50 validators"
-        />
-        <div className="mt-6 flex h-72 items-center justify-center rounded-xl border border-dashed border-slate-800 bg-slate-950/50 text-sm text-slate-500">
-          Chart placeholder — voting power distribution
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h3 className="text-lg font-semibold text-white">Controls</h3>
+            <p className="mt-1 text-sm text-slate-400">
+              Vote window and filters for the active validator set.
+            </p>
+          </div>
+          <span className="text-xs uppercase tracking-wider text-slate-500">
+            Last fetched: never
+          </span>
+        </div>
+        <div className="mt-4 grid gap-4 lg:grid-cols-2">
+          <div className="space-y-3">
+            <p className="text-xs uppercase tracking-wider text-slate-500">
+              Vote Window
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {["All time", "Last 2 years", "Last year"].map((label) => (
+                <button
+                  key={label}
+                  type="button"
+                  className="rounded-full border border-slate-800 px-3 py-2 text-xs uppercase tracking-wider text-slate-300 hover:border-amber-300 hover:text-amber-200 transition"
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="space-y-3">
+            <p className="text-xs uppercase tracking-wider text-slate-500">
+              Filters
+            </p>
+            <div className="rounded-xl border border-slate-800 bg-slate-950/50 px-4 py-3 text-sm text-slate-400">
+              Income &gt; $100 (toggle)
+            </div>
+            <button
+              type="button"
+              className="rounded-full border border-slate-800 px-4 py-2 text-xs uppercase tracking-wider text-slate-300 hover:border-amber-300 hover:text-amber-200 transition"
+            >
+              Fetch validators
+            </button>
+          </div>
         </div>
       </Card>
 
       <Card>
         <SectionTitle
-          title="Active Validators"
-          subtitle="Performance and participation snapshot"
+          title="Status"
+          subtitle="Idle. Click Fetch to load validators."
         />
+        <div className="mt-3 rounded-xl border border-slate-800 bg-slate-950/40 p-4 text-sm text-slate-400">
+          Validator health summary will appear here once data is loaded.
+        </div>
+      </Card>
+
+      <Card>
+        <SectionTitle title="Active Validators" subtitle="Snapshot table" />
         <div className="mt-4 overflow-hidden rounded-xl border border-slate-800">
           <table className="w-full text-left text-sm">
             <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
@@ -68,14 +110,41 @@ export default function GovernanceValidators() {
                 <th className="px-4 py-3">Validator</th>
                 <th className="px-4 py-3">Voting Power</th>
                 <th className="px-4 py-3">Delegators</th>
-                <th className="px-4 py-3">Missed Votes</th>
+                <th className="px-4 py-3">Income (monthly)</th>
+                <th className="px-4 py-3">Did not vote (1Y)</th>
+                <th className="px-4 py-3">Did not vote (2Y)</th>
+                <th className="px-4 py-3">Yes</th>
+                <th className="px-4 py-3">No</th>
+                <th className="px-4 py-3">Abstain</th>
+                <th className="px-4 py-3">No with veto</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="px-4 py-4 text-slate-500" colSpan={5}>
-                  Table placeholder — validator rows coming soon.
-                </td>
+                <td className="px-4 py-4">1</td>
+                <td className="px-4 py-4">Validator One</td>
+                <td className="px-4 py-4">7.2%</td>
+                <td className="px-4 py-4">9,420</td>
+                <td className="px-4 py-4">$18.4K</td>
+                <td className="px-4 py-4">6%</td>
+                <td className="px-4 py-4">9%</td>
+                <td className="px-4 py-4">62%</td>
+                <td className="px-4 py-4">21%</td>
+                <td className="px-4 py-4">9%</td>
+                <td className="px-4 py-4">2%</td>
+              </tr>
+              <tr className="text-slate-400">
+                <td className="px-4 py-4">2</td>
+                <td className="px-4 py-4">Validator Two</td>
+                <td className="px-4 py-4">6.4%</td>
+                <td className="px-4 py-4">8,110</td>
+                <td className="px-4 py-4">$15.9K</td>
+                <td className="px-4 py-4">8%</td>
+                <td className="px-4 py-4">12%</td>
+                <td className="px-4 py-4">58%</td>
+                <td className="px-4 py-4">24%</td>
+                <td className="px-4 py-4">12%</td>
+                <td className="px-4 py-4">3%</td>
               </tr>
             </tbody>
           </table>

@@ -8,45 +8,91 @@ export default function Volume() {
     <div className="space-y-8">
       <PageHeader
         eyebrow="Terra Classic Off-Chain Activity"
-        title="LUNC Trading Volume"
-        subtitle="Historical LUNC trading volume snapshots, aggregated across major venues."
-        status="Data source: CoinGecko market_chart/range (static preview)"
+        title="LUNC 24h Trading Volume (USD) — Historical"
+        subtitle="Pulls CoinGecko market_chart/range volume data for Terra Classic (LUNC)."
+        status="Data source: CoinGecko market chart (static preview)"
       />
 
-      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <Card>
+        <SectionTitle
+          title="Controls"
+          subtitle="Configure key and time range before loading volume snapshots."
+        />
+        <div className="mt-4 grid gap-4 lg:grid-cols-3">
+          <div className="space-y-2">
+            <label className="text-xs uppercase tracking-wider text-slate-500">
+              CoinGecko Demo API Key
+            </label>
+            <div className="rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-3 text-sm text-slate-400">
+              Enter demo key
+            </div>
+            <div className="flex items-center gap-2 text-xs text-slate-500">
+              <span className="h-2 w-2 rounded-full bg-slate-600" />
+              Save key locally (localStorage)
+            </div>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs uppercase tracking-wider text-slate-500">
+              Start Date
+            </label>
+            <div className="rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-3 text-sm text-slate-400">
+              2022-06-01
+            </div>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs uppercase tracking-wider text-slate-500">
+              End Date
+            </label>
+            <div className="rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-3 text-sm text-slate-400">
+              2026-02-03
+            </div>
+          </div>
+        </div>
+        <div className="mt-5 flex flex-wrap gap-3">
+          {["Load data", "1 year", "Test coin id", "Test /ping", "Export CSV"].map(
+            (label) => (
+              <button
+                key={label}
+                type="button"
+                className="rounded-full border border-slate-800 px-4 py-2 text-xs uppercase tracking-wider text-slate-300 hover:border-amber-300 hover:text-amber-200 transition"
+              >
+                {label}
+              </button>
+            ),
+          )}
+        </div>
+        <div className="mt-4 rounded-xl border border-slate-800 bg-slate-950/60 p-4 text-xs text-slate-400">
+          Debug output will appear here when the loader is wired in.
+        </div>
+      </Card>
+
+      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <KpiCard
-          label="Latest 24h Volume"
+          label="Latest Volume"
           value="$18.4M"
           helper="Most recent snapshot"
           trend="+6.2% day-over-day"
           accent="amber"
         />
         <KpiCard
-          label="Max Volume (Range)"
+          label="Max Volume in Range"
           value="$42.9M"
           helper="Peak day in range"
           trend="High volatility"
           accent="sky"
         />
         <KpiCard
-          label="Avg Volume (Range)"
+          label="Avg Volume in Range"
           value="$21.7M"
           helper="Rolling average"
           trend="Stable"
           accent="emerald"
         />
-        <KpiCard
-          label="Tracked Venues"
-          value="12"
-          helper="Centralized exchanges"
-          trend="Coverage expanding"
-          accent="rose"
-        />
       </section>
 
       <Card>
         <SectionTitle
-          title="Volume Trend"
+          title="Volume Chart"
           subtitle="Daily 24h trading volume in USD"
           meta="Range: 24 months"
         />
@@ -55,48 +101,16 @@ export default function Volume() {
         </div>
       </Card>
 
-      <section className="grid gap-4 lg:grid-cols-2">
-        <Card>
-          <SectionTitle
-            title="Venue Breakdown"
-            subtitle="Top exchanges by average daily volume"
-          />
-          <div className="mt-4 overflow-hidden rounded-xl border border-slate-800">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
-                <tr>
-                  <th className="px-4 py-3">Exchange</th>
-                  <th className="px-4 py-3">Share</th>
-                  <th className="px-4 py-3">Avg Daily</th>
-                  <th className="px-4 py-3">Liquidity</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="px-4 py-4 text-slate-500" colSpan={4}>
-                    Table placeholder — venue stats coming soon.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </Card>
-
-        <Card>
-          <SectionTitle
-            title="Market Notes"
-            subtitle="Context for volume shifts"
-          />
-          <div className="mt-4 space-y-3 text-sm text-slate-400">
-            <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-4">
-              Volume spikes will be annotated with market catalysts.
-            </div>
-            <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-4">
-              Exchange coverage notes will be added as data snapshots update.
-            </div>
-          </div>
-        </Card>
-      </section>
+      <Card>
+        <SectionTitle
+          title="Status"
+          subtitle="Load state, warnings, and export hints"
+        />
+        <div className="mt-4 text-sm text-slate-400">
+          Idle. Configure API key and date range, then click Load data to refresh
+          the volume history.
+        </div>
+      </Card>
     </div>
   );
 }

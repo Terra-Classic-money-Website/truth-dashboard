@@ -17,6 +17,7 @@ const simpleClasses = new Set([
   "relative",
   "fixed",
   "uppercase",
+  "italic",
   "transition",
 ]);
 

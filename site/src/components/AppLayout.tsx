@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
+import terraClassicSign from "../img/terra-classic-sign.svg";
 
 type NavItem = {
   label: string;
@@ -62,11 +63,16 @@ export default function AppLayout() {
     <div className="min-h-screen text-slate-100 md:flex">
       <aside className="hidden md:flex md:w-72 md:flex-col md:sticky md:top-0 md:h-screen md:border-r md:border-slate-800 md:bg-slate-950/75 md:backdrop-blur">
         <div className="px-6 py-6 border-b border-slate-800">
-          <p className="text-xs uppercase tracking-widest text-slate-500">
-            Terra Classic
-          </p>
+          <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-slate-500">
+            <img
+              src={terraClassicSign}
+              alt=""
+              className="h-4 w-4 opacity-70"
+            />
+            <span>TERRA CLASSIC</span>
+          </div>
           <h1 className="mt-2 text-lg font-semibold text-white">
-            Giga Dashboard
+            Truth Dashboard
           </h1>
           <p className="mt-2 text-sm text-slate-400">
             Consolidated analytics views for Terra Classic.
@@ -81,8 +87,16 @@ export default function AppLayout() {
             <NavLinks links={governanceLinks} />
           </div>
         </nav>
-        <div className="px-6 py-5 border-t border-slate-800 text-xs text-slate-500">
-          Updated snapshots will be wired in the next phase.
+        <div className="px-6 py-5 border-t border-slate-800 text-xs text-slate-500 space-y-3">
+          <p className="text-slate-500">
+            Static preview. Figures shown here are placeholder snapshots collected
+            during the research and writing of{" "}
+            <em className="italic">
+              Terra Classic Four Years After: State of the Chain Report (2022–2026)
+            </em>
+            . Live data wiring will follow.
+          </p>
+          <p>Updated snapshots will be wired in the next phase.</p>
         </div>
       </aside>
 
@@ -98,9 +112,11 @@ export default function AppLayout() {
             </button>
             <div className="text-right">
               <p className="text-xs uppercase tracking-widest text-slate-500">
-                Terra Classic
+                TERRA CLASSIC
               </p>
-              <p className="text-sm font-semibold text-white">Giga Dashboard</p>
+              <p className="text-sm font-semibold text-white">
+                Truth Dashboard
+              </p>
             </div>
           </div>
         </div>
@@ -132,9 +148,11 @@ export default function AppLayout() {
           <div className="flex items-center justify-between border-b border-slate-800 px-5 py-4">
             <div>
               <p className="text-xs uppercase tracking-widest text-slate-500">
-                Terra Classic
+                TERRA CLASSIC
               </p>
-              <p className="text-sm font-semibold text-white">Giga Dashboard</p>
+              <p className="text-sm font-semibold text-white">
+                Truth Dashboard
+              </p>
             </div>
             <button
               type="button"
