@@ -59,8 +59,8 @@ export default function AppLayout() {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 md:flex">
-      <aside className="hidden md:flex md:w-72 md:flex-col md:sticky md:top-0 md:h-screen md:border-r md:border-slate-800 md:bg-slate-950/80">
+    <div className="min-h-screen text-slate-100 md:flex">
+      <aside className="hidden md:flex md:w-72 md:flex-col md:sticky md:top-0 md:h-screen md:border-r md:border-slate-800 md:bg-slate-950/75 md:backdrop-blur">
         <div className="px-6 py-6 border-b border-slate-800">
           <p className="text-xs uppercase tracking-widest text-slate-500">
             Terra Classic
@@ -87,7 +87,7 @@ export default function AppLayout() {
       </aside>
 
       <div className="flex min-h-screen flex-1 flex-col">
-        <div className="md:hidden sticky top-0 z-40 border-b border-slate-800 bg-slate-950/90 backdrop-blur">
+        <div className="md:hidden sticky top-0 z-40 border-b border-slate-800 bg-slate-950/85 backdrop-blur">
           <div className="flex items-center justify-between px-4 py-3">
             <button
               type="button"
@@ -125,7 +125,7 @@ export default function AppLayout() {
           onClick={() => setDrawerOpen(false)}
         />
         <div
-          className={`absolute left-0 top-0 h-full w-72 border-r border-slate-800 bg-slate-950/95 shadow-2xl transition-transform ${
+          className={`absolute left-0 top-0 h-full w-72 border-r border-slate-800 bg-slate-950/95 shadow-2xl backdrop-blur transition-transform ${
             drawerOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
