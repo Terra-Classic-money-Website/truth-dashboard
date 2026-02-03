@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LUNC 24h Trading Volume (USD) — Historical</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <div class="eyebrow">Terra Classic Off-Chain Activity</div>
+        <h1>LUNC 24h Trading Volume (USD) — Historical</h1>
+        <p class="subtitle">
+          Pulls CoinGecko market_chart/range volume data for Terra Classic (LUNC).
+        </p>
+      </header>
+
+      <section class="controls panel" aria-label="Controls">
+        <div class="control">
+          <label for="apiKey">CoinGecko Demo API key</label>
+          <input id="apiKey" type="password" placeholder="Enter demo key" />
+          <label class="checkbox">
+            <input id="saveKey" type="checkbox" />
+            Save key locally (localStorage)
+          </label>
+        </div>
+
+        <div class="control">
+          <label for="startDate">Start date</label>
+          <input id="startDate" type="date" value="2022-06-01" />
+        </div>
+
+        <div class="control">
+          <label for="endDate">End date</label>
+          <input id="endDate" type="date" />
+        </div>
+
+        <div class="control actions">
+          <button id="loadBtn" type="button">Load data</button>
+          <button id="yearBtn" type="button">1 year</button>
+          <button id="testBtn" type="button">Test coin id</button>
+          <button id="pingBtn" type="button">Test /ping</button>
+          <button id="exportBtn" type="button" disabled>Export CSV</button>
+        </div>
+
+        <div class="control">
+          <label for="debugBox">Debug</label>
+          <pre id="debugBox" class="debug-box"></pre>
+        </div>
+      </section>
+
+      <section class="kpis" aria-label="Key metrics">
+        <div class="kpi">
+          <div class="kpi-label">Latest volume</div>
+          <div id="kpiLatest" class="kpi-value">—</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Max volume in range</div>
+          <div id="kpiMax" class="kpi-value">—</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Avg volume in range</div>
+          <div id="kpiAvg" class="kpi-value">—</div>
+        </div>
+      </section>
+
+      <section class="chart-section panel chart-wrap" aria-label="Chart">
+        <canvas id="volumeChart"></canvas>
+      </section>
+
+      <section class="status" aria-live="polite">
+        <div id="statusText"></div>
+      </section>
+    </main>
+  </body>
+</html>

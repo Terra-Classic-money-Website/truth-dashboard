@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Monthly Active Terra Classic Wallets</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="header">
+        <p class="eyebrow">Terra Classic On-Chain Activity</p>
+        <h1>Monthly Active Wallets</h1>
+        <p class="subtitle">
+          Participants per month based on transaction senders and recipients on the
+          Terra Classic L1.
+        </p>
+        <div class="controls">
+          <button class="range-btn" data-range="24">2 Years</button>
+          <button class="range-btn" data-range="36">3 Years</button>
+          <button class="range-btn" data-range="all">All</button>
+        </div>
+      </header>
+
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h2>Participants</h2>
+            <p class="meta">Unique terra1 addresses per month</p>
+          </div>
+          <div class="legend">
+            <span class="legend-dot"></span>
+            Active wallets
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="activeWalletsChart" width="1200" height="560"></canvas>
+          <div class="status" id="status"></div>
+        </div>
+      </section>
+
+      <section class="insights" id="insights" hidden>
+        <div class="insights-header">
+          <div>
+            <h2>Insights &amp; Health</h2>
+            <p class="meta">Derived from monthly unique active wallet counts (senders + recipients).</p>
+          </div>
+        </div>
+
+        <div class="insights-grid">
+          <div class="card">
+            <h3>Key Highlights</h3>
+            <ul class="bullet-list" id="highlightsList"></ul>
+          </div>
+          <div class="card">
+            <h3>KPI Snapshot</h3>
+            <div class="kpi-grid" id="kpiGrid"></div>
+          </div>
+        </div>
+
+        <div class="insights-grid">
+          <div class="card">
+            <h3>Year Summary</h3>
+            <div class="table-wrap">
+              <table class="data-table" id="yearTable"></table>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Quarterly Summary</h3>
+            <div class="table-wrap">
+              <table class="data-table" id="quarterTable"></table>
+            </div>
+          </div>
+        </div>
+
+        <div class="insights-grid">
+          <div class="card">
+            <h3>Extremes &amp; Turning Points</h3>
+            <div class="extremes-grid" id="extremesGrid"></div>
+          </div>
+          <div class="card">
+            <h3>Threshold &amp; Milestone Tracker</h3>
+            <div class="table-wrap">
+              <table class="data-table" id="thresholdTable"></table>
+            </div>
+          </div>
+        </div>
+
+        <div class="insights-grid">
+          <div class="card">
+            <h3>Seasonality Snapshot</h3>
+            <div class="seasonality-grid" id="seasonalityGrid"></div>
+          </div>
+          <div class="card">
+            <h3>Method &amp; Confidence</h3>
+            <div class="footnote" id="methodNote"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

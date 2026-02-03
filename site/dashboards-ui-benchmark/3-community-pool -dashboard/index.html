@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terra Classic Community Pool Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Terra Classic Community Pool</p>
+        <h1>Balances & Flow Analysis</h1>
+        <p class="subhead">Track historical balances, inflows, and outflows for LUNC and USTC.</p>
+      </div>
+      <div class="hero-badge">
+        <span>Static MVP v0</span>
+      </div>
+    </header>
+
+    <section class="panel" aria-label="Data controls">
+      <div class="panel-header">
+        <h2>Data</h2>
+        <div id="dataCoverage" class="coverage">Data coverage: —</div>
+        <div id="currentSnapshot" class="coverage">Current (LCD): —</div>
+      </div>
+      <div class="data-controls">
+        <label class="field">
+          <span>Source</span>
+          <select id="sourceSelect">
+            <option value="sample">Sample</option>
+            <option value="fcd">FCD (Indexed)</option>
+            <option value="cp_monthly">Community Pool (Monthly snapshots)</option>
+            <option value="cp_monthly_fcd">FCD reconstructed (monthly)</option>
+            <option value="csv_monthly_avg">LCD sampled (CSV) — monthly avg</option>
+            <option value="csv_weekly_clean">LCD sampled (CSV) — weekly clean</option>
+            <option value="csv_monthly_last">LCD sampled (CSV) — monthly last</option>
+            <option value="proxy">LCD/RPC (Cached Proxy)</option>
+            <option value="stakebin">StakeBin (Live)</option>
+            <option value="custom">Custom API (JSON)</option>
+            <option value="paste">Paste JSON</option>
+            <option value="url">Load from URL</option>
+          </select>
+        </label>
+        <p class="hint">StakeBin history is often capped. Use FCD (Indexed) for long-range coverage, or LCD/RPC (Cached Proxy) for full daily history (slower on first run).</p>
+        <div class="source-panels">
+          <div class="source-panel" data-source-panel="sample">
+            <p class="hint">Using built-in sample data (90 days). Switch sources to load your own.</p>
+          </div>
+          <div class="source-panel" data-source-panel="fcd">
+            <label class="field">
+              <span>Proxy Base URL</span>
+              <input id="fcdProxyBaseUrl" type="url" placeholder="http://localhost:8787" />
+            </label>
+            <label class="field">
+              <span>FCD Base URL</span>
+              <input id="fcdBaseUrl" type="url" placeholder="https://terra-classic-fcd.publicnode.com" />
+            </label>
+            <label class="field">
+              <span>LCD URL</span>
+              <input id="fcdLcdUrl" type="url" placeholder="https://terra-classic-lcd.publicnode.com" />
+            </label>
+            <label class="field">
+              <span>Range</span>
+              <select id="fcdRange">
+                <option value="7d">7D</option>
+                <option value="1m">1M</option>
+                <option value="3m">3M</option>
+                <option value="1y">1Y</option>
+                <option value="2y">2Y</option>
+                <option value="4y">4Y</option>
+                <option value="since2022">Since May 2022</option>
+              </select>
+            </label>
+            <p class="hint">Builds long-range daily history by scanning indexed FCD transactions. First run can take time; subsequent loads use the cache. Requires the local proxy.</p>
+            <button id="fcdLoadBtn" class="btn">Load data</button>
+          </div>
+          <div class="source-panel" data-source-panel="cp_monthly">
+            <label class="field">
+              <span>Proxy Base URL</span>
+              <input id="cpMonthlyProxyBaseUrl" type="url" placeholder="http://localhost:8787" />
+            </label>
+            <label class="field">
+              <span>LCD URLs (comma separated)</span>
+              <textarea id="cpMonthlyLcds" rows="2" placeholder="https://terra-classic-lcd.publicnode.com, https://api-lunc-lcd.binodes.com"></textarea>
+            </label>
+            <label class="field">
+              <span>RPC URLs (comma separated)</span>
+              <textarea id="cpMonthlyRpcs" rows="2" placeholder="https://terra-classic-rpc.publicnode.com, https://api-lunc-rpc.binodes.com"></textarea>
+            </label>
+            <label class="field">
+              <span>Range</span>
+              <select id="cpMonthlyRange">
+                <option value="7d">7D</option>
+                <option value="1m">1M</option>
+                <option value="3m">3M</option>
+                <option value="1y">1Y</option>
+                <option value="2y">2Y</option>
+                <option value="4y">4Y</option>
+                <option value="since2022">Since May 2022</option>
+              </select>
+            </label>
+            <p class="hint">Monthly snapshots of x/distribution community pool state at month boundaries. Uses LCD/RPC failover and caches progress per month.</p>
+            <button id="cpMonthlyLoadBtn" class="btn">Load data</button>
+          </div>
+          <div class="source-panel" data-source-panel="cp_monthly_fcd">
+            <label class="field">
+              <span>Proxy Base URL</span>
+              <input id="cpMonthlyFcdProxyBaseUrl" type="url" placeholder="http://localhost:8787" />
+            </label>
+            <label class="field">
+              <span>LCD URLs (comma separated)</span>
+              <textarea id="cpMonthlyFcdLcds" rows="2" placeholder="https://terra-classic-lcd.publicnode.com, https://api-lunc-lcd.binodes.com"></textarea>
+            </label>
+            <label class="field">
+              <span>Range</span>
+              <select id="cpMonthlyFcdRange">
+                <option value="7d">7D</option>
+                <option value="1m">1M</option>
+                <option value="3m">3M</option>
+                <option value="1y">1Y</option>
+                <option value="2y">2Y</option>
+                <option value="4y">4Y</option>
+                <option value="since2022">Since May 2022</option>
+              </select>
+            </label>
+            <p class="hint">Monthly reconstruction using FCD tx logs for the distribution module account. Uses LCD failover and resumes from checkpoints.</p>
+            <div class="button-row">
+              <button id="cpMonthlyFcdLoadBtn" class="btn ghost">Load previous build</button>
+              <button id="cpMonthlyFcdBuildBtn" class="btn">Start new build</button>
+            </div>
+          </div>
+          <div class="source-panel" data-source-panel="csv_local">
+            <label class="field">
+              <span>Proxy Base URL</span>
+              <input id="csvLocalProxyBaseUrl" type="url" placeholder="http://localhost:8787" />
+            </label>
+            <p class="hint">Balances are LCD-sampled snapshots; accuracy ~90–95%; weekly/monthly spacing.</p>
+            <button id="csvLocalLoadBtn" class="btn">Load data</button>
+          </div>
+          <div class="source-panel" data-source-panel="proxy">
+            <label class="field">
+              <span>Proxy Base URL</span>
+              <input id="proxyBaseUrl" type="url" placeholder="http://localhost:8787" />
+            </label>
+            <label class="field">
+              <span>LCD URL</span>
+              <input id="proxyLcdUrl" type="url" placeholder="https://terra-classic-lcd.publicnode.com" />
+            </label>
+            <label class="field">
+              <span>RPC URL</span>
+              <input id="proxyRpcUrl" type="url" placeholder="https://terra-classic-rpc.publicnode.com:443" />
+            </label>
+            <label class="field">
+              <span>Range</span>
+              <select id="proxyRange">
+                <option value="7d">7D</option>
+                <option value="1m">1M</option>
+                <option value="3m">3M</option>
+                <option value="1y">1Y</option>
+                <option value="2y">2Y</option>
+                <option value="4y">4Y</option>
+                <option value="since2022">Since May 2022</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Start date (UTC)</span>
+              <input id="proxyStartDate" type="date" value="2022-05-01" />
+            </label>
+            <p class="hint">Default denoms: <code>uluna</code> + <code>uustc</code>. If an RPC is pruned, the proxy will clamp the effective start date or switch to a fallback.</p>
+            <button id="proxyLoadBtn" class="btn">Load data</button>
+          </div>
+          <div class="source-panel" data-source-panel="stakebin">
+            <label class="field">
+              <span>Base URL</span>
+              <input id="stakebinBaseUrl" type="url" placeholder="https://terraclassic.stakebin.io" />
+            </label>
+            <label class="field">
+              <span>Proxy URL (optional)</span>
+              <input id="stakebinProxyUrl" type="url" placeholder="https://your-proxy/?url=" />
+            </label>
+            <p class="hint">If CORS blocks direct calls, set Proxy URL to a proxy that accepts <code>?url=</code> and we will append the encoded target URL.</p>
+            <label class="field">
+              <span>Range</span>
+              <select id="stakebinRange">
+                <option value="1y">1Y</option>
+                <option value="7d">7D</option>
+                <option value="1m">1M</option>
+                <option value="3m">3M</option>
+                <option value="2y">2Y</option>
+                <option value="4y">4Y</option>
+                <option value="since2022">Since May 2022</option>
+              </select>
+            </label>
+            <p id="stakebinGranularity" class="hint">StakeBin granularity: —</p>
+            <button id="stakebinLoadBtn" class="btn">Load live data</button>
+            <p class="hint">For ranges beyond 1M, the StakeBin endpoint may be capped. Consider using FCD (Indexed) for long-range coverage or the LCD/RPC proxy source for full history.</p>
+          </div>
+          <div class="source-panel" data-source-panel="custom">
+            <label class="field">
+              <span>Custom API URL</span>
+              <input id="customApiUrl" type="url" placeholder="https://example.com/community-pool.json" />
+            </label>
+            <label class="field">
+              <span>Proxy URL (optional)</span>
+              <input id="customApiProxyUrl" type="url" placeholder="https://your-proxy/?url=" />
+            </label>
+            <p class="hint">Accepts either <code>{ data: [[ts, lunc, ustc], ...] }</code> or <code>[[ts, lunc, ustc], ...]</code>. If using a proxy, we append <code>encodeURIComponent(targetUrl)</code>.</p>
+            <button id="customApiLoadBtn" class="btn">Load live data</button>
+          </div>
+          <div class="source-panel" data-source-panel="paste">
+            <label class="field">
+              <span>Paste JSON</span>
+              <textarea id="pasteInput" rows="6" placeholder='{"balances": [{"t":"2022-05-13","denom":"LUNC","balance":8500000000}]}'></textarea>
+            </label>
+            <button id="pasteLoadBtn" class="btn">Load</button>
+          </div>
+          <div class="source-panel" data-source-panel="url">
+            <label class="field">
+              <span>JSON URL</span>
+              <input id="urlInput" type="url" placeholder="https://example.com/community-pool.json" />
+            </label>
+            <button id="urlLoadBtn" class="btn">Fetch</button>
+          </div>
+        </div>
+      </div>
+      <div id="dataError" class="error" role="alert" aria-live="polite"></div>
+      <div id="historyDepth" class="scorecard history-card" aria-live="polite"></div>
+      <div id="proxyProgress" class="scorecard progress-card hidden" aria-live="polite">
+        <div class="progress-header">
+          <h3>Build progress</h3>
+          <button id="proxyCancelBtn" class="btn ghost" type="button">Cancel build</button>
+        </div>
+        <div class="progress-bar"><span id="proxyProgressBar" class="progress-bar-fill"></span></div>
+        <div id="proxyProgressStats" class="progress-stats"></div>
+      </div>
+    </section>
+
+    <section class="panel" aria-label="Analysis window">
+      <div class="panel-header">
+        <h2>Analysis window</h2>
+        <p class="hint">Filters metrics, chart, and outflow table without changing the cached build.</p>
+      </div>
+      <div id="analysisWindow" class="analysis-window">
+        <button class="btn ghost" data-window="1m">1M</button>
+        <button class="btn ghost" data-window="6m">6M</button>
+        <button class="btn ghost" data-window="1y">1Y</button>
+        <button class="btn ghost" data-window="2y">2Y</button>
+        <button class="btn ghost" data-window="3y">3Y</button>
+        <button class="btn ghost" data-window="all">ALL</button>
+      </div>
+    </section>
+
+    <section class="panel" aria-label="Balance history">
+      <div class="panel-header">
+        <div class="panel-title">
+          <h2>Community Pool Balance (History)</h2>
+          <p class="hint">Outflow markers highlight periods with governance spend outflows.</p>
+        </div>
+        <label class="toggle">
+          <input id="forecastToggle" type="checkbox" checked />
+          <span>Show forecast (12M)</span>
+        </label>
+        <label class="toggle small">
+          <input id="chartDebugToggle" type="checkbox" />
+          <span>Show height/time</span>
+        </label>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="balanceChart" aria-label="Community pool balance history" role="img"></canvas>
+      </div>
+    </section>
+
+    <section class="panel" aria-label="Spend outflows">
+      <div class="panel-header">
+        <div class="panel-title">
+          <h2>Community Pool Spend Outflows</h2>
+          <p class="hint">Based on governance spend records (CSV) and mapped to the analysis window.</p>
+        </div>
+        <div class="outflow-actions">
+          <div id="outflowSummary" class="coverage">Outflow summary: —</div>
+          <label class="toggle small">
+            <input id="outflowUnmappedToggle" type="checkbox" />
+            <span>Show unmapped</span>
+          </label>
+          <label class="toggle small">
+            <input id="outflowLowConfToggle" type="checkbox" checked />
+            <span>Show low-confidence</span>
+          </label>
+        </div>
+      </div>
+      <div id="outflowWarning" class="coverage warning-text"></div>
+      <div id="outflowEvents" class="outflow-events"></div>
+    </section>
+
+    <section class="panel" aria-label="Overview metrics">
+      <div class="panel-header">
+        <h2>Overview</h2>
+        <p id="overviewHint" class="hint">Totals are derived from period deltas in the canonical dataset.</p>
+      </div>
+      <div id="scorecards" class="scorecards"></div>
+      <div id="sanityChecks" class="scorecard sanity-card" aria-live="polite"></div>
+    </section>
+
+    <section class="panel" aria-label="Capital utilization">
+      <div class="panel-header">
+        <h2>Capital utilization</h2>
+        <p class="hint">Utilization and inactivity metrics computed from weekly spend buckets in the active window.</p>
+      </div>
+      <div id="capitalUtilization" class="scorecards"></div>
+    </section>
+
+    <section class="panel" aria-label="Spend concentration">
+      <div class="panel-header">
+        <h2>Spend concentration</h2>
+        <p class="hint">How much weekly governance spend is concentrated into a small number of weeks.</p>
+      </div>
+      <div id="spendConcentration" class="scorecards"></div>
+    </section>
+
+    <section class="panel" aria-label="Methodology">
+      <details class="methodology">
+        <summary>Methodology</summary>
+        <div class="methodology-body">
+          <p><strong>Canonical dataset:</strong> Each record includes a date (<code>t</code>), denom (<code>LUNC</code> or <code>USTC</code>), and balance.</p>
+          <p><strong>Period delta:</strong> <code>delta = balance[t] - balance[t-1]</code>.</p>
+          <p><strong>Inflow:</strong> <code>max(delta, 0)</code>. <strong>Outflow:</strong> <code>max(-delta, 0)</code>.</p>
+          <p><strong>Coarse intervals:</strong> For weekly/monthly series, inflow/outflow are computed from net step deltas (not true daily activity).</p>
+          <p><strong>Utilization ratio:</strong> <code>total outflow / total inflow</code>.</p>
+          <p><strong>Idle periods:</strong> number of periods with zero outflow.</p>
+          <p><strong>Longest inactivity streak:</strong> longest run of consecutive periods with zero outflow.</p>
+          <p><strong>Live source:</strong> StakeBin Community Pool Balance API <code>/api/main/cp_balance</code> with <code>interval</code> and <code>count</code> query params returning <code>{ data: [[ts, lunc, ustc], ...] }</code>.</p>
+          <p><strong>FCD source:</strong> Indexed transaction history is scanned for community pool fund/spend events (distribution module account) to reconstruct daily balances; results are cached by the local proxy.</p>
+          <p><strong>Spend outflows:</strong> Governance spend records are loaded from <code>terra_classic_spend_outflows.csv</code> via the proxy and mapped to the active analysis window.</p>
+          <p><strong>Proxy source:</strong> LCD/RPC cached proxy samples daily block heights via Tendermint RPC <code>/block</code> and queries LCD <code>/cosmos/distribution/v1beta1/community_pool</code> at that height. Results are cached on disk and served as <code>[date, denom, amount]</code> rows.</p>
+          <p><strong>Fetch strategy:</strong> StakeBin requests use <code>interval</code> (daily/weekly/monthly) with a high <code>count</code> (up to 2000) and then apply the UI range filter client-side.</p>
+          <p><strong>Timestamp handling:</strong> <code>ts</code> is treated as Unix milliseconds (or seconds if small) and converted to <code>YYYY-MM-DD</code> (UTC).</p>
+          <p><strong>Units:</strong> If balances appear to be in micro units, values are divided by 1,000,000 to convert to LUNC/USTC before metrics.</p>
+          <p>Combined metrics aggregate LUNC and USTC values by date.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="panel" aria-label="Exports">
+      <div class="panel-header">
+        <h2>Exports</h2>
+        <p id="exportHint" class="hint">Download raw balances and derived daily flows.</p>
+      </div>
+      <div class="export-buttons">
+        <button id="exportBalancesBtn" class="btn ghost">Download raw balances (CSV)</button>
+        <button id="exportFlowsBtn" class="btn ghost">Download derived daily flows (CSV)</button>
+      </div>
+    </section>
+
+    <section class="panel" aria-label="Debug">
+      <details class="debug">
+        <summary>Debug</summary>
+        <pre id="debugOutput">(collapsed)</pre>
+      </details>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <script src="src/compute/flows.js"></script>
+  <script src="src/compute/metrics.js"></script>
+  <script src="src/state.js"></script>
+  <script src="src/adapters/sampleAdapter.js"></script>
+  <script src="src/adapters/pasteAdapter.js"></script>
+  <script src="src/adapters/urlAdapter.js"></script>
+  <script src="src/ui/render.js"></script>
+  <script src="src/ui/charts.js"></script>
+  <script src="src/utils/export.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

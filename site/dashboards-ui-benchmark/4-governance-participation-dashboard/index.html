@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Terra Classic Governance Participation Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="page">
+      <nav class="top-nav">
+        <a href="#/governance" data-route-link="governance">Governance Participation</a>
+        <a href="#/validators" data-route-link="validators">Current Validators</a>
+        <a href="#/proposals" data-route-link="proposals">Proposals</a>
+      </nav>
+
+      <main id="pageContainer">
+      <section id="pageParticipation" class="page-section" data-route="governance">
+      <header class="hero">
+        <div>
+          <h1>Terra Classic Governance Participation</h1>
+          <p>Governance participation derived from validator.info indexer API (via local proxy).</p>
+        </div>
+        <div class="controls">
+          <div class="control">
+            <label>Time window</label>
+            <div class="segmented">
+              <label><input type="radio" name="timeWindow" value="all" checked />All time</label>
+              <label><input type="radio" name="timeWindow" value="2y" />Last 2 years</label>
+              <label><input type="radio" name="timeWindow" value="1y" />Last year</label>
+            </div>
+            <div id="windowSummary" class="window-summary">Window: All time • Proposals: —</div>
+          </div>
+          <div class="control">
+            <label for="activeWallets">Active on-chain wallets (last year)</label>
+            <input id="activeWallets" type="number" min="0" placeholder="e.g., 120000" />
+          </div>
+          <label class="debug-toggle">
+            <input id="debugToggle" type="checkbox" /> Debug
+          </label>
+          <button id="fetchBtn">Fetch latest data</button>
+          <div class="meta">
+            <span id="lastFetched">Last fetched: never</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="status">
+        <div id="progress" class="progress">Idle. Load cached data or fetch latest.</div>
+        <div id="error" class="error" hidden></div>
+      </section>
+
+      <div id="warningBanner" class="warning" hidden></div>
+      <div id="voteHealth" class="health-card" hidden></div>
+
+      <section id="debugPanel" class="debug-panel" hidden>
+        <h2>Debug sample</h2>
+        <div id="debugContent" class="debug-content"></div>
+      </section>
+
+      <section class="cards" id="metricsGrid">
+        <div class="card placeholder">Run a fetch to see metrics.</div>
+      </section>
+
+      <section class="charts">
+        <div class="chart-card">
+          <h2>Non-participation distribution</h2>
+          <div class="chart-body">
+            <canvas id="bucketChart"></canvas>
+          </div>
+          <div id="bucketLegend" class="chart-legend"></div>
+        </div>
+        <div class="chart-card">
+          <h2>Top 15 by non-participation</h2>
+          <div class="chart-body">
+            <canvas id="topChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h2>Overall vote composition</h2>
+          <div class="chart-body">
+            <canvas id="compositionChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h2>Delegators per proposal (top 20)</h2>
+          <div class="chart-body">
+            <canvas id="delegatorsChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section class="table-section">
+        <div class="table-header">
+          <h2>Validators with &gt; 60% non-participation</h2>
+          <span id="tableNote" class="table-note"></span>
+        </div>
+        <div class="table-wrap">
+          <table id="validatorsTable">
+            <thead>
+              <tr>
+                <th>Validator</th>
+                <th>Voting power share</th>
+                <th>Yes</th>
+                <th>No</th>
+                <th>No with veto</th>
+                <th>Abstain</th>
+                <th>Did not vote</th>
+                <th id="sortHeader" class="sortable">Non-participation %</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+      </section>
+
+      <section id="pageValidators" class="page-section" data-route="validators" hidden>
+        <header class="section-header">
+          <div>
+            <h2>Current validators dashboard</h2>
+            <p>Active validator set from validator.info (via local proxy).</p>
+          </div>
+          <div class="controls validators-controls">
+            <div class="control">
+              <label>Vote window (affects computed vote metrics only)</label>
+              <div class="segmented">
+                <label><input type="radio" name="validatorsWindow" value="all" checked />All time</label>
+                <label><input type="radio" name="validatorsWindow" value="2y" />Last 2 years</label>
+                <label><input type="radio" name="validatorsWindow" value="1y" />Last year</label>
+              </div>
+            </div>
+            <label class="debug-toggle">
+              <input id="validatorsIncomeFilter" type="checkbox" /> Income &gt; $100
+            </label>
+            <button id="validatorsFetchBtn">Fetch validators</button>
+            <div class="meta">
+              <span id="validatorsLastFetched">Last fetched: never</span>
+            </div>
+          </div>
+        </header>
+
+        <section class="status">
+          <div id="validatorsProgress" class="progress">Idle. Click Fetch to load validators.</div>
+          <div id="validatorsError" class="error" hidden></div>
+        </section>
+
+        <div id="validatorsMeta" class="health-card" hidden></div>
+
+        <section class="table-section">
+          <div class="table-header">
+            <h2>Active validators</h2>
+            <span id="validatorsTableNote" class="table-note"></span>
+          </div>
+          <div class="table-wrap validators-table-wrap">
+            <table id="validatorsCurrentTable">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Validator</th>
+                  <th>Voting power</th>
+                  <th>Delegators</th>
+                  <th>Income (monthly)</th>
+                  <th data-sort="didNotVote1y" class="sortable">Did not vote (1Y)</th>
+                  <th data-sort="didNotVote2y" class="sortable">Did not vote (2Y)</th>
+                  <th data-sort="yes" class="sortable">Yes</th>
+                  <th data-sort="no" class="sortable">No</th>
+                  <th data-sort="abstain" class="sortable">Abstain</th>
+                  <th data-sort="veto" class="sortable">No with veto</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section id="pageProposals" class="page-section" data-route="proposals" hidden>
+        <header class="section-header">
+          <div>
+            <h2>Proposals dashboard</h2>
+            <p>All proposals in voting stage since May 2022 (validator.info via local proxy).</p>
+          </div>
+          <div class="controls proposals-controls">
+            <div class="control">
+              <label for="proposalsSearch">Search</label>
+              <input id="proposalsSearch" type="text" placeholder="Search by id, title, type..." />
+            </div>
+            <div class="control">
+              <label for="proposalsSort">Sort</label>
+              <select id="proposalsSort">
+                <option value="endDate" selected>End date</option>
+                <option value="delegators">Delegators</option>
+                <option value="yesPct">Yes %</option>
+                <option value="noPct">No %</option>
+                <option value="vetoPct">Veto %</option>
+                <option value="abstainPct">Abstain %</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="proposalsStatus">Status</label>
+              <select id="proposalsStatus"></select>
+            </div>
+            <label class="debug-toggle">
+              <input id="proposalsSortDir" type="checkbox" checked /> Descending
+            </label>
+            <button id="proposalsFetchBtn">Fetch proposals</button>
+            <div class="meta">
+              <span id="proposalsLastFetched">Last fetched: never</span>
+            </div>
+          </div>
+        </header>
+
+        <section class="status">
+          <div id="proposalsProgress" class="progress">Idle. Click Fetch to load proposals.</div>
+          <div id="proposalsError" class="error" hidden></div>
+        </section>
+
+        <div id="proposalsMeta" class="health-card" hidden></div>
+
+        <section id="proposalsDebugPanel" class="debug-panel" hidden>
+          <h2>Proposals debug</h2>
+          <div id="proposalsDebugContent" class="debug-content"></div>
+        </section>
+
+        <section class="table-section">
+          <div class="table-header">
+            <h2>Proposals since May 2022</h2>
+            <span id="proposalsTableNote" class="table-note"></span>
+          </div>
+          <div class="table-wrap proposals-table-wrap">
+            <table id="proposalsTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Votes distribution</th>
+                  <th>Delegators</th>
+                  <th>End date</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+      </main>
+
+      <footer class="footer">
+        <p>Data source: validator.info indexer API via local proxy (http://localhost:8787).</p>
+      </footer>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
