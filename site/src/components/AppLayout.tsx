@@ -190,14 +190,14 @@ export default function AppLayout() {
         </nav>
         <div className="px-6 py-5 border-t border-slate-800 text-xs text-slate-500 space-y-3">
           <p>
-            All rights reserved @{" "}
+            All rights reserved @ Terra-Classic.money 2026 - Designed and
+            developed by{" "}
             <a
               href="https://dawidskinder.pl"
               className="underline underline-offset-2"
             >
               DawidSkinder.pl
-            </a>{" "}
-            - 2026
+            </a>
           </p>
         </div>
       </aside>
