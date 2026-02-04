@@ -64,9 +64,7 @@ export default function AppLayout() {
     if (stored === "light" || stored === "dark") {
       return stored;
     }
-    return window.matchMedia("(prefers-color-scheme: light)").matches
-      ? "light"
-      : "dark";
+    return "dark";
   });
   const location = useLocation();
 

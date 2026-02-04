@@ -116,6 +116,10 @@ body {
   background-color: rgba(255, 255, 255, 0.98);
 }
 
+.theme-light .md\:bg-slate-950\/75 {
+  background-color: rgba(248, 250, 252, 0.92);
+}
+
 .theme-light .bg-amber-300 {
   background-color: #f59e0b;
 }
@@ -126,6 +130,10 @@ body {
 
 .theme-light .border-slate-800\/80 {
   border-color: rgba(203, 213, 225, 0.9);
+}
+
+.theme-light .md\:border-slate-800 {
+  border-color: var(--border-subtle);
 }
 
 .theme-light .border-amber-300\/50 {
@@ -158,6 +166,10 @@ body {
 
 .theme-light .hover\:bg-slate-800\/60:hover {
   background-color: rgba(226, 232, 240, 0.7);
+}
+
+.theme-light .hover\:text-white:hover {
+  color: var(--text-1);
 }
 
 .theme-light .hover\:text-amber-200:hover {
