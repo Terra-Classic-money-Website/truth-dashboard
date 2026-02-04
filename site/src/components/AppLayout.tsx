@@ -56,23 +56,103 @@ function NavLinks({
 
 export default function AppLayout() {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    if (typeof window === "undefined") {
+      return "dark";
+    }
+    const stored = window.localStorage.getItem("theme");
+    if (stored === "light" || stored === "dark") {
+      return stored;
+    }
+    return window.matchMedia("(prefers-color-scheme: light)").matches
+      ? "light"
+      : "dark";
+  });
   const location = useLocation();
 
   useEffect(() => {
     setDrawerOpen(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === "light") {
+      root.classList.add("theme-light");
+      root.dataset.theme = "light";
+    } else {
+      root.classList.remove("theme-light");
+      root.dataset.theme = "dark";
+    }
+    window.localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((current) => (current === "dark" ? "light" : "dark"));
+  };
+
   return (
     <div className="min-h-screen text-slate-100 md:flex">
       <aside className="hidden md:flex md:w-72 md:flex-col md:sticky md:top-0 md:h-screen md:border-r md:border-slate-800 md:bg-slate-950/75 md:backdrop-blur">
         <div className="px-6 py-6 border-b border-slate-800">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-slate-500">
-            <img
-              src={terraClassicSign}
-              alt=""
-              className="h-4 w-4 opacity-70"
-            />
-            <span>TERRA CLASSIC</span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-slate-500">
+              <img
+                src={terraClassicSign}
+                alt=""
+                className="h-4 w-4 opacity-70"
+              />
+              <span>TERRA CLASSIC</span>
+            </div>
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={
+                theme === "dark"
+                  ? "Switch to light mode"
+                  : "Switch to dark mode"
+              }
+              className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-800 bg-slate-900/70 text-slate-200 transition hover:bg-slate-800/60"
+            >
+              {theme === "dark" ? (
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 4V2M12 22V20M4 12H2M22 12H20M5.6 5.6L4.2 4.2M19.8 19.8L18.4 18.4M5.6 18.4L4.2 19.8M19.8 4.2L18.4 5.6"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="4.5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M20.4 14.7A8.5 8.5 0 0 1 9.3 3.6a.8.8 0 0 0-.9-.9A9.5 9.5 0 1 0 21.3 15.6a.8.8 0 0 0-.9-.9z"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              )}
+            </button>
           </div>
           <h1 className="mt-2 text-lg font-semibold text-white">
             Truth Dashboard
@@ -170,13 +250,65 @@ export default function AppLayout() {
           }`}
         >
           <div className="flex items-center justify-between border-b border-slate-800 px-5 py-4">
-            <div>
-              <p className="text-xs uppercase tracking-widest text-slate-500">
-                TERRA CLASSIC
-              </p>
-              <p className="text-sm font-semibold text-white">
-                Truth Dashboard
-              </p>
+            <div className="flex items-center gap-3">
+              <div>
+                <p className="text-xs uppercase tracking-widest text-slate-500">
+                  TERRA CLASSIC
+                </p>
+                <p className="text-sm font-semibold text-white">
+                  Truth Dashboard
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={toggleTheme}
+                aria-label={
+                  theme === "dark"
+                    ? "Switch to light mode"
+                    : "Switch to dark mode"
+                }
+                className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-800 bg-slate-900/70 text-slate-200 transition hover:bg-slate-800/60"
+              >
+                {theme === "dark" ? (
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 4V2M12 22V20M4 12H2M22 12H20M5.6 5.6L4.2 4.2M19.8 19.8L18.4 18.4M5.6 18.4L4.2 19.8M19.8 4.2L18.4 5.6"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="4.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20.4 14.7A8.5 8.5 0 0 1 9.3 3.6a.8.8 0 0 0-.9-.9A9.5 9.5 0 1 0 21.3 15.6a.8.8 0 0 0-.9-.9z"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                )}
+              </button>
             </div>
             <button
               type="button"
