@@ -12,6 +12,7 @@ const simpleClasses = new Set([
   "block",
   "hidden",
   "table",
+  "border",
   "sticky",
   "absolute",
   "relative",

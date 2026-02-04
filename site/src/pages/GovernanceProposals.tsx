@@ -1,122 +1,102 @@
 import Card from "../components/Card";
-import KpiCard from "../components/KpiCard";
 import PageHeader from "../components/PageHeader";
-import SectionTitle from "../components/SectionTitle";
 
 export default function GovernanceProposals() {
   return (
     <div className="space-y-8">
       <PageHeader
         eyebrow="Terra Classic Governance"
-        title="Proposals Dashboard"
+        title="Proposals dashboard"
         subtitle="All proposals in voting stage since May 2022 (validator.info via local proxy)."
-        status="Data source: validator.info proposals (static preview)"
       />
 
-      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <KpiCard
-          label="Open Proposals"
-          value="6"
-          helper="Currently in voting"
-          trend="Window: last 90 days"
-          accent="amber"
-        />
-        <KpiCard
-          label="Pass Rate"
-          value="71%"
-          helper="Rolling 12 months"
-          trend="+3% vs prior year"
-          accent="emerald"
-        />
-        <KpiCard
-          label="Avg Participation"
-          value="68%"
-          helper="Voting power turnout"
-          trend="Stable"
-          accent="sky"
-        />
-        <KpiCard
-          label="Avg Delegators"
-          value="1.4K"
-          helper="Per proposal"
-          trend="Growing"
-          accent="rose"
-        />
-      </section>
-
       <Card>
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <h3 className="text-lg font-semibold text-white">Controls</h3>
-            <p className="mt-1 text-sm text-slate-400">
-              Search, sort, and filter proposals before loading.
-            </p>
-          </div>
-          <span className="text-xs uppercase tracking-wider text-slate-500">
-            Last fetched: never
-          </span>
-        </div>
-        <div className="mt-4 grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-3">
           <div className="space-y-2">
             <label className="text-xs uppercase tracking-wider text-slate-500">
               Search
             </label>
-            <div className="rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-3 text-sm text-slate-400">
-              Search by id, title, type...
-            </div>
+            <input
+              className="w-full rounded-xl border border-slate-800 bg-slate-950/70 px-4 py-2 text-sm text-slate-300"
+              placeholder="Search by id, title, type..."
+              type="text"
+              disabled
+            />
           </div>
           <div className="space-y-2">
             <label className="text-xs uppercase tracking-wider text-slate-500">
               Sort
             </label>
-            <div className="rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-3 text-sm text-slate-400">
-              End date (descending)
-            </div>
+            <select
+              className="w-full rounded-xl border border-slate-800 bg-slate-950/70 px-4 py-2 text-sm text-slate-300"
+              disabled
+            >
+              <option>End date</option>
+              <option>Delegators</option>
+              <option>Yes %</option>
+              <option>No %</option>
+              <option>Veto %</option>
+              <option>Abstain %</option>
+            </select>
           </div>
           <div className="space-y-2">
             <label className="text-xs uppercase tracking-wider text-slate-500">
               Status
             </label>
-            <div className="rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-3 text-sm text-slate-400">
-              All statuses
-            </div>
+            <select
+              className="w-full rounded-xl border border-slate-800 bg-slate-950/70 px-4 py-2 text-sm text-slate-300"
+              disabled
+            >
+              <option>All statuses</option>
+              <option>Voting</option>
+              <option>Passed</option>
+              <option>Rejected</option>
+            </select>
           </div>
         </div>
-        <div className="mt-4 flex flex-wrap gap-3">
+
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <label className="flex items-center gap-2 text-xs text-slate-400">
+            <input type="checkbox" defaultChecked disabled />
+            Descending
+          </label>
           <button
             type="button"
-            className="rounded-full border border-slate-800 px-4 py-2 text-xs uppercase tracking-wider text-slate-300 hover:border-amber-300 hover:text-amber-200 transition"
+            className="rounded-full border border-slate-800 px-4 py-2 text-xs uppercase tracking-wider text-slate-300"
           >
             Fetch proposals
           </button>
-          <span className="text-xs text-slate-500">
-            Debug: Descending sort enabled
-          </span>
+          <span className="text-xs text-slate-500">Last fetched: never</span>
         </div>
       </Card>
 
       <Card>
-        <SectionTitle
-          title="Status"
-          subtitle="Idle. Click Fetch to load proposals."
-        />
-        <div className="mt-3 rounded-xl border border-slate-800 bg-slate-950/40 p-4 text-sm text-slate-400">
-          Proposal health and error messages will appear here.
+        <div className="space-y-2 text-sm text-slate-400">
+          <div>Idle. Click Fetch to load proposals.</div>
+          <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4">
+            Error output placeholder.
+          </div>
         </div>
       </Card>
 
+      <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4 text-sm text-slate-400">
+        Proposals meta / health card placeholder.
+      </div>
+
       <Card>
-        <SectionTitle title="Proposals Debug" subtitle="Debug payload excerpt." />
-        <div className="mt-4 rounded-xl border border-slate-800 bg-slate-950/50 p-4 text-sm text-slate-400">
+        <h2 className="text-base font-semibold text-white">Proposals debug</h2>
+        <div className="mt-3 rounded-xl border border-slate-800 bg-slate-950/60 p-4 text-sm text-slate-400">
           Debug output will populate once API wiring is enabled.
         </div>
       </Card>
 
       <Card>
-        <SectionTitle
-          title="Proposals Since May 2022"
-          subtitle="Voting-stage proposals"
-        />
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="text-base font-semibold text-white">
+            Proposals since May 2022
+          </h2>
+          <span className="text-xs text-slate-500">Table note placeholder</span>
+        </div>
         <div className="mt-4 overflow-hidden rounded-xl border border-slate-800">
           <table className="w-full text-left text-sm">
             <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
@@ -125,29 +105,29 @@ export default function GovernanceProposals() {
                 <th className="px-4 py-3">Title</th>
                 <th className="px-4 py-3">Type</th>
                 <th className="px-4 py-3">Status</th>
-                <th className="px-4 py-3">Votes Distribution</th>
+                <th className="px-4 py-3">Votes distribution</th>
                 <th className="px-4 py-3">Delegators</th>
-                <th className="px-4 py-3">End Date</th>
+                <th className="px-4 py-3">End date</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="px-4 py-4">128</td>
-                <td className="px-4 py-4">Community Pool Funding</td>
-                <td className="px-4 py-4">Spend</td>
-                <td className="px-4 py-4">Voting</td>
-                <td className="px-4 py-4">Yes 72% • No 18%</td>
-                <td className="px-4 py-4">1,420</td>
-                <td className="px-4 py-4">2026-03-12</td>
+              <tr className="text-slate-300">
+                <td className="px-4 py-3">128</td>
+                <td className="px-4 py-3">Community Pool Funding</td>
+                <td className="px-4 py-3">Spend</td>
+                <td className="px-4 py-3">Voting</td>
+                <td className="px-4 py-3">Yes 72% • No 18%</td>
+                <td className="px-4 py-3">1,420</td>
+                <td className="px-4 py-3">2026-03-12</td>
               </tr>
               <tr className="text-slate-400">
-                <td className="px-4 py-4">127</td>
-                <td className="px-4 py-4">Validator Incentives</td>
-                <td className="px-4 py-4">Parameter Change</td>
-                <td className="px-4 py-4">Passed</td>
-                <td className="px-4 py-4">Yes 68% • No 22%</td>
-                <td className="px-4 py-4">1,210</td>
-                <td className="px-4 py-4">2026-02-01</td>
+                <td className="px-4 py-3">127</td>
+                <td className="px-4 py-3">Validator Incentives</td>
+                <td className="px-4 py-3">Parameter Change</td>
+                <td className="px-4 py-3">Passed</td>
+                <td className="px-4 py-3">Yes 68% • No 22%</td>
+                <td className="px-4 py-3">1,210</td>
+                <td className="px-4 py-3">2026-02-01</td>
               </tr>
             </tbody>
           </table>

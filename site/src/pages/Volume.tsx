@@ -1,7 +1,11 @@
 import Card from "../components/Card";
-import KpiCard from "../components/KpiCard";
 import PageHeader from "../components/PageHeader";
-import SectionTitle from "../components/SectionTitle";
+
+const kpis = [
+  { label: "Latest volume", value: "—" },
+  { label: "Max volume in range", value: "—" },
+  { label: "Avg volume in range", value: "—" },
+];
 
 export default function Volume() {
   return (
@@ -10,107 +14,95 @@ export default function Volume() {
         eyebrow="Terra Classic Off-Chain Activity"
         title="LUNC 24h Trading Volume (USD) — Historical"
         subtitle="Pulls CoinGecko market_chart/range volume data for Terra Classic (LUNC)."
-        status="Data source: CoinGecko market chart (static preview)"
       />
 
       <Card>
-        <SectionTitle
-          title="Controls"
-          subtitle="Configure key and time range before loading volume snapshots."
-        />
-        <div className="mt-4 grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-3">
           <div className="space-y-2">
             <label className="text-xs uppercase tracking-wider text-slate-500">
-              CoinGecko Demo API Key
+              CoinGecko Demo API key
             </label>
-            <div className="rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-3 text-sm text-slate-400">
-              Enter demo key
-            </div>
-            <div className="flex items-center gap-2 text-xs text-slate-500">
-              <span className="h-2 w-2 rounded-full bg-slate-600" />
+            <input
+              className="w-full rounded-xl border border-slate-800 bg-slate-950/70 px-4 py-2 text-sm text-slate-300"
+              placeholder="Enter demo key"
+              type="password"
+              disabled
+            />
+            <label className="flex items-center gap-2 text-xs text-slate-500">
+              <input type="checkbox" disabled />
               Save key locally (localStorage)
-            </div>
+            </label>
           </div>
           <div className="space-y-2">
             <label className="text-xs uppercase tracking-wider text-slate-500">
-              Start Date
+              Start date
             </label>
-            <div className="rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-3 text-sm text-slate-400">
-              2022-06-01
-            </div>
+            <input
+              className="w-full rounded-xl border border-slate-800 bg-slate-950/70 px-4 py-2 text-sm text-slate-300"
+              type="date"
+              disabled
+            />
           </div>
           <div className="space-y-2">
             <label className="text-xs uppercase tracking-wider text-slate-500">
-              End Date
+              End date
             </label>
-            <div className="rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-3 text-sm text-slate-400">
-              2026-02-03
-            </div>
+            <input
+              className="w-full rounded-xl border border-slate-800 bg-slate-950/70 px-4 py-2 text-sm text-slate-300"
+              type="date"
+              disabled
+            />
           </div>
-        </div>
-        <div className="mt-5 flex flex-wrap gap-3">
-          {["Load data", "1 year", "Test coin id", "Test /ping", "Export CSV"].map(
-            (label) => (
-              <button
-                key={label}
-                type="button"
-                className="rounded-full border border-slate-800 px-4 py-2 text-xs uppercase tracking-wider text-slate-300 hover:border-amber-300 hover:text-amber-200 transition"
-              >
-                {label}
-              </button>
-            ),
-          )}
-        </div>
-        <div className="mt-4 rounded-xl border border-slate-800 bg-slate-950/60 p-4 text-xs text-slate-400">
-          Debug output will appear here when the loader is wired in.
+
+          <div className="flex flex-wrap gap-2 lg:col-span-3">
+            {["Load data", "1 year", "Test coin id", "Test /ping", "Export CSV"].map(
+              (label) => (
+                <button
+                  key={label}
+                  className="rounded-full border border-slate-800 px-4 py-2 text-xs uppercase tracking-wider text-slate-300 hover:border-amber-300 hover:text-amber-200 transition disabled:opacity-60"
+                  type="button"
+                  disabled={label === "Export CSV"}
+                >
+                  {label}
+                </button>
+              ),
+            )}
+          </div>
+
+          <div className="lg:col-span-3">
+            <label className="text-xs uppercase tracking-wider text-slate-500">
+              Debug
+            </label>
+            <pre className="mt-2 min-h-20 rounded-xl border border-slate-800 bg-slate-950/70 p-4 text-xs text-slate-400">
+              (debug output)
+            </pre>
+          </div>
         </div>
       </Card>
 
-      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        <KpiCard
-          label="Latest Volume"
-          value="$18.4M"
-          helper="Most recent snapshot"
-          trend="+6.2% day-over-day"
-          accent="amber"
-        />
-        <KpiCard
-          label="Max Volume in Range"
-          value="$42.9M"
-          helper="Peak day in range"
-          trend="High volatility"
-          accent="sky"
-        />
-        <KpiCard
-          label="Avg Volume in Range"
-          value="$21.7M"
-          helper="Rolling average"
-          trend="Stable"
-          accent="emerald"
-        />
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {kpis.map((kpi) => (
+          <Card key={kpi.label} className="p-4">
+            <div className="text-xs uppercase tracking-wider text-slate-500">
+              {kpi.label}
+            </div>
+            <div className="mt-2 text-lg font-semibold text-white">
+              {kpi.value}
+            </div>
+          </Card>
+        ))}
       </section>
 
       <Card>
-        <SectionTitle
-          title="Volume Chart"
-          subtitle="Daily 24h trading volume in USD"
-          meta="Range: 24 months"
+        <canvas
+          id="volumeChart"
+          className="h-80 w-full rounded-xl border border-dashed border-slate-800 bg-slate-950/50"
         />
-        <div className="mt-6 flex h-80 items-center justify-center rounded-xl border border-dashed border-slate-800 bg-slate-950/50 text-sm text-slate-500">
-          Chart placeholder — trading volume history
-        </div>
       </Card>
 
-      <Card>
-        <SectionTitle
-          title="Status"
-          subtitle="Load state, warnings, and export hints"
-        />
-        <div className="mt-4 text-sm text-slate-400">
-          Idle. Configure API key and date range, then click Load data to refresh
-          the volume history.
-        </div>
-      </Card>
+      <div className="text-sm text-slate-400">
+        <span>Status:</span> Idle. Configure inputs and click Load data.
+      </div>
     </div>
   );
 }
