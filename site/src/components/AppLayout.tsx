@@ -7,10 +7,13 @@ type NavItem = {
   to: string;
 };
 
-const primaryLinks: NavItem[] = [
-  { label: "Active Wallets", to: "/active-wallets" },
-  { label: "Volume", to: "/volume" },
-  { label: "Community Pool", to: "/community-pool" },
+const healthLinks: NavItem[] = [
+  { label: "Active On-Chain Wallets", to: "/active-wallets" },
+  { label: "24h Trading Volume", to: "/volume" },
+];
+
+const managementLinks: NavItem[] = [
+  { label: "Expenditures and investments", to: "/community-pool" },
 ];
 
 const governanceLinks: NavItem[] = [
@@ -75,28 +78,49 @@ export default function AppLayout() {
             Truth Dashboard
           </h1>
           <p className="mt-2 text-sm text-slate-400">
-            Consolidated analytics views for Terra Classic.
+            Data collected during the research and writing of Terra Classic Four
+            Years After: State of the Chain Report (2022–2026)
           </p>
         </div>
         <nav className="flex-1 overflow-y-auto px-4 py-6">
-          <NavLinks links={primaryLinks} />
+          <div className="text-xs uppercase tracking-widest text-slate-500">
+            Health
+          </div>
+          <div className="mt-3">
+            <NavLinks links={healthLinks} />
+          </div>
+          <div className="mt-8 text-xs uppercase tracking-widest text-slate-500">
+            Management
+          </div>
+          <div className="mt-3">
+            <NavLinks links={managementLinks} />
+          </div>
           <div className="mt-8 text-xs uppercase tracking-widest text-slate-500">
             Governance
           </div>
           <div className="mt-3">
             <NavLinks links={governanceLinks} />
           </div>
+          <div className="mt-8">
+            <a
+              href="https://www.terra-classic.money"
+              className="block rounded-md px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-800/60 hover:text-white"
+            >
+              Back to Terra-classic.money
+            </a>
+          </div>
         </nav>
         <div className="px-6 py-5 border-t border-slate-800 text-xs text-slate-500 space-y-3">
-          <p className="text-slate-500">
-            Static preview. Figures shown here are placeholder snapshots collected
-            during the research and writing of{" "}
-            <em className="italic">
-              Terra Classic Four Years After: State of the Chain Report (2022–2026)
-            </em>
-            . Live data wiring will follow.
+          <p>
+            All rights reserved @{" "}
+            <a
+              href="https://dawidskinder.pl"
+              className="underline underline-offset-2"
+            >
+              DawidSkinder.pl
+            </a>{" "}
+            - 2026
           </p>
-          <p>Updated snapshots will be wired in the next phase.</p>
         </div>
       </aside>
 
@@ -163,10 +187,24 @@ export default function AppLayout() {
             </button>
           </div>
           <nav className="px-4 py-6">
+            <div className="text-xs uppercase tracking-widest text-slate-500">
+              Health
+            </div>
+            <div className="mt-3">
             <NavLinks
-              links={primaryLinks}
+              links={healthLinks}
               onNavigate={() => setDrawerOpen(false)}
             />
+            </div>
+            <div className="mt-8 text-xs uppercase tracking-widest text-slate-500">
+              Management
+            </div>
+            <div className="mt-3">
+              <NavLinks
+                links={managementLinks}
+                onNavigate={() => setDrawerOpen(false)}
+              />
+            </div>
             <div className="mt-8 text-xs uppercase tracking-widest text-slate-500">
               Governance
             </div>
@@ -175,6 +213,14 @@ export default function AppLayout() {
                 links={governanceLinks}
                 onNavigate={() => setDrawerOpen(false)}
               />
+            </div>
+            <div className="mt-8">
+              <a
+                href="https://www.terra-classic.money"
+                className="block rounded-md px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-800/60 hover:text-white"
+              >
+                Back to Terra-classic.money
+              </a>
             </div>
           </nav>
         </div>
