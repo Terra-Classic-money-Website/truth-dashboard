@@ -60,10 +60,9 @@ export default function Volume() {
       </section>
 
       <Card className="p-0">
-        <TimeSeriesChart
-          series={view.series}
-          className="min-h-[320px] h-[clamp(320px,55vh,620px)]"
-        />
+        <div className="min-h-[320px] h-[clamp(320px,55vh,620px)]">
+          <TimeSeriesChart series={view.series} className="h-full" />
+        </div>
       </Card>
     </div>
   );

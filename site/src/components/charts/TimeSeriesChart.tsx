@@ -148,7 +148,7 @@ export default function TimeSeriesChart({
   return (
     <div
       ref={containerRef}
-      className={`rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4 ${className}`}
+      className={`w-full h-full rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4 ${className}`}
       style={className ? undefined : { height }}
     >
       {title ? (
