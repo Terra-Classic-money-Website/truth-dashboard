@@ -94,7 +94,10 @@ export function selectActiveWallets(
     "Dec",
   ];
   const monthlyBuckets = Array.from({ length: 12 }, () => [] as number[]);
-  builtTotalSeries.points.forEach((point) => {
+  const seasonalityPoints = selectedWindow?.months
+    ? totalSeries.points.slice(-selectedWindow.months)
+    : builtTotalSeries.points;
+  seasonalityPoints.forEach((point) => {
     const monthIndex = new Date(`${point.periodEnd}T00:00:00Z`).getUTCMonth();
     monthlyBuckets[monthIndex].push(point.v);
   });

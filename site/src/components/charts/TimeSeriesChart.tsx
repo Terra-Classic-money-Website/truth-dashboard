@@ -173,6 +173,47 @@ export default function TimeSeriesChart({
             : closest;
         }, null as Point | null)
       : null;
+  const hoverSeriesPoints = useMemo(() => {
+    if (tooltipTime === null) {
+      return [];
+    }
+    return series
+      .map((serie, index) => {
+        const point = serie.points.reduce((closest, candidate) => {
+          const candidateTime = new Date(
+            `${getPointDate(candidate)}T00:00:00Z`,
+          ).getTime();
+          if (!closest) return candidate;
+          const closestTime = new Date(
+            `${getPointDate(closest)}T00:00:00Z`,
+          ).getTime();
+          return Math.abs(candidateTime - tooltipTime) <
+            Math.abs(closestTime - tooltipTime)
+            ? candidate
+            : closest;
+        }, null as Point | null);
+        if (!point) {
+          return null;
+        }
+        const pointTime = new Date(`${getPointDate(point)}T00:00:00Z`).getTime();
+        return {
+          seriesIndex: index,
+          point,
+          x: xForTime(pointTime),
+          y: yForValue(point.v),
+        };
+      })
+      .filter(
+        (
+          value,
+        ): value is {
+          seriesIndex: number;
+          point: Point;
+          x: number;
+          y: number;
+        } => value !== null,
+      );
+  }, [tooltipTime, series, xForTime, yForValue]);
 
   return (
     <div
@@ -188,7 +229,7 @@ export default function TimeSeriesChart({
           No snapshot points available.
         </div>
       ) : (
-        <div className="relative">
+        <div className="relative h-full">
           <svg
             viewBox={`0 0 ${width} ${resolvedHeight}`}
             className="h-full w-full"
@@ -309,6 +350,17 @@ export default function TimeSeriesChart({
                 strokeDasharray="4 4"
               />
             ) : null}
+            {hoverSeriesPoints.map(({ seriesIndex, x, y }) => (
+              <circle
+                key={`hover-dot-${seriesIndex}`}
+                cx={x}
+                cy={y}
+                r={4}
+                fill={colors[seriesIndex % colors.length]}
+                stroke="#0f172a"
+                strokeWidth={1.5}
+              />
+            ))}
           </svg>
           {tooltipPoint ? (
             <div

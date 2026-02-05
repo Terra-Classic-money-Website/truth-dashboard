@@ -38,6 +38,7 @@ export default function ActiveWallets() {
         eyebrow="Terra Classic On-Chain Activity"
         title={view.header.title}
         subtitle={view.header.subtitle}
+        subtitleClassName="md:max-w-none md:whitespace-nowrap"
       />
 
       <div className="flex flex-wrap gap-3">
@@ -61,7 +62,7 @@ export default function ActiveWallets() {
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h2 className="text-lg font-semibold text-white">Participants</h2>
-            <p className="mt-1 text-sm text-slate-400">
+            <p className="mt-1 text-sm text-slate-400 md:whitespace-nowrap">
               Participants per month based on transaction senders and recipients
               on the Terra Classic L1.
             </p>
@@ -71,7 +72,7 @@ export default function ActiveWallets() {
             Active wallets
           </div>
         </div>
-        <div className="mt-6 h-[590px] max-[760px]:h-[420px] max-[560px]:h-[320px]">
+        <div className="mt-6 h-[590px] min-h-[590px] max-[640px]:h-[420px] max-[640px]:min-h-[420px] max-[480px]:h-[320px] max-[480px]:min-h-[320px]">
           <TimeSeriesChart
             series={view.series}
             className="h-full"
