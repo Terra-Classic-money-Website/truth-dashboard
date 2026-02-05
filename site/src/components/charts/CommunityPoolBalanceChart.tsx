@@ -44,9 +44,9 @@ type Props = {
   height?: number;
 };
 
-const LUNC_COLOR = "#f7b955";
-const USTC_COLOR = "#60a5fa";
-const IMPACT_COLOR = "#22c55e";
+const LUNC_COLOR = "#3b82f6";
+const USTC_COLOR = "#22c55e";
+const IMPACT_COLOR = "#facc15";
 
 function formatMonthDay(iso: string) {
   return new Intl.DateTimeFormat("en-US", {
@@ -82,7 +82,7 @@ function firstNonNull<T>(values: Array<T | null | undefined>) {
 export default function CommunityPoolBalanceChart({
   balances,
   markers,
-  height = 420,
+  height = 520,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
@@ -343,8 +343,8 @@ export default function CommunityPoolBalanceChart({
                 <circle
                   cx={xForIndex(index)}
                   cy={yForLunc(point.lunc)}
-                  r={2.5}
-                  fill={LUNC_COLOR}
+                  r={4}
+                  fill={IMPACT_COLOR}
                   stroke="#0f172a"
                   strokeWidth={1}
                 />
@@ -353,8 +353,8 @@ export default function CommunityPoolBalanceChart({
                 <circle
                   cx={xForIndex(index)}
                   cy={yForUstc(point.ustc)}
-                  r={2.5}
-                  fill={USTC_COLOR}
+                  r={4}
+                  fill={IMPACT_COLOR}
                   stroke="#0f172a"
                   strokeWidth={1}
                 />

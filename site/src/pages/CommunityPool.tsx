@@ -84,7 +84,7 @@ export default function CommunityPool() {
           <CommunityPoolBalanceChart
             balances={view.balances}
             markers={view.outflowMarkers}
-            height={420}
+            height={520}
           />
         </div>
       </Card>
