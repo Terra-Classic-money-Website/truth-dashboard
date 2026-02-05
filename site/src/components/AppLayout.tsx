@@ -311,9 +311,23 @@ export default function AppLayout() {
             <button
               type="button"
               onClick={() => setDrawerOpen(false)}
-              className="rounded-md border border-slate-800 px-3 py-1 text-xs uppercase tracking-wider text-slate-300"
+              aria-label="Close menu"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-800 text-slate-300"
             >
-              Close
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6 6L18 18M18 6L6 18"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                />
+              </svg>
             </button>
           </div>
           <nav className="px-4 py-6">

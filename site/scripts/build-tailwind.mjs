@@ -22,7 +22,7 @@ const simpleClasses = new Set([
   "transition",
 ]);
 
-const tokenPattern = /^[a-z0-9][a-z0-9-:/]*$/i;
+const tokenPattern = /^-?[a-z0-9][a-z0-9-:/]*$/i;
 
 async function collectFiles(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true });
