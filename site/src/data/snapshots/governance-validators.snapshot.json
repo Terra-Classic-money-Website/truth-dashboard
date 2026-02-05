@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.0.0",
+  "dashboardId": "governance-validators",
+  "title": "Current validators dashboard",
+  "subtitle": "Active validator set from validator.info (offline snapshot).",
+  "generatedAt": "...",
+  "coverage": { "start": "2026-01-01", "end": "2026-01-31", "cadence": "point-in-time" },
+  "sources": [],
+  "notes": [],
+  "timeWindows": [
+    { "id": "all", "label": "All time", "months": null },
+    { "id": "2y", "label": "Last 2 years", "months": 24 },
+    { "id": "1y", "label": "Last year", "months": 12 }
+  ],
+  "data": {
+    "filters": {
+      "incomeThresholds": [
+        { "id": "gt100", "label": "Income > $100", "minUsd": 100 }
+      ]
+    },
+
+    "table": {
+      "id": "tbl.validators",
+      "title": "Active validators",
+      "columns": [
+        { "key": "rank", "label": "Rank", "type": "number", "unit": "count" },
+        { "key": "validator", "label": "Validator", "type": "text" },
+        { "key": "votingPower", "label": "Voting power", "type": "number", "unit": "percent" },
+        { "key": "delegators", "label": "Delegators", "type": "number", "unit": "count" },
+        { "key": "incomeMonthlyUsd", "label": "Income (monthly)", "type": "number", "unit": "usd" },
+        { "key": "didNotVote1y", "label": "Did not vote (1Y)", "type": "number", "unit": "percent" },
+        { "key": "didNotVote2y", "label": "Did not vote (2Y)", "type": "number", "unit": "percent" },
+        { "key": "yes", "label": "YES", "type": "number", "unit": "percent" },
+        { "key": "no", "label": "NO", "type": "number", "unit": "percent" },
+        { "key": "abstain", "label": "ABSTAIN", "type": "number", "unit": "percent" },
+        { "key": "noWithVeto", "label": "NO WITH VETO", "type": "number", "unit": "percent" }
+      ],
+      "rows": [
+        {
+          "rank": 1,
+          "validator": "Validator One",
+          "votingPower": 0.072,
+          "delegators": 9420,
+          "incomeMonthlyUsd": 18400,
+          "didNotVote1y": 0.06,
+          "didNotVote2y": 0.09,
+          "yes": 0.62,
+          "no": 0.21,
+          "abstain": 0.09,
+          "noWithVeto": 0.02
+        }
+      ]
+    }
+  }
+}

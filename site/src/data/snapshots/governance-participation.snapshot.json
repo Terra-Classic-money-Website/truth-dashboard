@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "1.0.0",
+  "dashboardId": "governance-participation",
+  "title": "Terra Classic Governance Participation",
+  "subtitle": "Governance participation derived from validator.info indexer API (offline snapshot).",
+  "generatedAt": "...",
+  "coverage": { "start": "2022-05-01", "end": "2026-01-31", "cadence": "monthly" },
+  "sources": [],
+  "notes": [],
+  "timeWindows": [
+    { "id": "all", "label": "All time", "months": null },
+    { "id": "2y", "label": "Last 2 years", "months": 24 },
+    { "id": "1y", "label": "Last year", "months": 12 }
+  ],
+  "data": {
+    "kpiGrid": [
+      { "id": "kpi.avgYesVotes", "label": "Average YES votes per proposal (validators)", "value": 29.9, "unit": "count", "asOf": "2026-01-31" },
+      { "id": "kpi.avgNoVotes", "label": "Average NO votes per proposal (validators)", "value": 9.2, "unit": "count", "asOf": "2026-01-31" },
+      { "id": "kpi.avgVetoVotes", "label": "Average VETO votes per proposal (validators)", "value": 3.1, "unit": "count", "asOf": "2026-01-31" },
+      { "id": "kpi.avgNonParticipation", "label": "Average non-participation per proposal (validators)", "value": 55, "unit": "count", "asOf": "2026-01-31" },
+
+      { "id": "kpi.avgNotVoted", "label": "Average proposals not voted", "value": 55, "unit": "count", "asOf": "2026-01-31" },
+      { "id": "kpi.avgDelegatorsVoting", "label": "Avg delegators voting per proposal", "value": 439, "unit": "count", "asOf": "2026-01-31" },
+      { "id": "kpi.delegatorsShare", "label": "Avg delegators as % of active wallets (last year)", "value": 0.0037, "unit": "percent", "asOf": "2026-01-31" },
+      { "id": "kpi.pctVotesNotVoted", "label": "% of all votes not voted", "value": 0.3039, "unit": "percent", "asOf": "2026-01-31" },
+
+      { "id": "kpi.pctNoWithVeto", "label": "% of all votes that are NO WITH VETO", "value": 0.0171, "unit": "percent", "asOf": "2026-01-31" },
+      { "id": "kpi.validatorsInDataset", "label": "Active validators in dataset", "value": 181, "unit": "count", "asOf": "2026-01-31" },
+      { "id": "kpi.validatorsOver60", "label": "Validators with >60% non-participation", "value": 42, "unit": "count", "asOf": "2026-01-31" },
+      { "id": "kpi.validatorsOver70", "label": "Validators with >70% non-participation", "value": 36, "unit": "count", "asOf": "2026-01-31" }
+    ],
+
+    "statementCards": [
+      {
+        "id": "stmt.under50",
+        "title": "<50% non-participation statement",
+        "body": "Validators with <50% non-participation: 134 of 181. That means 25.97% of validators participate in fewer than half of proposals.",
+        "asOf": "2026-01-31"
+      }
+    ],
+
+    "tables": {
+      "validatorsOver60": {
+        "id": "tbl.validatorsOver60",
+        "title": "Validators with > 60% non-participation",
+        "columns": [
+          { "key": "validator", "label": "Validator", "type": "text" },
+          { "key": "votingPowerShare", "label": "Voting power share", "type": "number", "unit": "percent" },
+          { "key": "yes", "label": "YES", "type": "number", "unit": "percent" },
+          { "key": "no", "label": "NO", "type": "number", "unit": "percent" },
+          { "key": "noWithVeto", "label": "NO WITH VETO", "type": "number", "unit": "percent" },
+          { "key": "abstain", "label": "ABSTAIN", "type": "number", "unit": "percent" },
+          { "key": "didNotVote", "label": "DID NOT VOTE", "type": "number", "unit": "percent" },
+          { "key": "nonParticipation", "label": "NON-PARTICIPATION %", "type": "number", "unit": "percent" }
+        ],
+        "rows": [
+          { "validator": "Validator A", "votingPowerShare": 0.028, "yes": 0.62, "no": 0.18, "noWithVeto": 0.03, "abstain": 0.02, "didNotVote": 0.15, "nonParticipation": 0.38 }
+        ]
+      }
+    },
+
+    "series": {
+      "nonParticipationDistribution": {
+        "id": "gov.nonpart.dist",
+        "label": "Non-participation distribution",
+        "cadence": "monthly",
+        "unit": "percent",
+        "scale": 1,
+        "points": [{ "periodEnd": "2026-01-31", "v": 0.30 }]
+      }
+    }
+  }
+}

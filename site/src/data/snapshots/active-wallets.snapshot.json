@@ -1,0 +1,122 @@
+{
+  "schemaVersion": "1.0.0",
+  "dashboardId": "active-wallets",
+  "title": "Monthly Active Wallets",
+  "subtitle": "...",
+  "generatedAt": "...",
+  "coverage": { "start": "...", "end": "...", "cadence": "monthly" },
+  "sources": [],
+  "notes": [],
+  "timeWindows": [],
+  "data": {
+    "series": {
+      "mawTotal": {
+        "id": "maw.total",
+        "label": "Active wallets",
+        "cadence": "monthly",
+        "unit": "count",
+        "scale": 1,
+        "points": [{ "periodEnd": "2022-06-30", "v": 42000 }]
+      },
+      "mawSenders": {
+        "id": "maw.senders",
+        "label": "Senders",
+        "cadence": "monthly",
+        "unit": "count",
+        "scale": 1,
+        "points": [{ "periodEnd": "2022-06-30", "v": 18000 }]
+      },
+      "mawRecipients": {
+        "id": "maw.recipients",
+        "label": "Recipients",
+        "cadence": "monthly",
+        "unit": "count",
+        "scale": 1,
+        "points": [{ "periodEnd": "2022-06-30", "v": 26000 }]
+      }
+    },
+
+    "kpiTiles": [
+      { "id": "kpi.mawTotal", "label": "Monthly active wallets", "value": 128420, "unit": "count", "scale": 1, "asOf": "2026-01-31", "delta": { "value": 0.041, "unit": "percent", "vs": "prev_period" }, "note": "Senders + recipients" },
+      { "id": "kpi.senders", "label": "Monthly senders", "value": 74980, "unit": "count", "scale": 1, "asOf": "2026-01-31", "delta": { "value": 0.026, "unit": "percent", "vs": "prev_period" }, "note": "Initiating txs" },
+      { "id": "kpi.recipients", "label": "Monthly recipients", "value": 91340, "unit": "count", "scale": 1, "asOf": "2026-01-31", "delta": { "value": 0.032, "unit": "percent", "vs": "prev_period" }, "note": "Receiving txs" },
+      { "id": "kpi.retention", "label": "Retention", "value": 0.62, "unit": "percent", "scale": 1, "asOf": "2026-01-31", "delta": null, "note": "3-month rolling return rate" }
+    ],
+
+    "insights": {
+      "highlights": [
+        "Activity is down 97.0% from the peak (peak: Aug 22, 498,729)."
+      ],
+      "kpiSnapshot": [
+        { "id": "kpi.currentMonth", "label": "Current month", "value": 14982, "unit": "count", "asOf": "2026-01-31", "note": "Jan 26" },
+        { "id": "kpi.allTimePeak", "label": "All-time peak", "value": 498729, "unit": "count", "asOf": "2022-08-31", "note": "Aug 22" },
+        { "id": "kpi.drawdown", "label": "Drawdown from peak", "value": -0.97, "unit": "percent", "asOf": "2026-01-31", "note": "Current vs peak" },
+        { "id": "kpi.roll12Avg", "label": "12M rolling average", "value": 24333, "unit": "count", "asOf": "2026-01-31", "note": "Last 12 months" },
+        { "id": "kpi.trendSlope", "label": "12M trend slope", "value": -217, "unit": "count", "asOf": "2026-01-31", "note": "wallets / month" },
+        { "id": "kpi.stability", "label": "12M stability", "value": 0.289, "unit": "percent", "asOf": "2026-01-31", "note": "stdev / mean" }
+      ]
+    },
+
+    "tables": {
+      "yearSummary": {
+        "id": "tbl.yearSummary",
+        "title": "Year Summary",
+        "columns": [
+          { "key": "year", "label": "Year", "type": "text" },
+          { "key": "avgMonthly", "label": "Avg monthly wallets", "type": "number", "unit": "count" },
+          { "key": "median", "label": "Median", "type": "number", "unit": "count" },
+          { "key": "yoy", "label": "YoY change", "type": "number", "unit": "percent" },
+          { "key": "volatility", "label": "Volatility", "type": "number", "unit": "count" },
+          { "key": "cv", "label": "Coeff. of variation", "type": "number", "unit": "percent" }
+        ],
+        "rows": [
+          { "year": "2026", "avgMonthly": 14982, "median": 14982, "yoy": -0.418, "volatility": 0, "cv": 0.0 }
+        ]
+      },
+
+      "quarterlySummary": {
+        "id": "tbl.quarterlySummary",
+        "title": "Quarterly Summary",
+        "columns": [
+          { "key": "quarter", "label": "Quarter", "type": "text" },
+          { "key": "avg", "label": "Avg wallets", "type": "number", "unit": "count" },
+          { "key": "qoq", "label": "QoQ change", "type": "number", "unit": "percent" },
+          { "key": "bestMonth", "label": "Best month", "type": "text" },
+          { "key": "worstMonth", "label": "Worst month", "type": "text" }
+        ],
+        "rows": [
+          { "quarter": "2026 Q1", "avg": 14982, "qoq": -0.49, "bestMonth": "Jan 26 (14,982)", "worstMonth": "Jan 26 (14,982)" }
+        ]
+      }
+    },
+
+    "extremes": {
+      "topMonths": [
+        { "label": "Aug 22", "value": 498729 },
+        { "label": "Jul 22", "value": 284406 }
+      ],
+      "bottomMonths": [
+        { "label": "Jan 26", "value": 14982 }
+      ],
+      "largestMoMIncrease": { "label": "Jul 22", "abs": 193934, "pct": 0.914 },
+      "largestMoMDecrease": { "label": "Oct 22", "abs": -98112, "pct": -0.569 },
+      "drawdownRecovery": { "drawdownPct": -0.97, "from": "2022-08-31", "to": "2026-01-31", "recovered": false }
+    },
+
+    "milestones": {
+      "thresholds": [
+        { "threshold": 100000, "firstReached": "2022-09-30", "lastSeen": "2025-12-31" },
+        { "threshold": 200000, "firstReached": "2023-01-31", "lastSeen": "2023-01-31" }
+      ]
+    },
+
+    "method": {
+      "source": "terra-classic-fcd.publicnode.com",
+      "metricDefinition": "Monthly Active Wallets = unique addresses observed participating in on-chain transactions in that month.",
+      "dataWindow": "Jun 22 → Jan 26",
+      "notes": [
+        "Snapshot compiled for Terra Classic Four Years After: State of the Chain Report (2022–2026)."
+      ]
+    }
+  }
+}

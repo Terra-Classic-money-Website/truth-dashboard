@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "1.0.0",
+  "dashboardId": "community-pool",
+  "title": "Balances & Flow Analysis",
+  "subtitle": "Track historical balances, inflows, and outflows for LUNC and USTC.",
+  "generatedAt": "...",
+  "coverage": { "start": "2022-06-30", "end": "2026-01-31", "cadence": "monthly" },
+  "sources": [],
+  "notes": [],
+  "timeWindows": [
+    { "id": "1m", "label": "1M", "weeks": 4 },
+    { "id": "6m", "label": "6M", "weeks": 26 },
+    { "id": "1y", "label": "1Y", "weeks": 52 },
+    { "id": "2y", "label": "2Y", "weeks": 104 },
+    { "id": "3y", "label": "3Y", "weeks": 156 },
+    { "id": "all", "label": "All", "weeks": null }
+  ],
+  "data": {
+    "series": {
+      "poolBalanceLunc": {
+        "id": "cp.balance.lunc",
+        "label": "LUNC balance",
+        "cadence": "monthly",
+        "unit": "lunc",
+        "scale": 1e9,
+        "points": [{ "periodEnd": "2026-01-31", "v": 29.4 }]
+      },
+      "poolBalanceUstc": {
+        "id": "cp.balance.ustc",
+        "label": "USTC balance",
+        "cadence": "monthly",
+        "unit": "ustc",
+        "scale": 1e9,
+        "points": [{ "periodEnd": "2026-01-31", "v": 1.8 }]
+      },
+
+      "netInflowsLunc": {
+        "id": "cp.netin.lunc",
+        "label": "Net inflows (LUNC)",
+        "cadence": "monthly",
+        "unit": "lunc",
+        "scale": 1e6,
+        "points": [{ "periodEnd": "2026-01-31", "v": 312 }]
+      },
+
+      "spendOutflowsWeekly": {
+        "id": "cp.spend.weekly.lunc",
+        "label": "Weekly spend outflows (LUNC)",
+        "cadence": "weekly",
+        "unit": "lunc",
+        "scale": 1e6,
+        "points": [{ "periodEnd": "2026-01-31", "v": 150 }]
+      }
+    },
+
+    "kpiTiles": [
+      { "id": "kpi.luncBalance", "label": "LUNC balance", "value": 29.4, "unit": "lunc", "scale": 1e9, "asOf": "2026-01-31", "delta": { "value": 0.012, "unit": "percent", "vs": "prev_period" }, "note": "Community pool balance" },
+      { "id": "kpi.ustcBalance", "label": "USTC balance", "value": 1.8, "unit": "ustc", "scale": 1e9, "asOf": "2026-01-31", "delta": { "value": -0.004, "unit": "percent", "vs": "prev_period" }, "note": "Community pool balance" },
+      { "id": "kpi.netInflows", "label": "Net inflows", "value": 312, "unit": "lunc", "scale": 1e6, "asOf": "2026-01-31", "delta": null, "note": "Last 30 days" },
+      { "id": "kpi.distributions", "label": "Distributions", "value": 54, "unit": "lunc", "scale": 1e6, "asOf": "2026-01-31", "delta": null, "note": "Last 30 days" }
+    ],
+
+    "tables": {
+      "spendOutflows": {
+        "id": "tbl.spendOutflows",
+        "title": "Community Pool Spend Outflows",
+        "columns": [
+          { "key": "period", "label": "Period", "type": "text" },
+          { "key": "title", "label": "Title", "type": "text" },
+          { "key": "recipient", "label": "Recipient", "type": "text" },
+          { "key": "lunc", "label": "LUNC", "type": "number", "unit": "lunc" },
+          { "key": "ustc", "label": "USTC", "type": "number", "unit": "ustc" },
+          { "key": "impactPct", "label": "Impact %", "type": "number", "unit": "percent" }
+        ],
+        "rows": [
+          { "period": "2026-01-24 → 2026-01-31", "title": "Spending Proposal: Terra Classic Upgrade...", "recipient": "terra1...e86v", "lunc": 1050000000, "ustc": 0, "impactPct": 0.1232 }
+        ]
+      }
+    },
+
+    "derivedBlocks": {
+      "overviewKpis": [
+        { "id": "kpi.totalOutflow", "label": "Total outflow", "value": 8.57, "unit": "lunc", "scale": 1e9, "asOf": "2026-01-31" },
+        { "id": "kpi.idleWeeks", "label": "Idle weeks (zero outflow)", "value": 141, "unit": "count", "asOf": "2026-01-31" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0.0",
+  "dashboardId": "governance-proposals",
+  "title": "Proposals dashboard",
+  "subtitle": "All proposals in voting stage since May 2022 (offline snapshot).",
+  "generatedAt": "...",
+  "coverage": { "start": "2022-05-01", "end": "2026-01-31", "cadence": "event" },
+  "sources": [],
+  "notes": [],
+  "timeWindows": [],
+  "data": {
+    "filters": {
+      "sortOptions": [
+        { "id": "endDate", "label": "End date" },
+        { "id": "id", "label": "ID" },
+        { "id": "delegators", "label": "Delegators" }
+      ],
+      "statusOptions": [
+        { "id": "all", "label": "All statuses" },
+        { "id": "voting", "label": "Voting" },
+        { "id": "passed", "label": "Passed" },
+        { "id": "rejected", "label": "Rejected" }
+      ]
+    },
+
+    "table": {
+      "id": "tbl.proposals",
+      "title": "Proposals since May 2022",
+      "columns": [
+        { "key": "id", "label": "ID", "type": "number", "unit": "count" },
+        { "key": "title", "label": "Title", "type": "text" },
+        { "key": "type", "label": "Type", "type": "text" },
+        { "key": "status", "label": "Status", "type": "text" },
+        { "key": "votes", "label": "Votes distribution", "type": "text" },
+        { "key": "delegators", "label": "Delegators", "type": "number", "unit": "count" },
+        { "key": "endDate", "label": "End date", "type": "text" }
+      ],
+      "rows": [
+        { "id": 128, "title": "Community Pool Funding", "type": "Spend", "status": "Voting", "votes": "Yes 72% • No 18%", "delegators": 1420, "endDate": "2026-03-12" }
+      ]
+    }
+  }
+}

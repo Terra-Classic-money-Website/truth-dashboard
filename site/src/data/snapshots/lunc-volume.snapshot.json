@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "1.0.0",
+  "dashboardId": "lunc-volume",
+  "title": "LUNC 24h Trading Volume (USD) — Historical",
+  "subtitle": "Static dataset bundled with the site. No runtime fetching.",
+  "generatedAt": "...",
+  "coverage": { "start": "2024-01-01", "end": "2026-01-31", "cadence": "daily" },
+  "sources": [
+    { "id": "coingecko-export", "label": "CoinGecko export (offline)", "type": "dataset", "notes": "Exported offline, stored in repo." }
+  ],
+  "notes": [],
+  "timeWindows": [
+    { "id": "6m", "label": "6M", "days": 183 },
+    { "id": "1y", "label": "1Y", "days": 365 },
+    { "id": "2y", "label": "2Y", "days": 730 },
+    { "id": "all", "label": "All", "days": null }
+  ],
+  "data": {
+    "series": {
+      "volume24hUsd": {
+        "id": "vol.usd.24h",
+        "label": "24h volume",
+        "cadence": "daily",
+        "unit": "usd",
+        "scale": 1,
+        "points": [
+          { "periodEnd": "2024-01-01", "v": 18400000 }
+        ]
+      }
+    },
+
+    "kpiTiles": [
+      { "id": "kpi.latest", "label": "Latest 24h volume", "value": 18400000, "unit": "usd", "asOf": "2026-01-31", "delta": { "value": 0.062, "unit": "percent", "vs": "prev_period" }, "note": "Most recent snapshot" },
+      { "id": "kpi.max", "label": "Max volume (range)", "value": 42900000, "unit": "usd", "asOf": "2025-07-19", "delta": null, "note": "Peak day in range" },
+      { "id": "kpi.avg", "label": "Avg volume (range)", "value": 21700000, "unit": "usd", "asOf": "2026-01-31", "delta": null, "note": "Rolling average" },
+      { "id": "kpi.venues", "label": "Tracked venues", "value": 12, "unit": "count", "asOf": "2026-01-31", "delta": null, "note": "Centralized exchanges" }
+    ],
+
+    "tables": {
+      "venueBreakdown": {
+        "id": "tbl.venues",
+        "title": "Venue Breakdown",
+        "columns": [
+          { "key": "exchange", "label": "Exchange", "type": "text" },
+          { "key": "share", "label": "Share", "type": "number", "unit": "percent" },
+          { "key": "avgDailyUsd", "label": "Avg daily", "type": "number", "unit": "usd" },
+          { "key": "liquidity", "label": "Liquidity", "type": "text" }
+        ],
+        "rows": [
+          { "exchange": "Binance", "share": 0.42, "avgDailyUsd": 9100000, "liquidity": "High" }
+        ]
+      }
+    },
+
+    "notesBlocks": {
+      "marketNotes": [
+        "Volume spikes will be annotated with market catalysts.",
+        "Exchange coverage notes will be added as data snapshots update."
+      ]
+    }
+  }
+}
