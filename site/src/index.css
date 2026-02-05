@@ -28,6 +28,11 @@ body {
   color: #e2e8f0;
 }
 
+.text-2xs {
+  font-size: 0.7rem;
+  line-height: 1rem;
+}
+
 .theme-light {
   color-scheme: light;
   --surface-1: #f8fafc;

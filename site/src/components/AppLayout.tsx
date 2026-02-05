@@ -264,8 +264,8 @@ export default function AppLayout() {
           onClick={() => setDrawerOpen(false)}
         />
         <div
-          className={`absolute left-0 top-0 flex h-full w-72 flex-col border-r border-slate-800 bg-slate-950/95 shadow-2xl backdrop-blur transition-transform ${
-            drawerOpen ? "translate-x-0" : "-translate-x-full"
+          className={`absolute right-0 top-0 flex h-full w-72 flex-col border-l border-slate-800 bg-slate-950/95 shadow-2xl backdrop-blur transition-transform ${
+            drawerOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
           <div className="flex items-center justify-between border-b border-slate-800 px-5 py-4">
@@ -356,7 +356,7 @@ export default function AppLayout() {
               </svg>
             </button>
           </div>
-          <div className="border-b border-slate-800 px-5 py-4 text-sm text-slate-400">
+          <div className="border-b border-slate-800 px-5 py-4 text-2xs text-slate-400">
             Data collected during the research and writing of Terra Classic Four
             Years After: State of the Chain Report (2022–2026)
           </div>
@@ -397,7 +397,7 @@ export default function AppLayout() {
               </a>
             </div>
           </nav>
-          <div className="border-t border-slate-800 px-5 py-4 text-xs text-slate-500">
+          <div className="border-t border-slate-800 px-5 py-4 text-2xs text-slate-500">
             All rights reserved @ Terra-Classic.money 2026 - Designed and
             developed by{" "}
             <a
