@@ -18,7 +18,7 @@ export default function Volume() {
   const view = selectLuncVolume(snapshot, windowId);
 
   return (
-    <div className="space-y-8">
+    <div className="flex min-h-full flex-col gap-8">
       <PageHeader
         eyebrow="Terra Classic Off-Chain Activity"
         title={view.header.title}
@@ -59,11 +59,8 @@ export default function Volume() {
         ))}
       </section>
 
-      <Card className="p-0">
-        <div
-          className="min-h-80 max-h-[70vh]"
-          style={{ height: "max(320px, calc(100vh - 460px))" }}
-        >
+      <Card className="flex flex-1 flex-col p-0">
+        <div className="min-h-80 flex-1">
           <TimeSeriesChart series={view.series} className="h-full" />
         </div>
       </Card>
