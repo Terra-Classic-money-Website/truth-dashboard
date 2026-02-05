@@ -2,49 +2,48 @@ import { z } from "zod";
 import {
   baseSnapshotSchema,
   coverageSchema,
-  kpiTileSchemaBase,
-  seriesSchema,
-  tableColumnSchemaBase,
+  dateString,
+  kpiDeltaSchema,
   timeWindowSchema,
 } from "./common";
 
 export const REQUIRED_LUNC_VOLUME_KPI_IDS = [
-  "kpi.latest",
-  "kpi.max",
-  "kpi.avg",
-  "kpi.venues",
+  "kpi.latest24hVolumeUsd",
+  "kpi.maxVolumeUsdInRange",
+  "kpi.avgVolumeUsdInRange",
 ] as const;
 
-export const REQUIRED_LUNC_VOLUME_TABLE_COLUMNS = [
-  "exchange",
-  "share",
-  "avgDailyUsd",
-  "liquidity",
-] as const;
-
-const kpiTileSchema = kpiTileSchemaBase.extend({
-  id: z.enum(REQUIRED_LUNC_VOLUME_KPI_IDS),
-});
-
-const venueTableSchema = z
+const volumePointSchema = z
   .object({
-    id: z.literal("tbl.venues"),
-    title: z.string(),
-    columns: z
-      .array(
-        tableColumnSchemaBase.extend({
-          key: z.enum(REQUIRED_LUNC_VOLUME_TABLE_COLUMNS),
-        }),
-      )
-      .length(REQUIRED_LUNC_VOLUME_TABLE_COLUMNS.length),
-    rows: z.array(
-      z.object({
-        exchange: z.string(),
-        share: z.number(),
-        avgDailyUsd: z.number(),
-        liquidity: z.string(),
-      }),
-    ),
+    t: dateString,
+    v: z.number(),
+  })
+  .strict();
+
+const volumeSeriesSchema = z
+  .object({
+    points: z
+      .array(volumePointSchema)
+      .min(1)
+      .refine(
+        (points) =>
+          points.every(
+            (point, index, array) =>
+              index === 0 || array[index - 1].t <= point.t,
+          ),
+        "Points must be sorted ascending by t",
+      ),
+  })
+  .strict();
+
+const kpiTileSchema = z
+  .object({
+    id: z.enum(REQUIRED_LUNC_VOLUME_KPI_IDS),
+    label: z.string(),
+    sublabel: z.string(),
+    value: z.number().nullable(),
+    unit: z.literal("usd"),
+    delta: kpiDeltaSchema.nullable().optional(),
   })
   .strict();
 
@@ -52,20 +51,10 @@ const luncVolumeDataSchema = z
   .object({
     series: z
       .object({
-        volume24hUsd: seriesSchema.extend({ id: z.literal("vol.usd.24h") }),
+        volume24hUsd: volumeSeriesSchema,
       })
       .strict(),
-    kpiTiles: z.array(kpiTileSchema),
-    tables: z
-      .object({
-        venueBreakdown: venueTableSchema,
-      })
-      .strict(),
-    notesBlocks: z
-      .object({
-        marketNotes: z.array(z.string()),
-      })
-      .strict(),
+    kpiTiles: z.array(kpiTileSchema).length(REQUIRED_LUNC_VOLUME_KPI_IDS.length),
   })
   .strict();
 

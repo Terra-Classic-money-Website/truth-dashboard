@@ -33,15 +33,13 @@ if (!raw.series.length) {
 }
 
 const seriesPoints = raw.series.map((point) => ({
-  periodEnd: point.t,
+  t: point.t,
   v: point.v,
 }));
 
-const sorted = [...seriesPoints].sort((a, b) =>
-  a.periodEnd.localeCompare(b.periodEnd),
-);
-const coverageStart = sorted[0].periodEnd;
-const coverageEnd = sorted[sorted.length - 1].periodEnd;
+const sorted = [...seriesPoints].sort((a, b) => a.t.localeCompare(b.t));
+const coverageStart = sorted[0].t;
+const coverageEnd = sorted[sorted.length - 1].t;
 
 const latest = sorted[sorted.length - 1];
 const prev = sorted[sorted.length - 2] ?? null;
@@ -57,10 +55,6 @@ const avg =
   sorted.reduce((sum, point) => sum + point.v, 0) / sorted.length;
 
 const snapshot = readJson<any>(snapshotPath);
-const venuesKpi = snapshot.data?.kpiTiles?.find(
-  (kpi: any) => kpi.id === "kpi.venues",
-);
-
 snapshot.generatedAt = formatDate(new Date());
 snapshot.coverage = {
   start: coverageStart,
@@ -69,52 +63,44 @@ snapshot.coverage = {
 };
 
 snapshot.timeWindows = [
+  { id: "3m", label: "3M", days: 92 },
   { id: "6m", label: "6M", days: 183 },
   { id: "1y", label: "1Y", days: 365 },
-  { id: "2y", label: "2Y", days: 730 },
-  { id: "all", label: "All", days: null },
 ];
 
-snapshot.data.series.volume24hUsd.points = sorted;
-
-snapshot.data.kpiTiles = [
-  {
-    id: "kpi.latest",
-    label: "Latest 24h volume",
-    value: latest.v,
-    unit: "usd",
-    asOf: latest.periodEnd,
-    delta,
-    note: "Most recent snapshot",
+snapshot.data = {
+  series: {
+    volume24hUsd: {
+      points: sorted,
+    },
   },
-  {
-    id: "kpi.max",
-    label: "Max volume (range)",
-    value: maxPoint.v,
-    unit: "usd",
-    asOf: maxPoint.periodEnd,
-    delta: null,
-    note: "Peak day in range",
-  },
-  {
-    id: "kpi.avg",
-    label: "Avg volume (range)",
-    value: avg,
-    unit: "usd",
-    asOf: latest.periodEnd,
-    delta: null,
-    note: "Average daily volume",
-  },
-  {
-    id: "kpi.venues",
-    label: "Tracked venues",
-    value: venuesKpi?.value ?? 12,
-    unit: "count",
-    asOf: latest.periodEnd,
-    delta: null,
-    note: "Centralized exchanges",
-  },
-];
+  kpiTiles: [
+    {
+      id: "kpi.latest24hVolumeUsd",
+      label: "Latest 24h volume",
+      sublabel: "Most recent day",
+      value: latest.v,
+      unit: "usd",
+      delta,
+    },
+    {
+      id: "kpi.maxVolumeUsdInRange",
+      label: "Max volume (range)",
+      sublabel: "Peak day in range",
+      value: maxPoint.v,
+      unit: "usd",
+      delta: null,
+    },
+    {
+      id: "kpi.avgVolumeUsdInRange",
+      label: "Avg volume (range)",
+      sublabel: "Average daily volume",
+      value: avg,
+      unit: "usd",
+      delta: null,
+    },
+  ],
+};
 
 writeJson(snapshotPath, snapshot);
 console.log(`Updated snapshot: ${snapshotPath}`);

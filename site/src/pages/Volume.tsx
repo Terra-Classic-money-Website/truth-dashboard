@@ -2,7 +2,7 @@ import { useState } from "react";
 import Card from "../components/Card";
 import SnapshotErrorPanel from "../components/SnapshotErrorPanel";
 import TimeSeriesChart from "../components/charts/TimeSeriesChart";
-import { formatDelta, formatTableValue, formatValue } from "../data/format";
+import { formatDelta, formatValue } from "../data/format";
 import { getSnapshot } from "../data/loadSnapshot";
 import { selectLuncVolume } from "../data/selectors";
 import PageHeader from "../components/PageHeader";
@@ -45,11 +45,11 @@ export default function Volume() {
               {kpi.label}
             </div>
             <div className="mt-2 text-lg font-semibold text-white">
-              {formatValue({ value: kpi.value, unit: kpi.unit, scale: kpi.scale })}
+              {kpi.value !== null
+                ? formatValue({ value: kpi.value, unit: kpi.unit })
+                : "—"}
             </div>
-            {kpi.note ? (
-              <div className="mt-1 text-xs text-slate-500">{kpi.note}</div>
-            ) : null}
+            <div className="mt-1 text-xs text-slate-500">{kpi.sublabel}</div>
             {kpi.delta ? (
               <div className="mt-1 text-xs text-slate-400">
                 {formatDelta(kpi.delta)}
@@ -61,49 +61,6 @@ export default function Volume() {
 
       <Card>
         <TimeSeriesChart series={view.series} height={320} />
-      </Card>
-      <Card>
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="text-base font-semibold text-white">
-            {view.tables.venueBreakdown.title}
-          </h2>
-        </div>
-        <div className="mt-4 overflow-hidden rounded-xl border border-slate-800">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
-              <tr>
-                {view.tables.venueBreakdown.columns.map((column) => (
-                  <th key={column.key} className="px-4 py-3">
-                    {column.label}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {view.tables.venueBreakdown.rows.map((row) => (
-                <tr key={row.exchange} className="text-slate-300">
-                  {view.tables.venueBreakdown.columns.map((column) => (
-                    <td key={column.key} className="px-4 py-3">
-                      {formatTableValue(
-                        row[column.key as keyof typeof row],
-                        column.unit,
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Card>
-
-      <Card>
-        <h2 className="text-base font-semibold text-white">Market notes</h2>
-        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-400">
-          {view.notes.marketNotes.map((note) => (
-            <li key={note}>{note}</li>
-          ))}
-        </ul>
       </Card>
     </div>
   );
