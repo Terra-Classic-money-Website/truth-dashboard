@@ -1,7 +1,9 @@
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 
-const root = path.resolve("/workspaces/truth-dashboard/site");
+const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+const root = path.resolve(scriptDir, "..");
 const rawDir = path.join(root, "src/data/raw");
 const outputPath = path.join(
   root,
