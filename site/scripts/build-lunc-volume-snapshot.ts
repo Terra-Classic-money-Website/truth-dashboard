@@ -2,7 +2,10 @@ import fs from "fs";
 import path from "path";
 
 const root = path.resolve("/workspaces/truth-dashboard/site");
-const rawPath = path.join(root, "src/data/raw/lunc-volume.timeseries.json");
+const rawPath = path.join(
+  root,
+  "src/data/snapshots/lunc-volume.timeseries.json",
+);
 const snapshotPath = path.join(
   root,
   "src/data/snapshots/lunc-volume.snapshot.json",
@@ -12,7 +15,9 @@ type RawPoint = { t: string; v: number };
 
 type RawDataset = {
   schemaVersion: string;
-  series: RawPoint[];
+  seriesId: string;
+  unit: string;
+  points: RawPoint[];
 };
 
 function formatDate(date: Date) {
@@ -28,11 +33,11 @@ function writeJson(filePath: string, data: unknown) {
 }
 
 const raw = readJson<RawDataset>(rawPath);
-if (!raw.series.length) {
+if (!raw.points.length) {
   throw new Error("Raw LUNC volume dataset is empty.");
 }
 
-const seriesPoints = raw.series.map((point) => ({
+const seriesPoints = raw.points.map((point) => ({
   t: point.t,
   v: point.v,
 }));
