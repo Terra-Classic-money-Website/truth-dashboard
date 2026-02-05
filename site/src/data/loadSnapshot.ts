@@ -87,13 +87,27 @@ const snapshots: SnapshotMap = {
 
 const snapshotCache = new Map<DashboardId, SnapshotById[DashboardId]>();
 
+function formatIssue(issue: z.ZodIssue) {
+  const path = issue.path.length ? issue.path.join(".") : "(root)";
+  const expected =
+    "expected" in issue && typeof issue.expected !== "undefined"
+      ? ` expected=${String(issue.expected)}`
+      : "";
+  const received =
+    "received" in issue && typeof issue.received !== "undefined"
+      ? ` received=${String(issue.received)}`
+      : "";
+  return `${path}: ${issue.message}${expected}${received}`;
+}
+
 export class SnapshotValidationError extends Error {
   issues: z.ZodIssue[];
   dashboardId: DashboardId;
 
   constructor(dashboardId: DashboardId, issues: z.ZodIssue[]) {
     super(
-      `Snapshot validation failed for ${dashboardId}. ${issues.length} issue(s) found.`,
+      `Snapshot validation failed for ${dashboardId}. ${issues.length} issue(s) found.\n` +
+        issues.map(formatIssue).join("\n"),
     );
     this.name = "SnapshotValidationError";
     this.issues = issues;

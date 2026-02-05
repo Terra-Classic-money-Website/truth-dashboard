@@ -4,7 +4,7 @@
   "title": "Monthly Active Wallets",
   "subtitle": "...",
   "generatedAt": "...",
-  "coverage": { "start": "...", "end": "...", "cadence": "monthly" },
+  "coverage": { "start": "2022-06-30", "end": "2026-01-31", "cadence": "monthly" },
   "sources": [],
   "notes": [],
   "timeWindows": [],
