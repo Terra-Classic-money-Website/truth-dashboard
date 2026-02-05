@@ -199,15 +199,24 @@ export default function CommunityPoolBalanceChart({
     >
       <div className="mb-2 flex flex-wrap items-center justify-end gap-4 text-xs text-slate-300">
         <div className="flex items-center gap-2">
-          <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: LUNC_COLOR }} />
+          <span
+            className="inline-block h-2.5 w-10 rounded-sm border"
+            style={{ borderColor: LUNC_COLOR }}
+          />
           LUNC
         </div>
         <div className="flex items-center gap-2">
-          <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: USTC_COLOR }} />
+          <span
+            className="inline-block h-2.5 w-10 rounded-sm border"
+            style={{ borderColor: USTC_COLOR }}
+          />
           USTC
         </div>
         <div className="flex items-center gap-2">
-          <span className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: IMPACT_COLOR }} />
+          <span
+            className="inline-block h-2.5 w-10 rounded-sm border"
+            style={{ borderColor: IMPACT_COLOR }}
+          />
           Outflow impact (% of CP)
         </div>
       </div>
