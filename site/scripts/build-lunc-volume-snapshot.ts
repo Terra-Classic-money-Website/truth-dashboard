@@ -61,6 +61,8 @@ const avg =
 
 const snapshot = readJson<any>(snapshotPath);
 snapshot.generatedAt = formatDate(new Date());
+snapshot.subtitle =
+  "CoinGecko market_chart/range volume data for Terra Classic (LUNC)";
 snapshot.coverage = {
   start: coverageStart,
   end: coverageEnd,

@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "dashboardId": "lunc-volume",
   "title": "LUNC 24h Trading Volume (USD) — Historical",
-  "subtitle": "Static dataset bundled with the site. No runtime fetching.",
+  "subtitle": "CoinGecko market_chart/range volume data for Terra Classic (LUNC)",
   "generatedAt": "2026-02-05",
   "coverage": {
     "start": "2025-02-05",
