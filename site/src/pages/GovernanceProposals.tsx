@@ -60,33 +60,6 @@ export default function GovernanceProposals() {
             <input type="checkbox" defaultChecked disabled />
             Descending
           </label>
-          <button
-            type="button"
-            className="rounded-full border border-slate-800 px-4 py-2 text-xs uppercase tracking-wider text-slate-300"
-          >
-            Fetch proposals
-          </button>
-          <span className="text-xs text-slate-500">Last fetched: never</span>
-        </div>
-      </Card>
-
-      <Card>
-        <div className="space-y-2 text-sm text-slate-400">
-          <div>Idle. Click Fetch to load proposals.</div>
-          <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4">
-            Error output placeholder.
-          </div>
-        </div>
-      </Card>
-
-      <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4 text-sm text-slate-400">
-        Proposals meta / health card placeholder.
-      </div>
-
-      <Card>
-        <h2 className="text-base font-semibold text-white">Proposals debug</h2>
-        <div className="mt-3 rounded-xl border border-slate-800 bg-slate-950/60 p-4 text-sm text-slate-400">
-          Debug output will populate once API wiring is enabled.
         </div>
       </Card>
 
