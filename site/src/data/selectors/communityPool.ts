@@ -1,8 +1,179 @@
 import type { CommunityPoolSnapshot } from "../contracts";
 import { formatValue } from "../format";
 
+type DenomTriplet<T> = {
+  lunc: T;
+  ustc: T;
+  combined: T;
+};
+
+type SeriesStats = {
+  totalOutflow: number;
+  idleWeeks: number;
+  longestInactivityStreak: number;
+  utilizationRatePct: number | null;
+  idleWeeksSharePct: number;
+  medianGapWeeks: number | null;
+  p90GapWeeks: number | null;
+  topShare: { top1: number; top3: number; top5: number } | null;
+  eightyTwenty: { weeks: number; pct: number } | null;
+  gini: number | null;
+  burstyIndex: number | null;
+};
+
 function dateInRange(value: string, start: string, end: string) {
   return value >= start && value <= end;
+}
+
+function mean(values: number[]) {
+  if (!values.length) return null;
+  return values.reduce((acc, current) => acc + current, 0) / values.length;
+}
+
+function variance(values: number[]) {
+  if (!values.length) return null;
+  const avg = mean(values);
+  if (avg === null) return null;
+  return (
+    values.reduce((acc, current) => acc + (current - avg) ** 2, 0) / values.length
+  );
+}
+
+function percentile(values: number[], p: number) {
+  if (!values.length) return null;
+  const sorted = [...values].sort((a, b) => a - b);
+  const index = (sorted.length - 1) * p;
+  const lower = Math.floor(index);
+  const upper = Math.ceil(index);
+  if (lower === upper) return sorted[lower];
+  const weight = index - lower;
+  return sorted[lower] * (1 - weight) + sorted[upper] * weight;
+}
+
+function longestZeroStreak(values: number[]) {
+  let best = 0;
+  let current = 0;
+  values.forEach((value) => {
+    if (value === 0) {
+      current += 1;
+      best = Math.max(best, current);
+    } else {
+      current = 0;
+    }
+  });
+  return best;
+}
+
+function gapSeries(values: number[]) {
+  const spendIndices = values
+    .map((value, index) => (value > 0 ? index : -1))
+    .filter((index) => index >= 0);
+  if (spendIndices.length < 2) {
+    return [];
+  }
+  const gaps: number[] = [];
+  for (let i = 1; i < spendIndices.length; i += 1) {
+    gaps.push(spendIndices[i] - spendIndices[i - 1]);
+  }
+  return gaps;
+}
+
+function gini(values: number[]) {
+  if (!values.length) return null;
+  const total = values.reduce((acc, current) => acc + current, 0);
+  if (total === 0) return null;
+  const sorted = [...values].sort((a, b) => a - b);
+  let weighted = 0;
+  sorted.forEach((value, index) => {
+    weighted += (index + 1) * value;
+  });
+  const n = sorted.length;
+  return (2 * weighted) / (n * total) - (n + 1) / n;
+}
+
+function computeSeriesStats(
+  outflowSeries: number[],
+  balanceSeries: Array<number | null>,
+): SeriesStats {
+  const weeksInWindow = outflowSeries.length;
+  const totalOutflow = outflowSeries.reduce((acc, current) => acc + current, 0);
+  const idleWeeks = outflowSeries.filter((value) => value === 0).length;
+  const longestInactivityStreak = longestZeroStreak(outflowSeries);
+  const avgBalance = mean(
+    balanceSeries.filter((value): value is number => value !== null),
+  );
+  const annualizedSpend =
+    weeksInWindow > 0 ? totalOutflow * (52 / weeksInWindow) : 0;
+  const utilizationRatePct =
+    avgBalance && avgBalance > 0 ? (annualizedSpend / avgBalance) * 100 : null;
+  const idleWeeksSharePct =
+    weeksInWindow > 0 ? (idleWeeks / weeksInWindow) * 100 : 0;
+
+  const gaps = gapSeries(outflowSeries);
+  const medianGapWeeks = percentile(gaps, 0.5);
+  const p90GapWeeks = percentile(gaps, 0.9);
+
+  const spendWeeks = outflowSeries.filter((value) => value > 0).sort((a, b) => b - a);
+  const topShare =
+    totalOutflow > 0
+      ? {
+          top1: ((spendWeeks[0] ?? 0) / totalOutflow) * 100,
+          top3:
+            (spendWeeks.slice(0, 3).reduce((acc, current) => acc + current, 0) /
+              totalOutflow) *
+            100,
+          top5:
+            (spendWeeks.slice(0, 5).reduce((acc, current) => acc + current, 0) /
+              totalOutflow) *
+            100,
+        }
+      : null;
+
+  let eightyTwenty: { weeks: number; pct: number } | null = null;
+  if (totalOutflow > 0 && spendWeeks.length > 0) {
+    const target = totalOutflow * 0.8;
+    let acc = 0;
+    let k = 0;
+    for (let i = 0; i < spendWeeks.length; i += 1) {
+      acc += spendWeeks[i];
+      k = i + 1;
+      if (acc >= target) break;
+    }
+    eightyTwenty = {
+      weeks: k,
+      pct: (k / spendWeeks.length) * 100,
+    };
+  }
+
+  const giniCoefficient = gini(outflowSeries);
+  const avgOutflow = mean(outflowSeries);
+  const varianceOutflow = variance(outflowSeries);
+  const burstyIndex =
+    avgOutflow && avgOutflow > 0 && varianceOutflow !== null
+      ? varianceOutflow / avgOutflow
+      : null;
+
+  return {
+    totalOutflow,
+    idleWeeks,
+    longestInactivityStreak,
+    utilizationRatePct,
+    idleWeeksSharePct,
+    medianGapWeeks,
+    p90GapWeeks,
+    topShare,
+    eightyTwenty,
+    gini: giniCoefficient,
+    burstyIndex,
+  };
+}
+
+function asTriplet<T>(factory: (denom: keyof DenomTriplet<unknown>) => T): DenomTriplet<T> {
+  return {
+    lunc: factory("lunc"),
+    ustc: factory("ustc"),
+    combined: factory("combined"),
+  };
 }
 
 export function selectCommunityPool(
@@ -32,14 +203,31 @@ export function selectCommunityPool(
     return true;
   });
 
-  const luncTotal = outflowMarkers.reduce(
-    (acc, marker) => acc + (marker.lunc?.amount ?? 0),
-    0,
+  const markerByTime = new Map(outflowMarkers.map((marker) => [marker.markerTime, marker]));
+
+  const weeklyLuncOutflow = balances.map(
+    (balance) => markerByTime.get(balance.t)?.lunc?.amount ?? 0,
   );
-  const ustcTotal = outflowMarkers.reduce(
-    (acc, marker) => acc + (marker.ustc?.amount ?? 0),
-    0,
+  const weeklyUstcOutflow = balances.map(
+    (balance) => markerByTime.get(balance.t)?.ustc?.amount ?? 0,
   );
+  const weeklyCombinedOutflow = balances.map(
+    (_, index) => weeklyLuncOutflow[index] + weeklyUstcOutflow[index],
+  );
+
+  const luncBalanceSeries = balances.map((point) => point.lunc);
+  const ustcBalanceSeries = balances.map((point) => point.ustc);
+  const combinedBalanceSeries = balances.map((point) => {
+    if (point.lunc === null && point.ustc === null) return null;
+    return (point.lunc ?? 0) + (point.ustc ?? 0);
+  });
+
+  const stats = {
+    lunc: computeSeriesStats(weeklyLuncOutflow, luncBalanceSeries),
+    ustc: computeSeriesStats(weeklyUstcOutflow, ustcBalanceSeries),
+    combined: computeSeriesStats(weeklyCombinedOutflow, combinedBalanceSeries),
+  };
+
   const combinedImpact = outflowMarkers
     .map((marker) => marker.combinedImpactPct)
     .filter((value): value is number => value !== null)
@@ -72,10 +260,17 @@ export function selectCommunityPool(
       };
     });
 
-  const withOutflow = outflowMarkers.filter(
-    (marker) => (marker.lunc?.amount ?? 0) + (marker.ustc?.amount ?? 0) > 0,
-  ).length;
-  const idleWeeks = Math.max(0, balances.length - withOutflow);
+  const outflowSummaryText = `Outflow summary: LUNC ${formatValue({
+    value: stats.lunc.totalOutflow,
+    unit: "lunc",
+    scale: 1e9,
+  })} | USTC ${formatValue({
+    value: stats.ustc.totalOutflow,
+    unit: "ustc",
+    scale: 1e9,
+  })} | Max impact LUNC/USTC combined ${combinedImpact.toFixed(2)}% | Count ${
+    outflowMarkers.length
+  }`;
 
   return {
     header: {
@@ -98,22 +293,28 @@ export function selectCommunityPool(
       ],
       rows,
     },
-    outflowSummaryText: `Outflow summary: LUNC ${formatValue({
-      value: luncTotal,
-      unit: "lunc",
-      scale: 1e9,
-    })} | USTC ${formatValue({
-      value: ustcTotal,
-      unit: "ustc",
-      scale: 1e9,
-    })} | Max impact LUNC/USTC combined ${combinedImpact.toFixed(2)}% | Count ${
-      outflowMarkers.length
-    }`,
+    outflowSummaryText,
     overview: {
-      totalOutflowLunc: luncTotal,
-      totalOutflowUstc: ustcTotal,
-      idleWeeks,
-      markerCount: outflowMarkers.length,
+      totalOutflow: asTriplet((denom) => stats[denom].totalOutflow),
+      idleWeeks: asTriplet((denom) => stats[denom].idleWeeks),
+      longestInactivityStreak: asTriplet(
+        (denom) => stats[denom].longestInactivityStreak,
+      ),
+    },
+    capitalUtilization: {
+      utilizationRatePct: asTriplet((denom) => stats[denom].utilizationRatePct),
+      idleWeeksSharePct: asTriplet((denom) => stats[denom].idleWeeksSharePct),
+      typicalInactivity: asTriplet((denom) => ({
+        median: stats[denom].medianGapWeeks,
+        p90: stats[denom].p90GapWeeks,
+      })),
+      medianGapWeeks: asTriplet((denom) => stats[denom].medianGapWeeks),
+    },
+    spendConcentration: {
+      topSpendShare: asTriplet((denom) => stats[denom].topShare),
+      eightyTwentySpendWeeks: asTriplet((denom) => stats[denom].eightyTwenty),
+      giniCoefficient: asTriplet((denom) => stats[denom].gini),
+      burstyIndex: asTriplet((denom) => stats[denom].burstyIndex),
     },
   };
 }

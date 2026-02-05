@@ -7,6 +7,24 @@ import { getSnapshot } from "../data/loadSnapshot";
 import { selectCommunityPool } from "../data/selectors";
 import PageHeader from "../components/PageHeader";
 
+type DenomKey = "lunc" | "ustc" | "combined";
+
+const DENOMS: Array<{ key: DenomKey; label: string }> = [
+  { key: "lunc", label: "LUNC" },
+  { key: "ustc", label: "USTC" },
+  { key: "combined", label: "COMBINED" },
+];
+
+function renderNumber(value: number | null, digits = 0, suffix = "") {
+  if (value === null || Number.isNaN(value)) return "—";
+  return `${value.toFixed(digits)}${suffix}`;
+}
+
+function renderPercent(value: number | null, digits = 1) {
+  if (value === null || Number.isNaN(value)) return "—";
+  return `${value.toFixed(digits)}%`;
+}
+
 export default function CommunityPool() {
   const { data: snapshot, error } = getSnapshot("community-pool");
   const [windowId, setWindowId] = useState<string>("ALL");
@@ -61,7 +79,7 @@ export default function CommunityPool() {
               Community Pool Balance (History)
             </h2>
             <p className="mt-1 text-sm text-slate-400">
-              Spend bars are anchored at marker week and represent marker → drop
+              Spend bars are anchored at marker week and represent marker to drop
               intervals.
             </p>
           </div>
@@ -119,7 +137,10 @@ export default function CommunityPool() {
                           </span>
                         </div>
                       ) : (
-                        formatTableValue(row[column.key as keyof typeof row] as string | number, column.unit)
+                        formatTableValue(
+                          row[column.key as keyof typeof row] as string | number,
+                          column.unit,
+                        )
                       )}
                     </td>
                   ))}
@@ -141,27 +162,302 @@ export default function CommunityPool() {
       </Card>
 
       <Card>
-        <h2 className="text-lg font-semibold text-white">Overview</h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3">
-            <p className="text-xs uppercase tracking-wider text-slate-500">Total outflow (LUNC)</p>
-            <p className="mt-2 text-lg font-semibold text-white">
-              {formatValue({ value: view.overview.totalOutflowLunc, unit: "lunc", scale: 1e9 })}
-            </p>
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <h2 className="text-lg font-semibold text-white">Overview</h2>
+          <p className="text-sm text-slate-400">
+            Totals are derived from period deltas in the canonical dataset.
+          </p>
+        </div>
+        <div className="mt-4 grid gap-4 lg:grid-cols-2">
+          <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
+            <div className="flex flex-wrap items-center gap-2 text-sm font-semibold text-white">
+              Total outflow
+              <span className="rounded-full bg-slate-950/70 px-2 py-0.5 text-xs uppercase tracking-wider text-slate-400">
+                Coarse (weekly)
+              </span>
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              {DENOMS.map(({ key, label }) => (
+                <div
+                  key={`overview-total-${key}`}
+                  className="rounded-xl border border-slate-800 bg-slate-950/60 p-3"
+                >
+                  <p className="text-xs uppercase tracking-wider text-slate-500">
+                    {label}
+                  </p>
+                  <p className="mt-2 text-lg font-semibold text-white">
+                    {key === "ustc"
+                      ? formatValue({
+                          value: view.overview.totalOutflow[key],
+                          unit: "ustc",
+                          scale: 1e9,
+                        })
+                      : formatValue({
+                          value: view.overview.totalOutflow[key],
+                          unit: "lunc",
+                          scale: 1e9,
+                        })}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3">
-            <p className="text-xs uppercase tracking-wider text-slate-500">Total outflow (USTC)</p>
-            <p className="mt-2 text-lg font-semibold text-white">
-              {formatValue({ value: view.overview.totalOutflowUstc, unit: "ustc", scale: 1e9 })}
-            </p>
+          <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
+            <div className="flex flex-wrap items-center gap-2 text-sm font-semibold text-white">
+              Idle weeks (zero outflow)
+              <span className="rounded-full bg-slate-950/70 px-2 py-0.5 text-xs uppercase tracking-wider text-slate-400">
+                Coarse (weekly)
+              </span>
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              {DENOMS.map(({ key, label }) => (
+                <div
+                  key={`overview-idle-${key}`}
+                  className="rounded-xl border border-slate-800 bg-slate-950/60 p-3"
+                >
+                  <p className="text-xs uppercase tracking-wider text-slate-500">
+                    {label}
+                  </p>
+                  <p className="mt-2 text-lg font-semibold text-white">
+                    {renderNumber(view.overview.idleWeeks[key], 0)}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3">
-            <p className="text-xs uppercase tracking-wider text-slate-500">Idle weeks</p>
-            <p className="mt-2 text-lg font-semibold text-white">{view.overview.idleWeeks}</p>
+          <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4 lg:col-span-2">
+            <div className="flex flex-wrap items-center gap-2 text-sm font-semibold text-white">
+              Longest inactivity streak (weeks)
+              <span className="rounded-full bg-slate-950/70 px-2 py-0.5 text-xs uppercase tracking-wider text-slate-400">
+                Coarse (weekly)
+              </span>
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              {DENOMS.map(({ key, label }) => (
+                <div
+                  key={`overview-longest-${key}`}
+                  className="rounded-xl border border-slate-800 bg-slate-950/60 p-3"
+                >
+                  <p className="text-xs uppercase tracking-wider text-slate-500">
+                    {label}
+                  </p>
+                  <p className="mt-2 text-lg font-semibold text-white">
+                    {renderNumber(view.overview.longestInactivityStreak[key], 0)}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3">
-            <p className="text-xs uppercase tracking-wider text-slate-500">Mapped markers</p>
-            <p className="mt-2 text-lg font-semibold text-white">{view.overview.markerCount}</p>
+        </div>
+      </Card>
+
+      <Card>
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <h2 className="text-lg font-semibold text-white">Capital utilization</h2>
+          <p className="text-sm text-slate-400">
+            Utilization and inactivity metrics computed from weekly spend buckets
+            in the active window.
+          </p>
+        </div>
+        <div className="mt-4 grid gap-4 lg:grid-cols-2">
+          <div className="space-y-4">
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
+              <p className="text-sm font-semibold text-white">
+                Utilization rate (%/yr)
+              </p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                {DENOMS.map(({ key, label }) => (
+                  <div
+                    key={`capital-util-${key}`}
+                    className="rounded-xl border border-slate-800 bg-slate-950/60 p-3"
+                  >
+                    <p className="text-xs uppercase tracking-wider text-slate-500">
+                      {label}
+                    </p>
+                    <p className="mt-2 text-lg font-semibold text-white">
+                      {view.capitalUtilization.utilizationRatePct[key] === null
+                        ? "—"
+                        : `${view.capitalUtilization.utilizationRatePct[key]!.toFixed(2)}%/yr`}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
+              <p className="text-sm font-semibold text-white">
+                Typical inactivity (median / p90)
+              </p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                {DENOMS.map(({ key, label }) => (
+                  <div
+                    key={`capital-typical-${key}`}
+                    className="rounded-xl border border-slate-800 bg-slate-950/60 p-3"
+                  >
+                    <p className="text-xs uppercase tracking-wider text-slate-500">
+                      {label}
+                    </p>
+                    <p className="mt-2 text-lg font-semibold text-white">
+                      {view.capitalUtilization.typicalInactivity[key].median === null ||
+                      view.capitalUtilization.typicalInactivity[key].p90 === null
+                        ? "—"
+                        : `${view.capitalUtilization.typicalInactivity[
+                            key
+                          ].median!.toFixed(1)}w / ${view.capitalUtilization.typicalInactivity[
+                            key
+                          ].p90!.toFixed(1)}w`}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="space-y-4">
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
+              <p className="text-sm font-semibold text-white">Idle weeks share</p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                {DENOMS.map(({ key, label }) => (
+                  <div
+                    key={`capital-idle-share-${key}`}
+                    className="rounded-xl border border-slate-800 bg-slate-950/60 p-3"
+                  >
+                    <p className="text-xs uppercase tracking-wider text-slate-500">
+                      {label}
+                    </p>
+                    <p className="mt-2 text-lg font-semibold text-white">
+                      {renderPercent(view.capitalUtilization.idleWeeksSharePct[key], 1)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
+              <p className="text-sm font-semibold text-white">
+                Median gap between spends
+              </p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                {DENOMS.map(({ key, label }) => (
+                  <div
+                    key={`capital-median-gap-${key}`}
+                    className="rounded-xl border border-slate-800 bg-slate-950/60 p-3"
+                  >
+                    <p className="text-xs uppercase tracking-wider text-slate-500">
+                      {label}
+                    </p>
+                    <p className="mt-2 text-lg font-semibold text-white">
+                      {view.capitalUtilization.medianGapWeeks[key] === null
+                        ? "—"
+                        : `${view.capitalUtilization.medianGapWeeks[key]!.toFixed(1)}w`}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      <Card>
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <h2 className="text-lg font-semibold text-white">Spend concentration</h2>
+          <p className="text-sm text-slate-400">
+            How much weekly governance spend is concentrated into a small number
+            of weeks.
+          </p>
+        </div>
+        <div className="mt-4 grid gap-4 lg:grid-cols-2">
+          <div className="space-y-4">
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
+              <p className="text-sm font-semibold text-white">
+                Top spend share (1/3/5)
+              </p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                {DENOMS.map(({ key, label }) => (
+                  <div
+                    key={`concentration-top-share-${key}`}
+                    className="rounded-xl border border-slate-800 bg-slate-950/60 p-3"
+                  >
+                    <p className="text-xs uppercase tracking-wider text-slate-500">
+                      {label}
+                    </p>
+                    <p className="mt-2 text-lg font-semibold text-white">
+                      {view.spendConcentration.topSpendShare[key] === null
+                        ? "—"
+                        : `${view.spendConcentration.topSpendShare[
+                            key
+                          ]!.top1.toFixed(1)}% / ${view.spendConcentration.topSpendShare[
+                            key
+                          ]!.top3.toFixed(1)}% / ${view.spendConcentration.topSpendShare[
+                            key
+                          ]!.top5.toFixed(1)}%`}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
+              <p className="text-sm font-semibold text-white">Gini coefficient</p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                {DENOMS.map(({ key, label }) => (
+                  <div
+                    key={`concentration-gini-${key}`}
+                    className="rounded-xl border border-slate-800 bg-slate-950/60 p-3"
+                  >
+                    <p className="text-xs uppercase tracking-wider text-slate-500">
+                      {label}
+                    </p>
+                    <p className="mt-2 text-lg font-semibold text-white">
+                      {renderNumber(view.spendConcentration.giniCoefficient[key], 2)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="space-y-4">
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
+              <p className="text-sm font-semibold text-white">
+                80/20 spend weeks
+              </p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                {DENOMS.map(({ key, label }) => (
+                  <div
+                    key={`concentration-8020-${key}`}
+                    className="rounded-xl border border-slate-800 bg-slate-950/60 p-3"
+                  >
+                    <p className="text-xs uppercase tracking-wider text-slate-500">
+                      {label}
+                    </p>
+                    <p className="mt-2 text-lg font-semibold text-white">
+                      {view.spendConcentration.eightyTwentySpendWeeks[key] === null
+                        ? "—"
+                        : `${view.spendConcentration.eightyTwentySpendWeeks[
+                            key
+                          ]!.weeks} (${view.spendConcentration.eightyTwentySpendWeeks[
+                            key
+                          ]!.pct.toFixed(1)}%)`}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
+              <p className="text-sm font-semibold text-white">Bursty index</p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                {DENOMS.map(({ key, label }) => (
+                  <div
+                    key={`concentration-bursty-${key}`}
+                    className="rounded-xl border border-slate-800 bg-slate-950/60 p-3"
+                  >
+                    <p className="text-xs uppercase tracking-wider text-slate-500">
+                      {label}
+                    </p>
+                    <p className="mt-2 text-lg font-semibold text-white">
+                      {renderNumber(view.spendConcentration.burstyIndex[key], 2)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </Card>
