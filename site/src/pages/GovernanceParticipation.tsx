@@ -18,74 +18,21 @@ export default function GovernanceParticipation() {
       />
 
       <Card>
-        <div className="grid gap-4 lg:grid-cols-3">
-          <div className="space-y-2">
-            <label className="text-xs uppercase tracking-wider text-slate-500">
-              Time window
-            </label>
-            <div className="flex flex-wrap gap-2">
-              {["All time", "Last 2 years", "Last year"].map((label) => (
-                <label
-                  key={label}
-                  className="flex items-center gap-2 rounded-full border border-slate-800 px-3 py-2 text-xs uppercase tracking-wider text-slate-300"
-                >
-                  <input type="radio" disabled />
-                  {label}
-                </label>
-              ))}
-            </div>
-            <div className="text-xs text-slate-500">
-              Window: All time • Proposals: —
-            </div>
+        <div className="space-y-2">
+          <label className="text-xs uppercase tracking-wider text-slate-500">
+            Time window
+          </label>
+          <div className="flex flex-wrap gap-2">
+            {["All time", "Last 2 years", "Last year"].map((label) => (
+              <label
+                key={label}
+                className="flex items-center gap-2 rounded-full border border-slate-800 px-3 py-2 text-xs uppercase tracking-wider text-slate-300"
+              >
+                <input type="radio" disabled />
+                {label}
+              </label>
+            ))}
           </div>
-          <div className="space-y-2">
-            <label className="text-xs uppercase tracking-wider text-slate-500">
-              Active on-chain wallets (last year)
-            </label>
-            <input
-              className="w-full rounded-xl border border-slate-800 bg-slate-950/70 px-4 py-2 text-sm text-slate-300"
-              placeholder="e.g., 120000"
-              type="number"
-              disabled
-            />
-          </div>
-          <div className="space-y-2">
-            <label className="flex items-center gap-2 text-xs text-slate-400">
-              <input type="checkbox" disabled />
-              Debug
-            </label>
-            <button
-              type="button"
-              className="rounded-full border border-slate-800 px-4 py-2 text-xs uppercase tracking-wider text-slate-300"
-            >
-              Fetch latest data
-            </button>
-            <div className="text-xs text-slate-500">Last fetched: never</div>
-          </div>
-        </div>
-      </Card>
-
-      <Card>
-        <div className="space-y-2 text-sm text-slate-400">
-          <div>Idle. Load cached data or fetch latest.</div>
-          <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4">
-            Error output placeholder.
-          </div>
-        </div>
-      </Card>
-
-      <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4 text-sm text-slate-400">
-        Warning banner placeholder.
-      </div>
-
-      <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4 text-sm text-slate-400">
-        Vote health card placeholder.
-      </div>
-
-      <Card>
-        <h2 className="text-base font-semibold text-white">Debug sample</h2>
-        <div className="mt-3 rounded-xl border border-slate-800 bg-slate-950/60 p-4 text-sm text-slate-400">
-          Debug output will populate once API wiring is enabled.
         </div>
       </Card>
 
