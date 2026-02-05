@@ -28,34 +28,9 @@ export default function GovernanceValidators() {
               ))}
             </div>
           </div>
-          <div className="space-y-2">
-            <label className="flex items-center gap-2 text-xs text-slate-400">
-              <input type="checkbox" disabled />
-              Income &gt; $100
-            </label>
-            <button
-              type="button"
-              className="rounded-full border border-slate-800 px-4 py-2 text-xs uppercase tracking-wider text-slate-300"
-            >
-              Fetch validators
-            </button>
-            <div className="text-xs text-slate-500">Last fetched: never</div>
-          </div>
+          <div className="space-y-2" />
         </div>
       </Card>
-
-      <Card>
-        <div className="space-y-2 text-sm text-slate-400">
-          <div>Idle. Click Fetch to load validators.</div>
-          <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4">
-            Error output placeholder.
-          </div>
-        </div>
-      </Card>
-
-      <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4 text-sm text-slate-400">
-        Validators meta / health card placeholder.
-      </div>
 
       <Card>
         <div className="flex flex-wrap items-center justify-between gap-3">
