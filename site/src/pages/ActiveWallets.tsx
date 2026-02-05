@@ -72,10 +72,10 @@ export default function ActiveWallets() {
             Active wallets
           </div>
         </div>
-        <div className="mt-6 h-[590px] min-h-[590px] max-[640px]:h-[420px] max-[640px]:min-h-[420px] max-[480px]:h-[320px] max-[480px]:min-h-[320px]">
+        <div className="mt-6">
           <TimeSeriesChart
             series={view.series}
-            className="h-full"
+            height={590}
             xTicks={monthlyTicks}
             xTickFormatter={formatMonthLabel}
             minXTickGap={48}
