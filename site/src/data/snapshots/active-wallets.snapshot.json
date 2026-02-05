@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "dashboardId": "active-wallets",
   "title": "Monthly Active Wallets",
-  "subtitle": "Static dataset bundled with the site. No runtime fetching.",
+  "subtitle": "Participants per month based on transaction senders and recipients on the Terra Classic L1.",
   "generatedAt": "2026-02-05",
   "coverage": {
     "start": "2022-06-30",

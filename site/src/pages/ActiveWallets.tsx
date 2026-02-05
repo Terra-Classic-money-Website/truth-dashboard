@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Card from "../components/Card";
 import SnapshotErrorPanel from "../components/SnapshotErrorPanel";
 import TimeSeriesChart from "../components/charts/TimeSeriesChart";
 import {
-  formatDelta,
   formatNumber,
   formatPercent,
   formatTableValue,
@@ -14,7 +13,7 @@ import { selectActiveWallets } from "../data/selectors";
 import PageHeader from "../components/PageHeader";
 
 export default function ActiveWallets() {
-  const [windowId, setWindowId] = useState<string>("all");
+  const [windowId, setWindowId] = useState<string>("3y");
   const { data: snapshot, error } = getSnapshot("active-wallets");
 
   if (!snapshot) {
@@ -22,6 +21,16 @@ export default function ActiveWallets() {
   }
 
   const view = selectActiveWallets(snapshot, windowId);
+  const monthlyTicks = useMemo(() => {
+    const points = view.series[0]?.points ?? [];
+    return points.map((point) => point.periodEnd);
+  }, [view.series]);
+  const formatMonthLabel = (isoDate: string) =>
+    new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      year: "2-digit",
+      timeZone: "UTC",
+    }).format(new Date(`${isoDate}T00:00:00Z`));
 
   return (
     <div className="space-y-8">
@@ -53,7 +62,8 @@ export default function ActiveWallets() {
           <div>
             <h2 className="text-lg font-semibold text-white">Participants</h2>
             <p className="mt-1 text-sm text-slate-400">
-              Unique terra1 addresses per month
+              Participants per month based on transaction senders and recipients
+              on the Terra Classic L1.
             </p>
           </div>
           <div className="flex items-center gap-2 text-sm text-slate-400">
@@ -61,37 +71,16 @@ export default function ActiveWallets() {
             Active wallets
           </div>
         </div>
-        <div className="mt-6">
-          <TimeSeriesChart series={view.series} height={320} />
+        <div className="mt-6 h-[590px] max-[760px]:h-[420px] max-[560px]:h-[320px]">
+          <TimeSeriesChart
+            series={view.series}
+            className="h-full"
+            xTicks={monthlyTicks}
+            xTickFormatter={formatMonthLabel}
+            minXTickGap={48}
+          />
         </div>
       </Card>
-
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {view.kpiTiles.map((kpi) => (
-          <Card key={kpi.id} className="p-4">
-            <div className="text-xs uppercase tracking-wider text-slate-500">
-              {kpi.label}
-            </div>
-            <div className="mt-2 text-lg font-semibold text-white">
-              {kpi.value === null
-                ? "—"
-                : formatValue({
-                    value: kpi.value,
-                    unit: kpi.unit,
-                    scale: kpi.scale,
-                  })}
-            </div>
-            {kpi.note ? (
-              <div className="mt-1 text-xs text-slate-500">{kpi.note}</div>
-            ) : null}
-            {kpi.delta ? (
-              <div className="mt-1 text-xs text-slate-400">
-                {formatDelta(kpi.delta)}
-              </div>
-            ) : null}
-          </Card>
-        ))}
-      </section>
 
       <section className="space-y-4">
         <div>
@@ -255,12 +244,6 @@ export default function ActiveWallets() {
                   {view.extremes.drawdownRecovery.from} →{" "}
                   {view.extremes.drawdownRecovery.to})
                 </p>
-                <p className="mt-2 text-sm text-slate-300">
-                  Recovery time:{" "}
-                  {view.extremes.drawdownRecovery.recovered
-                    ? "Recovered within dataset"
-                    : "Not recovered within dataset"}
-                </p>
               </div>
             </div>
           </Card>
@@ -285,7 +268,7 @@ export default function ActiveWallets() {
                         {formatNumber(row.threshold)}
                       </td>
                       <td className="px-4 py-3">{row.firstReached}</td>
-                      <td className="px-4 py-3">—</td>
+                      <td className="px-4 py-3">{row.monthsBelow}</td>
                       <td className="px-4 py-3">{row.lastSeen}</td>
                     </tr>
                   ))}
@@ -300,10 +283,24 @@ export default function ActiveWallets() {
             <h3 className="text-base font-semibold text-white">
               Seasonality Snapshot
             </h3>
-            <div className="mt-3 grid gap-4 sm:grid-cols-2">
-              <div className="text-sm text-slate-400">
-                Snapshot does not include seasonality data.
-              </div>
+            <div className="mt-3 grid gap-x-8 gap-y-2 sm:grid-cols-2">
+              {view.seasonality.rows.map((row) => (
+                <div key={row.month} className="flex items-center justify-between">
+                  <span className="text-sm text-slate-400">{row.month}</span>
+                  <span
+                    className={[
+                      "text-sm font-semibold",
+                      row.isMax
+                        ? "text-amber-300"
+                        : row.isMin
+                          ? "text-rose-300"
+                          : "text-white",
+                    ].join(" ")}
+                  >
+                    {row.value === null ? "—" : formatNumber(Math.round(row.value))}
+                  </span>
+                </div>
+              ))}
             </div>
           </Card>
           <Card>

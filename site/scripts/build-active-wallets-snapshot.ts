@@ -283,7 +283,8 @@ const snapshot = {
   schemaVersion: "1.0.0",
   dashboardId: "active-wallets",
   title: "Monthly Active Wallets",
-  subtitle: "Static dataset bundled with the site. No runtime fetching.",
+  subtitle:
+    "Participants per month based on transaction senders and recipients on the Terra Classic L1.",
   generatedAt: new Date().toISOString().slice(0, 10),
   coverage: {
     start: coverageStart,

@@ -139,6 +139,7 @@ export default function Volume() {
             xTickFormatter={formatMonthLabel}
             yTicks={yTicks}
             yTickFormatter={formatUsdTick}
+            forceAllXTicks
           />
         </div>
       </Card>

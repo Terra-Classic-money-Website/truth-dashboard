@@ -24,6 +24,8 @@ type TimeSeriesChartProps = {
   yTicks?: number[];
   xTickFormatter?: (isoDate: string) => string;
   yTickFormatter?: (value: number) => string;
+  minXTickGap?: number;
+  forceAllXTicks?: boolean;
 };
 
 const colors = ["#f7b955", "#60a5fa", "#34d399", "#f87171"];
@@ -41,6 +43,8 @@ export default function TimeSeriesChart({
   yTicks,
   xTickFormatter,
   yTickFormatter,
+  minXTickGap = 80,
+  forceAllXTicks = false,
 }: TimeSeriesChartProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -100,11 +104,23 @@ export default function TimeSeriesChart({
   const basePoints = series[0]?.points ?? [];
   const showEmpty = basePoints.length === 0 || width === 0;
 
-  const xTickTimes = xTicks?.length
+  const xTickCandidates = xTicks?.length
     ? xTicks.map((tick) => new Date(`${tick}T00:00:00Z`).getTime())
     : Array.from({ length: 4 }, (_, i) =>
         minTime + (i / 3) * timeRange,
       );
+  const xTickTimes = useMemo(() => {
+    if (forceAllXTicks || xTickCandidates.length <= 2) {
+      return xTickCandidates;
+    }
+    const maxTicks = Math.max(2, Math.floor(innerWidth / minXTickGap));
+    const step = Math.max(1, Math.ceil(xTickCandidates.length / maxTicks));
+    return xTickCandidates.filter((_, index) => {
+      const isEdge =
+        index === 0 || index === xTickCandidates.length - 1;
+      return isEdge || index % step === 0;
+    });
+  }, [forceAllXTicks, innerWidth, minXTickGap, xTickCandidates]);
 
   const buildTicks = () => {
     const targetCount = 6;
