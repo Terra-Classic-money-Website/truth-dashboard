@@ -2,12 +2,39 @@
   "schemaVersion": "1.0.0",
   "dashboardId": "active-wallets",
   "title": "Monthly Active Wallets",
-  "subtitle": "...",
-  "generatedAt": "...",
-  "coverage": { "start": "2022-06-30", "end": "2026-01-31", "cadence": "monthly" },
-  "sources": [],
+  "subtitle": "Static dataset bundled with the site. No runtime fetching.",
+  "generatedAt": "2026-02-05",
+  "coverage": {
+    "start": "2022-06-30",
+    "end": "2026-01-31",
+    "cadence": "monthly"
+  },
+  "sources": [
+    {
+      "id": "active-wallets-monthly",
+      "label": "Active wallets monthly dataset (offline)",
+      "type": "dataset",
+      "notes": "Bundled snapshot dataset. Null months removed."
+    }
+  ],
   "notes": [],
-  "timeWindows": [],
+  "timeWindows": [
+    {
+      "id": "2y",
+      "label": "2 Years",
+      "months": 24
+    },
+    {
+      "id": "3y",
+      "label": "3 Years",
+      "months": 36
+    },
+    {
+      "id": "all",
+      "label": "All",
+      "months": null
+    }
+  ],
   "data": {
     "series": {
       "mawTotal": {
@@ -16,7 +43,184 @@
         "cadence": "monthly",
         "unit": "count",
         "scale": 1,
-        "points": [{ "periodEnd": "2022-06-30", "v": 42000 }]
+        "points": [
+          {
+            "periodEnd": "2022-06-30",
+            "v": 212151
+          },
+          {
+            "periodEnd": "2022-07-31",
+            "v": 406085
+          },
+          {
+            "periodEnd": "2022-08-31",
+            "v": 498729
+          },
+          {
+            "periodEnd": "2022-09-30",
+            "v": 348416
+          },
+          {
+            "periodEnd": "2022-10-31",
+            "v": 150304
+          },
+          {
+            "periodEnd": "2022-11-30",
+            "v": 148466
+          },
+          {
+            "periodEnd": "2022-12-31",
+            "v": 83172
+          },
+          {
+            "periodEnd": "2023-01-31",
+            "v": 75593
+          },
+          {
+            "periodEnd": "2023-02-28",
+            "v": 72903
+          },
+          {
+            "periodEnd": "2023-03-31",
+            "v": 61692
+          },
+          {
+            "periodEnd": "2023-04-30",
+            "v": 55485
+          },
+          {
+            "periodEnd": "2023-05-31",
+            "v": 48282
+          },
+          {
+            "periodEnd": "2023-06-30",
+            "v": 60942
+          },
+          {
+            "periodEnd": "2023-07-31",
+            "v": 52039
+          },
+          {
+            "periodEnd": "2023-08-31",
+            "v": 43869
+          },
+          {
+            "periodEnd": "2023-09-30",
+            "v": 37003
+          },
+          {
+            "periodEnd": "2023-10-31",
+            "v": 40185
+          },
+          {
+            "periodEnd": "2023-11-30",
+            "v": 62270
+          },
+          {
+            "periodEnd": "2023-12-31",
+            "v": 81772
+          },
+          {
+            "periodEnd": "2024-01-31",
+            "v": 60543
+          },
+          {
+            "periodEnd": "2024-02-29",
+            "v": 59596
+          },
+          {
+            "periodEnd": "2024-03-31",
+            "v": 71191
+          },
+          {
+            "periodEnd": "2024-04-30",
+            "v": 44582
+          },
+          {
+            "periodEnd": "2024-05-31",
+            "v": 43333
+          },
+          {
+            "periodEnd": "2024-06-30",
+            "v": 35730
+          },
+          {
+            "periodEnd": "2024-07-31",
+            "v": 34629
+          },
+          {
+            "periodEnd": "2024-08-31",
+            "v": 34272
+          },
+          {
+            "periodEnd": "2024-09-30",
+            "v": 42337
+          },
+          {
+            "periodEnd": "2024-10-31",
+            "v": 32791
+          },
+          {
+            "periodEnd": "2024-11-30",
+            "v": 39879
+          },
+          {
+            "periodEnd": "2024-12-31",
+            "v": 47516
+          },
+          {
+            "periodEnd": "2025-01-31",
+            "v": 31933
+          },
+          {
+            "periodEnd": "2025-02-28",
+            "v": 29705
+          },
+          {
+            "periodEnd": "2025-03-31",
+            "v": 23758
+          },
+          {
+            "periodEnd": "2025-04-30",
+            "v": 23146
+          },
+          {
+            "periodEnd": "2025-05-31",
+            "v": 22633
+          },
+          {
+            "periodEnd": "2025-06-30",
+            "v": 18710
+          },
+          {
+            "periodEnd": "2025-07-31",
+            "v": 25347
+          },
+          {
+            "periodEnd": "2025-08-31",
+            "v": 22651
+          },
+          {
+            "periodEnd": "2025-09-30",
+            "v": 22938
+          },
+          {
+            "periodEnd": "2025-10-31",
+            "v": 44342
+          },
+          {
+            "periodEnd": "2025-11-30",
+            "v": 18414
+          },
+          {
+            "periodEnd": "2025-12-31",
+            "v": 25373
+          },
+          {
+            "periodEnd": "2026-01-31",
+            "v": 17009
+          }
+        ]
       },
       "mawSenders": {
         "id": "maw.senders",
@@ -24,7 +228,7 @@
         "cadence": "monthly",
         "unit": "count",
         "scale": 1,
-        "points": [{ "periodEnd": "2022-06-30", "v": 18000 }]
+        "points": []
       },
       "mawRecipients": {
         "id": "maw.recipients",
@@ -32,90 +236,429 @@
         "cadence": "monthly",
         "unit": "count",
         "scale": 1,
-        "points": [{ "periodEnd": "2022-06-30", "v": 26000 }]
+        "points": []
       }
     },
-
     "kpiTiles": [
-      { "id": "kpi.mawTotal", "label": "Monthly active wallets", "value": 128420, "unit": "count", "scale": 1, "asOf": "2026-01-31", "delta": { "value": 0.041, "unit": "percent", "vs": "prev_period" }, "note": "Senders + recipients" },
-      { "id": "kpi.senders", "label": "Monthly senders", "value": 74980, "unit": "count", "scale": 1, "asOf": "2026-01-31", "delta": { "value": 0.026, "unit": "percent", "vs": "prev_period" }, "note": "Initiating txs" },
-      { "id": "kpi.recipients", "label": "Monthly recipients", "value": 91340, "unit": "count", "scale": 1, "asOf": "2026-01-31", "delta": { "value": 0.032, "unit": "percent", "vs": "prev_period" }, "note": "Receiving txs" },
-      { "id": "kpi.retention", "label": "Retention", "value": 0.62, "unit": "percent", "scale": 1, "asOf": "2026-01-31", "delta": null, "note": "3-month rolling return rate" }
+      {
+        "id": "kpi.mawTotal",
+        "label": "Monthly active wallets",
+        "value": 17009,
+        "unit": "count",
+        "scale": 1,
+        "asOf": "2026-01-31",
+        "delta": {
+          "value": -0.32964174516218026,
+          "unit": "percent",
+          "vs": "prev_period"
+        },
+        "note": "Senders + recipients"
+      },
+      {
+        "id": "kpi.senders",
+        "label": "Monthly senders",
+        "value": null,
+        "unit": "count",
+        "scale": 1,
+        "asOf": "2026-01-31",
+        "delta": null,
+        "note": "Not available in dataset"
+      },
+      {
+        "id": "kpi.recipients",
+        "label": "Monthly recipients",
+        "value": null,
+        "unit": "count",
+        "scale": 1,
+        "asOf": "2026-01-31",
+        "delta": null,
+        "note": "Not available in dataset"
+      },
+      {
+        "id": "kpi.retention",
+        "label": "Retention",
+        "value": null,
+        "unit": "percent",
+        "scale": 1,
+        "asOf": "2026-01-31",
+        "delta": null,
+        "note": "Not available in dataset"
+      }
     ],
-
     "insights": {
       "highlights": [
-        "Activity is down 97.0% from the peak (peak: Aug 22, 498,729)."
+        "Activity is down -96.6% from the peak (peak: Aug 22, 498,729).",
+        "Over the last 12 months, the trend slope is -139 wallets/month (smoothed).",
+        "The last month shows decline with MoM change of -33.0%.",
+        "Year-over-year change is -46.7% (vs Jan 25).",
+        "The network spent 8 months below 25,000 active wallets."
       ],
       "kpiSnapshot": [
-        { "id": "kpi.currentMonth", "label": "Current month", "value": 14982, "unit": "count", "asOf": "2026-01-31", "note": "Jan 26" },
-        { "id": "kpi.allTimePeak", "label": "All-time peak", "value": 498729, "unit": "count", "asOf": "2022-08-31", "note": "Aug 22" },
-        { "id": "kpi.drawdown", "label": "Drawdown from peak", "value": -0.97, "unit": "percent", "asOf": "2026-01-31", "note": "Current vs peak" },
-        { "id": "kpi.roll12Avg", "label": "12M rolling average", "value": 24333, "unit": "count", "asOf": "2026-01-31", "note": "Last 12 months" },
-        { "id": "kpi.trendSlope", "label": "12M trend slope", "value": -217, "unit": "count", "asOf": "2026-01-31", "note": "wallets / month" },
-        { "id": "kpi.stability", "label": "12M stability", "value": 0.289, "unit": "percent", "asOf": "2026-01-31", "note": "stdev / mean" }
+        {
+          "id": "kpi.currentMonth",
+          "label": "Current month",
+          "value": 17009,
+          "unit": "count",
+          "asOf": "2026-01-31",
+          "note": "Jan 26"
+        },
+        {
+          "id": "kpi.allTimePeak",
+          "label": "All-time peak",
+          "value": 498729,
+          "unit": "count",
+          "asOf": "2022-08-31",
+          "note": "Aug 22"
+        },
+        {
+          "id": "kpi.drawdown",
+          "label": "Drawdown from peak",
+          "value": -0.9658953058675153,
+          "unit": "percent",
+          "asOf": "2026-01-31",
+          "note": "Current vs peak"
+        },
+        {
+          "id": "kpi.roll12Avg",
+          "label": "12M rolling average",
+          "value": 24502.166666666668,
+          "unit": "count",
+          "asOf": "2026-01-31",
+          "note": "Last 12 months"
+        },
+        {
+          "id": "kpi.trendSlope",
+          "label": "12M trend slope",
+          "value": -138.85314685314685,
+          "unit": "count",
+          "asOf": "2026-01-31",
+          "note": "wallets / month"
+        },
+        {
+          "id": "kpi.stability",
+          "label": "12M stability",
+          "value": 0.27897397004324953,
+          "unit": "percent",
+          "asOf": "2026-01-31",
+          "note": "stdev / mean"
+        }
       ]
     },
-
     "tables": {
       "yearSummary": {
         "id": "tbl.yearSummary",
         "title": "Year Summary",
         "columns": [
-          { "key": "year", "label": "Year", "type": "text" },
-          { "key": "avgMonthly", "label": "Avg monthly wallets", "type": "number", "unit": "count" },
-          { "key": "median", "label": "Median", "type": "number", "unit": "count" },
-          { "key": "yoy", "label": "YoY change", "type": "number", "unit": "percent" },
-          { "key": "volatility", "label": "Volatility", "type": "number", "unit": "count" },
-          { "key": "cv", "label": "Coeff. of variation", "type": "number", "unit": "percent" }
+          {
+            "key": "year",
+            "label": "Year",
+            "type": "text"
+          },
+          {
+            "key": "avgMonthly",
+            "label": "Avg monthly wallets",
+            "type": "number",
+            "unit": "count"
+          },
+          {
+            "key": "median",
+            "label": "Median",
+            "type": "number",
+            "unit": "count"
+          },
+          {
+            "key": "yoy",
+            "label": "YoY change",
+            "type": "number",
+            "unit": "percent"
+          },
+          {
+            "key": "volatility",
+            "label": "Volatility",
+            "type": "number",
+            "unit": "count"
+          },
+          {
+            "key": "cv",
+            "label": "Coeff. of variation",
+            "type": "number",
+            "unit": "percent"
+          }
         ],
         "rows": [
-          { "year": "2026", "avgMonthly": 14982, "median": 14982, "yoy": -0.418, "volatility": 0, "cv": 0.0 }
+          {
+            "year": "2022",
+            "avgMonthly": 263903.28571428574,
+            "median": 212151,
+            "yoy": 0,
+            "volatility": 143464.18975948996,
+            "cv": 0.5436241135504888
+          },
+          {
+            "year": "2023",
+            "avgMonthly": 57669.583333333336,
+            "median": 58213.5,
+            "yoy": -0.781474553538643,
+            "volatility": 13632.564361718192,
+            "cv": 0.23639089401636953
+          },
+          {
+            "year": "2024",
+            "avgMonthly": 45533.25,
+            "median": 42835,
+            "yoy": -0.21044600345358258,
+            "volatility": 11681.269067221821,
+            "cv": 0.25654371403802323
+          },
+          {
+            "year": "2025",
+            "avgMonthly": 25745.833333333332,
+            "median": 23452,
+            "yoy": -0.43457070748665355,
+            "volatility": 6715.606932528304,
+            "cv": 0.26084247674490907
+          },
+          {
+            "year": "2026",
+            "avgMonthly": 17009,
+            "median": 17009,
+            "yoy": -0.339349409289529,
+            "volatility": 0,
+            "cv": 0
+          }
         ]
       },
-
       "quarterlySummary": {
         "id": "tbl.quarterlySummary",
         "title": "Quarterly Summary",
         "columns": [
-          { "key": "quarter", "label": "Quarter", "type": "text" },
-          { "key": "avg", "label": "Avg wallets", "type": "number", "unit": "count" },
-          { "key": "qoq", "label": "QoQ change", "type": "number", "unit": "percent" },
-          { "key": "bestMonth", "label": "Best month", "type": "text" },
-          { "key": "worstMonth", "label": "Worst month", "type": "text" }
+          {
+            "key": "quarter",
+            "label": "Quarter",
+            "type": "text"
+          },
+          {
+            "key": "avg",
+            "label": "Avg wallets",
+            "type": "number",
+            "unit": "count"
+          },
+          {
+            "key": "qoq",
+            "label": "QoQ change",
+            "type": "number",
+            "unit": "percent"
+          },
+          {
+            "key": "bestMonth",
+            "label": "Best month",
+            "type": "text"
+          },
+          {
+            "key": "worstMonth",
+            "label": "Worst month",
+            "type": "text"
+          }
         ],
         "rows": [
-          { "quarter": "2026 Q1", "avg": 14982, "qoq": -0.49, "bestMonth": "Jan 26 (14,982)", "worstMonth": "Jan 26 (14,982)" }
+          {
+            "quarter": "2022 Q2",
+            "avg": 212151,
+            "qoq": 0,
+            "bestMonth": "Jun 22 (212,151)",
+            "worstMonth": "Jun 22 (212,151)"
+          },
+          {
+            "quarter": "2022 Q3",
+            "avg": 417743.3333333333,
+            "qoq": 0.9690849127901038,
+            "bestMonth": "Aug 22 (498,729)",
+            "worstMonth": "Sep 22 (348,416)"
+          },
+          {
+            "quarter": "2022 Q4",
+            "avg": 127314,
+            "qoq": -0.6952339155621873,
+            "bestMonth": "Oct 22 (150,304)",
+            "worstMonth": "Dec 22 (83,172)"
+          },
+          {
+            "quarter": "2023 Q1",
+            "avg": 70062.66666666667,
+            "qoq": -0.4496860779908991,
+            "bestMonth": "Jan 23 (75,593)",
+            "worstMonth": "Mar 23 (61,692)"
+          },
+          {
+            "quarter": "2023 Q2",
+            "avg": 54903,
+            "qoq": -0.21637296134888773,
+            "bestMonth": "Jun 23 (60,942)",
+            "worstMonth": "May 23 (48,282)"
+          },
+          {
+            "quarter": "2023 Q3",
+            "avg": 44303.666666666664,
+            "qoq": -0.19305563144697624,
+            "bestMonth": "Jul 23 (52,039)",
+            "worstMonth": "Sep 23 (37,003)"
+          },
+          {
+            "quarter": "2023 Q4",
+            "avg": 61409,
+            "qoq": 0.3860929494172793,
+            "bestMonth": "Dec 23 (81,772)",
+            "worstMonth": "Oct 23 (40,185)"
+          },
+          {
+            "quarter": "2024 Q1",
+            "avg": 63776.666666666664,
+            "qoq": 0.03855569487642958,
+            "bestMonth": "Mar 24 (71,191)",
+            "worstMonth": "Feb 24 (59,596)"
+          },
+          {
+            "quarter": "2024 Q2",
+            "avg": 41215,
+            "qoq": -0.3537605184759316,
+            "bestMonth": "Apr 24 (44,582)",
+            "worstMonth": "Jun 24 (35,730)"
+          },
+          {
+            "quarter": "2024 Q3",
+            "avg": 37079.333333333336,
+            "qoq": -0.1003437259897286,
+            "bestMonth": "Sep 24 (42,337)",
+            "worstMonth": "Aug 24 (34,272)"
+          },
+          {
+            "quarter": "2024 Q4",
+            "avg": 40062,
+            "qoq": 0.08044013736313123,
+            "bestMonth": "Dec 24 (47,516)",
+            "worstMonth": "Oct 24 (32,791)"
+          },
+          {
+            "quarter": "2025 Q1",
+            "avg": 28465.333333333332,
+            "qoq": -0.2894679912801824,
+            "bestMonth": "Jan 25 (31,933)",
+            "worstMonth": "Mar 25 (23,758)"
+          },
+          {
+            "quarter": "2025 Q2",
+            "avg": 21496.333333333332,
+            "qoq": -0.24482411354161787,
+            "bestMonth": "Apr 25 (23,146)",
+            "worstMonth": "Jun 25 (18,710)"
+          },
+          {
+            "quarter": "2025 Q3",
+            "avg": 23645.333333333332,
+            "qoq": 0.09997053761106546,
+            "bestMonth": "Jul 25 (25,347)",
+            "worstMonth": "Aug 25 (22,651)"
+          },
+          {
+            "quarter": "2025 Q4",
+            "avg": 29376.333333333332,
+            "qoq": 0.2423734070147739,
+            "bestMonth": "Oct 25 (44,342)",
+            "worstMonth": "Nov 25 (18,414)"
+          },
+          {
+            "quarter": "2026 Q1",
+            "avg": 17009,
+            "qoq": -0.420996493776169,
+            "bestMonth": "Jan 26 (17,009)",
+            "worstMonth": "Jan 26 (17,009)"
+          }
         ]
       }
     },
-
     "extremes": {
       "topMonths": [
-        { "label": "Aug 22", "value": 498729 },
-        { "label": "Jul 22", "value": 284406 }
+        {
+          "label": "Aug 22",
+          "value": 498729
+        },
+        {
+          "label": "Jul 22",
+          "value": 406085
+        },
+        {
+          "label": "Sep 22",
+          "value": 348416
+        },
+        {
+          "label": "Jun 22",
+          "value": 212151
+        },
+        {
+          "label": "Oct 22",
+          "value": 150304
+        }
       ],
       "bottomMonths": [
-        { "label": "Jan 26", "value": 14982 }
+        {
+          "label": "Jan 26",
+          "value": 17009
+        },
+        {
+          "label": "Nov 25",
+          "value": 18414
+        },
+        {
+          "label": "Jun 25",
+          "value": 18710
+        },
+        {
+          "label": "May 25",
+          "value": 22633
+        },
+        {
+          "label": "Aug 25",
+          "value": 22651
+        }
       ],
-      "largestMoMIncrease": { "label": "Jul 22", "abs": 193934, "pct": 0.914 },
-      "largestMoMDecrease": { "label": "Oct 22", "abs": -98112, "pct": -0.569 },
-      "drawdownRecovery": { "drawdownPct": -0.97, "from": "2022-08-31", "to": "2026-01-31", "recovered": false }
+      "largestMoMIncrease": {
+        "label": "Jul 22",
+        "abs": 193934,
+        "pct": 0.9141319154752983
+      },
+      "largestMoMDecrease": {
+        "label": "Oct 22",
+        "abs": -198112,
+        "pct": -0.5686076414401176
+      },
+      "drawdownRecovery": {
+        "drawdownPct": -0.9658953058675153,
+        "from": "2022-08-31",
+        "to": "2026-01-31",
+        "recovered": false
+      }
     },
-
     "milestones": {
       "thresholds": [
-        { "threshold": 100000, "firstReached": "2022-09-30", "lastSeen": "2025-12-31" },
-        { "threshold": 200000, "firstReached": "2023-01-31", "lastSeen": "2023-01-31" }
+        {
+          "threshold": 50000,
+          "firstReached": "2023-05-31",
+          "lastSeen": "2026-01-31"
+        },
+        {
+          "threshold": 25000,
+          "firstReached": "2025-03-31",
+          "lastSeen": "2026-01-31"
+        }
       ]
     },
-
     "method": {
       "source": "terra-classic-fcd.publicnode.com",
       "metricDefinition": "Monthly Active Wallets = unique addresses observed participating in on-chain transactions in that month.",
       "dataWindow": "Jun 22 → Jan 26",
       "notes": [
-        "Snapshot compiled for Terra Classic Four Years After: State of the Chain Report (2022–2026)."
+        "Snapshot compiled from bundled monthly dataset.",
+        "Null months were excluded from the series."
       ]
     }
   }

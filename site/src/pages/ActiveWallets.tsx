@@ -73,7 +73,13 @@ export default function ActiveWallets() {
               {kpi.label}
             </div>
             <div className="mt-2 text-lg font-semibold text-white">
-              {formatValue({ value: kpi.value, unit: kpi.unit, scale: kpi.scale })}
+              {kpi.value === null
+                ? "—"
+                : formatValue({
+                    value: kpi.value,
+                    unit: kpi.unit,
+                    scale: kpi.scale,
+                  })}
             </div>
             {kpi.note ? (
               <div className="mt-1 text-xs text-slate-500">{kpi.note}</div>

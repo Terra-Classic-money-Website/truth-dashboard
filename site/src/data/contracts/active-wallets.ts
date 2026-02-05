@@ -3,6 +3,7 @@ import {
   baseSnapshotSchema,
   coverageSchema,
   dateString,
+  kpiDeltaSchema,
   kpiTileSchemaBase,
   seriesSchema,
   tableColumnSchemaBase,
@@ -42,9 +43,18 @@ export const REQUIRED_ACTIVE_WALLETS_QUARTER_COLUMNS = [
   "worstMonth",
 ] as const;
 
-const kpiTileSchema = kpiTileSchemaBase.extend({
-  id: z.enum(REQUIRED_ACTIVE_WALLETS_KPI_IDS),
-});
+const kpiTileSchema = z
+  .object({
+    id: z.enum(REQUIRED_ACTIVE_WALLETS_KPI_IDS),
+    label: z.string(),
+    value: z.number().nullable(),
+    unit: z.string(),
+    scale: z.number().optional(),
+    asOf: dateString,
+    delta: kpiDeltaSchema.nullable().optional(),
+    note: z.string().optional(),
+  })
+  .strict();
 
 const insightKpiSchema = kpiTileSchemaBase.extend({
   id: z.enum(REQUIRED_ACTIVE_WALLETS_INSIGHT_KPI_IDS),
