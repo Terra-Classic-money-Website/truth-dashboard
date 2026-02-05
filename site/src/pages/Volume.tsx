@@ -62,7 +62,7 @@ export default function Volume() {
       <Card className="p-0">
         <div
           className="min-h-80"
-          style={{ height: "clamp(320px,55vh,620px)" }}
+          style={{ height: "max(320px, calc(100vh - 360px))" }}
         >
           <TimeSeriesChart series={view.series} className="h-full" />
         </div>
