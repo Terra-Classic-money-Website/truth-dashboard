@@ -2,12 +2,12 @@ import Card from "../components/Card";
 import PageHeader from "../components/PageHeader";
 
 const kpiSnapshot = [
-  { label: "Median MAW", value: "118K", sub: "12-month median" },
-  { label: "MoM Growth", value: "+4.1%", sub: "Latest month" },
-  { label: "Peak MAW", value: "214K", sub: "Jan 2023" },
-  { label: "Low MAW", value: "34K", sub: "Jun 2022" },
-  { label: "Volatility", value: "0.22", sub: "Std dev (normalized)" },
-  { label: "Reactivation", value: "18%", sub: "3-month window" },
+  { label: "Current month", value: "14,982", sub: "Jan 26" },
+  { label: "All-time peak", value: "498,729", sub: "Aug 22" },
+  { label: "Drawdown from peak", value: "-97.0%", sub: "Current vs peak" },
+  { label: "12M rolling average", value: "24,333", sub: "Last 12 months" },
+  { label: "12M trend slope", value: "-217 /month", sub: "Linear regression" },
+  { label: "12M stability", value: "28.9%", sub: "Stdev / mean" },
 ];
 
 const yearSummary = [
@@ -30,9 +30,9 @@ const extremes = [
 ];
 
 const thresholds = [
-  ["50K MAW", "Jul 2022", "Dec 2025"],
-  ["100K MAW", "Sep 2022", "Dec 2025"],
-  ["200K MAW", "Jan 2023", "Jan 2023"],
+  ["50,000", "May 23", "26", "Jan 26"],
+  ["25,000", "Mar 25", "8", "Jan 26"],
+  ["15,000", "Jan 26", "1", "Jan 26"],
 ];
 
 const seasonality = [
@@ -99,9 +99,22 @@ export default function ActiveWallets() {
           <Card>
             <h3 className="text-base font-semibold text-white">Key Highlights</h3>
             <ul className="mt-3 space-y-2 text-sm text-slate-400 list-disc list-inside">
-              <li>Net new wallet creation remains above the 12-month average.</li>
-              <li>Reactivation rate is steady across top validator cohorts.</li>
-              <li>Seasonal dips align with prior-year governance slowdowns.</li>
+              <li>
+                Activity is down 97.0% from the peak (peak: Aug 22, 498,729).
+              </li>
+              <li>
+                Over the last 12 months, the trend slope is -217 wallets/month
+                (smoothed).
+              </li>
+              <li>
+                The most severe peak-to-trough decline was -97.0% from Aug 22 to
+                Jan 26.
+              </li>
+              <li>
+                The last month shows decline with MoM change of -41.0%.
+              </li>
+              <li>Year-over-year change is -53.1% (vs Jan 25).</li>
+              <li>The network spent 8 months below 25,000 active wallets.</li>
             </ul>
           </Card>
           <Card>
@@ -212,8 +225,9 @@ export default function ActiveWallets() {
                 <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
                   <tr>
                     <th className="px-4 py-3">Threshold</th>
-                    <th className="px-4 py-3">First Reached</th>
-                    <th className="px-4 py-3">Last Seen</th>
+                    <th className="px-4 py-3">First month below</th>
+                    <th className="px-4 py-3">Months below</th>
+                    <th className="px-4 py-3">Most recent below</th>
                   </tr>
                 </thead>
                 <tbody>
