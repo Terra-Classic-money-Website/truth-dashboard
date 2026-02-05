@@ -179,7 +179,6 @@ function asTriplet<T>(factory: (denom: keyof DenomTriplet<unknown>) => T): Denom
 export function selectCommunityPool(
   snapshot: CommunityPoolSnapshot,
   windowId = "ALL",
-  showLowConfidence = true,
 ) {
   const selectedWindow =
     snapshot.timeWindows.find((window) => window.id === windowId) ??
@@ -195,9 +194,6 @@ export function selectCommunityPool(
 
   const outflowMarkers = snapshot.data.series.outflowsWeekly.filter((marker) => {
     if (!dateInRange(marker.markerTime, start, end)) {
-      return false;
-    }
-    if (!showLowConfidence && marker.lowConfidence) {
       return false;
     }
     return true;
@@ -281,7 +277,6 @@ export function selectCommunityPool(
     selectedWindow,
     balances,
     outflowMarkers,
-    showLowConfidence,
     table: {
       columns: [
         { key: "period", label: "Period", type: "text" as const },

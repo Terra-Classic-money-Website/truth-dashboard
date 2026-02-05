@@ -28,16 +28,12 @@ function renderPercent(value: number | null, digits = 1) {
 export default function CommunityPool() {
   const { data: snapshot, error } = getSnapshot("community-pool");
   const [windowId, setWindowId] = useState<string>("ALL");
-  const [showLowConfidence, setShowLowConfidence] = useState<boolean>(true);
 
   if (!snapshot) {
     return <SnapshotErrorPanel error={error} />;
   }
 
-  const view = useMemo(
-    () => selectCommunityPool(snapshot, windowId, showLowConfidence),
-    [snapshot, windowId, showLowConfidence],
-  );
+  const view = useMemo(() => selectCommunityPool(snapshot, windowId), [snapshot, windowId]);
 
   return (
     <div className="space-y-8">
@@ -83,14 +79,6 @@ export default function CommunityPool() {
               intervals.
             </p>
           </div>
-          <label className="flex items-center gap-2 text-xs text-slate-300">
-            <input
-              type="checkbox"
-              checked={showLowConfidence}
-              onChange={(event) => setShowLowConfidence(event.target.checked)}
-            />
-            Show low-confidence
-          </label>
         </div>
         <div className="mt-6">
           <CommunityPoolBalanceChart
