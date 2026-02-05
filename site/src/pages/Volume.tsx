@@ -9,7 +9,7 @@ import PageHeader from "../components/PageHeader";
 
 export default function Volume() {
   const { data: snapshot, error } = getSnapshot("lunc-volume");
-  const [windowId, setWindowId] = useState<string>("all");
+  const [windowId, setWindowId] = useState<string>("3m");
 
   if (!snapshot) {
     return <SnapshotErrorPanel error={error} />;
@@ -38,7 +38,7 @@ export default function Volume() {
         ))}
       </div>
 
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {view.kpiTiles.map((kpi) => (
           <Card key={kpi.label} className="p-4">
             <div className="text-xs uppercase tracking-wider text-slate-500">
@@ -59,8 +59,11 @@ export default function Volume() {
         ))}
       </section>
 
-      <Card>
-        <TimeSeriesChart series={view.series} height={320} />
+      <Card className="p-0">
+        <TimeSeriesChart
+          series={view.series}
+          className="min-h-[320px] h-[clamp(320px,55vh,620px)]"
+        />
       </Card>
     </div>
   );

@@ -19,6 +19,7 @@ type TimeSeriesChartProps = {
   title?: string;
   series: Series[];
   height?: number;
+  className?: string;
 };
 
 const colors = ["#f7b955", "#60a5fa", "#34d399", "#f87171"];
@@ -31,9 +32,11 @@ export default function TimeSeriesChart({
   title,
   series,
   height = 320,
+  className = "",
 }: TimeSeriesChartProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
+  const [containerHeight, setContainerHeight] = useState(height);
   const [hoverState, setHoverState] = useState<{
     x: number;
     y: number;
@@ -47,11 +50,12 @@ export default function TimeSeriesChart({
       const entry = entries[0];
       if (entry) {
         setContainerWidth(entry.contentRect.width);
+        setContainerHeight(entry.contentRect.height || height);
       }
     });
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [height]);
 
   const { min, max, minTime, maxTime } = useMemo(() => {
     const allPoints = series.flatMap((s) => s.points);
@@ -67,10 +71,11 @@ export default function TimeSeriesChart({
     };
   }, [series]);
 
-  const padding = { top: 16, right: 20, bottom: 28, left: 32 };
+  const padding = { top: 16, right: 20, bottom: 32, left: 52 };
   const width = containerWidth || 0;
   const innerWidth = Math.max(width - padding.left - padding.right, 1);
-  const innerHeight = height - padding.top - padding.bottom;
+  const resolvedHeight = containerHeight || height;
+  const innerHeight = resolvedHeight - padding.top - padding.bottom;
   const range = max - min || 1;
   const timeRange = maxTime - minTime || 1;
 
@@ -83,13 +88,46 @@ export default function TimeSeriesChart({
   const basePoints = series[0]?.points ?? [];
   const showEmpty = basePoints.length === 0 || width === 0;
 
-  const tickCount = 4;
-  const tickTimes = Array.from({ length: tickCount }, (_, i) =>
-    minTime + (i / (tickCount - 1)) * timeRange,
+  const xTickCount = 4;
+  const tickTimes = Array.from({ length: xTickCount }, (_, i) =>
+    minTime + (i / (xTickCount - 1)) * timeRange,
   );
+
+  const buildTicks = () => {
+    const targetCount = 6;
+    const rawStep = range / (targetCount - 1);
+    if (!Number.isFinite(rawStep) || rawStep <= 0) {
+      return [min];
+    }
+    const magnitude = Math.pow(10, Math.floor(Math.log10(rawStep)));
+    const residual = rawStep / magnitude;
+    const niceResidual =
+      residual <= 1 ? 1 : residual <= 2 ? 2 : residual <= 5 ? 5 : 10;
+    let step = niceResidual * magnitude;
+    let niceMin = Math.floor(min / step) * step;
+    let niceMax = Math.ceil(max / step) * step;
+    let ticks: number[] = [];
+    const build = () => {
+      ticks = [];
+      for (let v = niceMin; v <= niceMax + step / 2; v += step) {
+        ticks.push(Number(v.toFixed(10)));
+      }
+    };
+    build();
+    while (ticks.length > 7) {
+      step *= 2;
+      niceMin = Math.floor(min / step) * step;
+      niceMax = Math.ceil(max / step) * step;
+      build();
+    }
+    return ticks;
+  };
+
+  const yTicks = buildTicks();
 
   const tooltipTime = hoverState?.time ?? null;
   const cadence = series[0]?.cadence ?? "daily";
+  const yUnit = series[0]?.unit ?? "count";
 
   const tooltipPoint =
     tooltipTime !== null
@@ -110,8 +148,8 @@ export default function TimeSeriesChart({
   return (
     <div
       ref={containerRef}
-      className="rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4"
-      style={{ height }}
+      className={`rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4 ${className}`}
+      style={className ? undefined : { height }}
     >
       {title ? (
         <div className="mb-3 text-sm font-semibold text-white">{title}</div>
@@ -123,7 +161,7 @@ export default function TimeSeriesChart({
       ) : (
         <div className="relative">
           <svg
-            viewBox={`0 0 ${width} ${height}`}
+            viewBox={`0 0 ${width} ${resolvedHeight}`}
             className="h-full w-full"
             preserveAspectRatio="xMidYMid meet"
             onMouseLeave={() => setHoverState(null)}
@@ -147,16 +185,40 @@ export default function TimeSeriesChart({
               x1={padding.left}
               y1={padding.top}
               x2={padding.left}
-              y2={height - padding.bottom}
+              y2={resolvedHeight - padding.bottom}
               stroke="#1f2937"
             />
             <line
               x1={padding.left}
-              y1={height - padding.bottom}
+              y1={resolvedHeight - padding.bottom}
               x2={width - padding.right}
-              y2={height - padding.bottom}
+              y2={resolvedHeight - padding.bottom}
               stroke="#1f2937"
             />
+            {yTicks.map((tick) => {
+              const y = yForValue(tick);
+              return (
+                <g key={tick}>
+                  <line
+                    x1={padding.left}
+                    y1={y}
+                    x2={width - padding.right}
+                    y2={y}
+                    stroke="#1f2937"
+                    strokeDasharray="4 4"
+                  />
+                  <text
+                    x={padding.left - 8}
+                    y={y + 3}
+                    textAnchor="end"
+                    fill="#94a3b8"
+                    fontSize="10"
+                  >
+                    {formatValue({ value: tick, unit: yUnit })}
+                  </text>
+                </g>
+              );
+            })}
             {tickTimes.map((time, index) => {
               const label = formatDateLabel(
                 new Date(time).toISOString().slice(0, 10),
@@ -166,7 +228,7 @@ export default function TimeSeriesChart({
                 <text
                   key={index}
                   x={xForTime(time)}
-                  y={height - 8}
+                  y={resolvedHeight - 8}
                   textAnchor="middle"
                   fill="#94a3b8"
                   fontSize="10"
@@ -202,7 +264,7 @@ export default function TimeSeriesChart({
                 x1={xForTime(tooltipTime)}
                 y1={padding.top}
                 x2={xForTime(tooltipTime)}
-                y2={height - padding.bottom}
+                y2={resolvedHeight - padding.bottom}
                 stroke="#334155"
                 strokeDasharray="4 4"
               />
@@ -212,8 +274,14 @@ export default function TimeSeriesChart({
             <div
               className="pointer-events-none absolute rounded-lg border border-slate-800 bg-slate-950/90 px-3 py-2 text-xs text-slate-200"
               style={{
-                left: Math.min(Math.max((hoverState?.x ?? 0) + 12, 12), width - 180),
-                top: Math.min(Math.max((hoverState?.y ?? 0) + 12, 12), height - 90),
+                left: Math.min(
+                  Math.max((hoverState?.x ?? 0) + 12, 12),
+                  width - 180,
+                ),
+                top: Math.min(
+                  Math.max((hoverState?.y ?? 0) + 12, 12),
+                  resolvedHeight - 90,
+                ),
               }}
             >
               <div className="text-slate-400">
