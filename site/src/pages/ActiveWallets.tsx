@@ -11,22 +11,35 @@ const kpiSnapshot = [
 ];
 
 const yearSummary = [
-  ["2023", "1.62M", "135K", "Jan", "+6.2%"],
-  ["2024", "1.42M", "118K", "Mar", "-3.4%"],
-  ["2025", "1.58M", "132K", "Oct", "+4.9%"],
+  ["2026", "14,982", "14,982", "-41.8%", "0", "0.0%"],
+  ["2025", "25,746", "23,452", "-43.5%", "6,716", "26.1%"],
+  ["2024", "45,533", "42,835", "-21.0%", "11,681", "25.7%"],
+  ["2023", "57,670", "58,214", "-78.1%", "13,633", "23.6%"],
+  ["2022", "263,903", "212,151", "—", "143,464", "54.4%"],
 ];
 
 const quarterSummary = [
-  ["Q2 2025", "402K", "134K", "+5.8%"],
-  ["Q3 2025", "388K", "129K", "-3.4%"],
-  ["Q4 2025", "410K", "136K", "+5.7%"],
+  ["2026 Q1", "14,982", "-49.0%", "Jan 26 (14,982)", "Jan 26 (14,982)"],
+  ["2025 Q4", "29,376", "+24.2%", "Oct 25 (44,342)", "Nov 25 (18,414)"],
+  ["2025 Q3", "23,645", "+10.0%", "Jul 25 (25,347)", "Aug 25 (22,651)"],
+  ["2025 Q2", "21,496", "-24.5%", "Apr 25 (23,146)", "Jun 25 (18,710)"],
+  ["2025 Q1", "28,465", "-28.9%", "Jan 25 (31,576)", "Mar 25 (26,054)"],
 ];
 
-const extremes = [
-  ["All-time High", "214K", "Jan 2023"],
-  ["All-time Low", "34K", "Jun 2022"],
-  ["Largest MoM Jump", "+22%", "Aug 2023"],
-  ["Largest MoM Drop", "-18%", "Feb 2024"],
+const topMonths = [
+  "Aug 22: 498,729",
+  "Jul 22: 406,085",
+  "Sep 22: 348,416",
+  "Jun 22: 212,151",
+  "Oct 22: 150,304",
+];
+
+const bottomMonths = [
+  "Jan 26: 14,982",
+  "Nov 25: 18,414",
+  "Jun 25: 18,710",
+  "May 25: 22,633",
+  "Aug 25: 22,651",
 ];
 
 const thresholds = [
@@ -35,12 +48,22 @@ const thresholds = [
   ["15,000", "Jan 26", "1", "Jan 26"],
 ];
 
-const seasonality = [
-  ["Jan", "Strong"],
-  ["Mar", "Above average"],
-  ["Jul", "Soft"],
-  ["Oct", "Rebound"],
-  ["Dec", "Stable"],
+const seasonalityLeft = [
+  { month: "Jan", value: "45,763" },
+  { month: "Mar", value: "52,214" },
+  { month: "May", value: "38,083", tone: "low" },
+  { month: "Jul", value: "129,525" },
+  { month: "Sep", value: "112,674" },
+  { month: "Nov", value: "67,257" },
+];
+
+const seasonalityRight = [
+  { month: "Feb", value: "54,068" },
+  { month: "Apr", value: "41,071" },
+  { month: "Jun", value: "81,883" },
+  { month: "Aug", value: "149,880", tone: "peak" },
+  { month: "Oct", value: "66,906" },
+  { month: "Dec", value: "59,458" },
 ];
 
 export default function ActiveWallets() {
@@ -146,10 +169,11 @@ export default function ActiveWallets() {
                 <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
                   <tr>
                     <th className="px-4 py-3">Year</th>
-                    <th className="px-4 py-3">Total MAW</th>
-                    <th className="px-4 py-3">Avg MAW</th>
-                    <th className="px-4 py-3">Peak Month</th>
-                    <th className="px-4 py-3">YoY</th>
+                    <th className="px-4 py-3">Avg monthly wallets</th>
+                    <th className="px-4 py-3">Median</th>
+                    <th className="px-4 py-3">YoY change</th>
+                    <th className="px-4 py-3">Volatility</th>
+                    <th className="px-4 py-3">Coeff. of variation</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -173,9 +197,10 @@ export default function ActiveWallets() {
                 <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
                   <tr>
                     <th className="px-4 py-3">Quarter</th>
-                    <th className="px-4 py-3">Total MAW</th>
-                    <th className="px-4 py-3">Avg MAW</th>
-                    <th className="px-4 py-3">QoQ</th>
+                    <th className="px-4 py-3">Avg wallets</th>
+                    <th className="px-4 py-3">QoQ change</th>
+                    <th className="px-4 py-3">Best month</th>
+                    <th className="px-4 py-3">Worst month</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -200,20 +225,49 @@ export default function ActiveWallets() {
               Extremes &amp; Turning Points
             </h3>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
-              {extremes.map((item) => (
-                <div
-                  key={item[0]}
-                  className="rounded-xl border border-slate-800 bg-slate-950/50 p-4"
-                >
-                  <p className="text-xs uppercase tracking-wider text-slate-500">
-                    {item[0]}
-                  </p>
-                  <p className="mt-2 text-lg font-semibold text-white">
-                    {item[1]}
-                  </p>
-                  <p className="mt-1 text-xs text-slate-500">{item[2]}</p>
-                </div>
-              ))}
+              <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4">
+                <p className="text-sm font-semibold text-white">Top 5 months</p>
+                <ul className="mt-3 space-y-1 text-sm text-slate-400 list-disc list-inside">
+                  {topMonths.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4">
+                <p className="text-sm font-semibold text-white">Bottom 5 months</p>
+                <ul className="mt-3 space-y-1 text-sm text-slate-400 list-disc list-inside">
+                  {bottomMonths.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4">
+                <p className="text-sm font-semibold text-white">
+                  Largest MoM increase
+                </p>
+                <p className="mt-3 text-sm text-slate-300">
+                  Jul 22 (+193,934 | +91.4%)
+                </p>
+              </div>
+              <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4">
+                <p className="text-sm font-semibold text-white">
+                  Largest MoM decrease
+                </p>
+                <p className="mt-3 text-sm text-slate-300">
+                  Oct 22 (-198,112 | -56.9%)
+                </p>
+              </div>
+              <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4">
+                <p className="text-sm font-semibold text-white">
+                  Max drawdown &amp; recovery
+                </p>
+                <p className="mt-3 text-sm text-slate-300">
+                  Drawdown: -97.0% (Aug 22 → Jan 26)
+                </p>
+                <p className="mt-2 text-sm text-slate-300">
+                  Recovery time: Not recovered within dataset
+                </p>
+              </div>
             </div>
           </Card>
           <Card>
@@ -251,16 +305,45 @@ export default function ActiveWallets() {
             <h3 className="text-base font-semibold text-white">
               Seasonality Snapshot
             </h3>
-            <div className="mt-3 grid gap-2 text-sm text-slate-400">
-              {seasonality.map((item) => (
-                <div
-                  key={item[0]}
-                  className="flex items-center justify-between rounded-lg border border-slate-800 bg-slate-950/50 px-4 py-2"
-                >
-                  <span className="text-slate-200">{item[0]}</span>
-                  <span>{item[1]}</span>
-                </div>
-              ))}
+            <div className="mt-3 grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2 text-sm text-slate-400">
+                {seasonalityLeft.map((item) => (
+                  <div
+                    key={item.month}
+                    className="flex items-center justify-between"
+                  >
+                    <span className="text-slate-300">{item.month}</span>
+                    <span
+                      className={
+                        item.tone === "low"
+                          ? "text-rose-300"
+                          : "text-slate-200"
+                      }
+                    >
+                      {item.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="space-y-2 text-sm text-slate-400">
+                {seasonalityRight.map((item) => (
+                  <div
+                    key={item.month}
+                    className="flex items-center justify-between"
+                  >
+                    <span className="text-slate-300">{item.month}</span>
+                    <span
+                      className={
+                        item.tone === "peak"
+                          ? "text-amber-200"
+                          : "text-slate-200"
+                      }
+                    >
+                      {item.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </Card>
           <Card>
@@ -269,17 +352,23 @@ export default function ActiveWallets() {
             </h3>
             <div className="mt-3 space-y-2 text-sm text-slate-400">
               <p>
-                Monthly counts are derived from sender + recipient unique address
-                lists across Terra Classic L1.
+                <strong className="text-slate-200">Source:</strong>{" "}
+                terra-classic-fcd.publicnode.com FCD endpoint.
               </p>
               <p>
-                Confidence levels increase after Aug 2022 as indexing coverage
-                stabilizes.
+                <strong className="text-slate-200">Metric definition:</strong>{" "}
+                Monthly Active Wallets = unique addresses observed participating
+                in on-chain transactions in that month.
               </p>
               <p>
-                Snapshot cadence is monthly; intra-month volatility is not
-                represented here.
+                <strong className="text-slate-200">Data window:</strong> Jun 22
+                → Jan 26.
               </p>
+              <p>
+                <strong className="text-slate-200">Completeness:</strong> Months
+                included: 44; missing months in between: 0.
+              </p>
+              <p>Based on local dataset file.</p>
             </div>
           </Card>
         </div>
