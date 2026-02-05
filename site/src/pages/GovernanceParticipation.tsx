@@ -2,10 +2,84 @@ import Card from "../components/Card";
 import PageHeader from "../components/PageHeader";
 
 const metrics = [
-  ["Participation rate", "72%"],
-  ["Non-participation", "14%"],
-  ["Voting power coverage", "86%"],
-  ["Active proposals", "8"],
+  {
+    label: "Average Yes votes per proposal (validators)",
+    value: "29.9",
+  },
+  {
+    label: "Average No votes per proposal (validators)",
+    value: "9.2",
+  },
+  {
+    label: "Average Veto votes per proposal (validators)",
+    value: "3.1",
+  },
+  {
+    label: "Average non-participation per proposal (validators)",
+    value: "55",
+  },
+  {
+    label: "Average proposals not voted",
+    value: "55",
+  },
+  {
+    label: "Avg delegators voting per proposal",
+    value: "439",
+  },
+  {
+    label: "Avg delegators as % of active wallets (last year)",
+    value: "0.37%",
+  },
+  {
+    label: "% of all votes not voted",
+    value: "30.39%",
+  },
+  {
+    label: "% of all votes that are No with Veto",
+    value: "1.71%",
+  },
+  {
+    label: "Active validators in dataset",
+    value: "181",
+  },
+  {
+    label: "Validators with >60% non-participation",
+    value: "42",
+  },
+  {
+    label: "Validators with >70% non-participation",
+    value: "36",
+  },
+  {
+    label: "Validators with >80% non-participation",
+    value: "29",
+  },
+  {
+    label: "Validators with >90% non-participation",
+    value: "19",
+  },
+  {
+    label: "Validators with 100% non-participation",
+    value: "3",
+  },
+  {
+    label: "<50% non-participation statement",
+    value:
+      "Validators with <50% non-participation: 134 of 181. That means 25.97% of validators participate in fewer than half of proposals.",
+    variant: "long",
+  },
+  {
+    label: "Voting power of never-voters",
+    value:
+      "Validators with 100% non-participation control 3.08% of total voting power.",
+    variant: "long",
+  },
+  {
+    label: "Bottom 50% voting power behavior",
+    value:
+      "Bottom 50% (by voting power rank) skip 20.72% of proposals on average.",
+    variant: "long",
+  },
 ];
 
 export default function GovernanceParticipation() {
@@ -38,12 +112,16 @@ export default function GovernanceParticipation() {
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {metrics.map((item) => (
-          <Card key={item[0]} className="p-4">
+          <Card key={item.label} className="p-4">
             <div className="text-xs uppercase tracking-wider text-slate-500">
-              {item[0]}
+              {item.label}
             </div>
-            <div className="mt-2 text-lg font-semibold text-white">
-              {item[1]}
+            <div
+              className={`mt-2 font-semibold text-white ${
+                item.variant === "long" ? "text-base" : "text-lg"
+              }`}
+            >
+              {item.value}
             </div>
           </Card>
         ))}
