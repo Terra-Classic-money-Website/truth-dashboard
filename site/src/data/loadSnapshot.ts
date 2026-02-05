@@ -1,6 +1,6 @@
 import type { z } from "zod";
 import activeWalletsJson from "./snapshots/active-wallets.snapshot.json";
-import communityPoolJson from "./snapshots/community-pool.snapshot.json";
+import communityPoolJson from "./snapshots/expenditures.snapshot.json";
 import governanceParticipationJson from "./snapshots/governance-participation.snapshot.json";
 import governanceProposalsJson from "./snapshots/governance-proposals.snapshot.json";
 import governanceValidatorsJson from "./snapshots/governance-validators.snapshot.json";

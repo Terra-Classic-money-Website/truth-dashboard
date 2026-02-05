@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "node scripts/build-tailwind.mjs",
+    "predev": "node scripts/build-tailwind.mjs && node scripts/build-expenditures-snapshot.ts",
     "dev": "vite",
-    "prebuild": "node scripts/build-tailwind.mjs",
+    "prebuild": "node scripts/build-tailwind.mjs && node scripts/build-expenditures-snapshot.ts",
     "build": "tsc -b && vite build",
+    "build:expenditures": "node scripts/build-expenditures-snapshot.ts",
     "lint": "eslint .",
     "preview": "vite preview"
   },
