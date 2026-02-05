@@ -279,6 +279,9 @@
   .h-8 {
     height: calc(var(--spacing) * 8);
   }
+  .h-9 {
+    height: calc(var(--spacing) * 9);
+  }
   .h-64 {
     height: calc(var(--spacing) * 64);
   }
@@ -299,6 +302,9 @@
   }
   .w-8 {
     width: calc(var(--spacing) * 8);
+  }
+  .w-9 {
+    width: calc(var(--spacing) * 9);
   }
   .w-72 {
     width: calc(var(--spacing) * 72);
@@ -570,9 +576,6 @@
   }
   .text-left {
     text-align: left;
-  }
-  .text-right {
-    text-align: right;
   }
   .align-top {
     vertical-align: top;

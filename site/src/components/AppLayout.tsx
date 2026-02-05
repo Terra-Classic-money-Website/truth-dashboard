@@ -205,21 +205,42 @@ export default function AppLayout() {
       <div className="flex min-h-screen flex-1 flex-col">
         <div className="md:hidden sticky top-0 z-40 border-b border-slate-800 bg-slate-950/85 backdrop-blur">
           <div className="flex items-center justify-between px-4 py-3">
+            <div className="flex items-center gap-3">
+              <img
+                src={terraClassicSign}
+                alt=""
+                className="h-4 w-4 opacity-70"
+              />
+              <div>
+                <p className="text-xs uppercase tracking-widest text-slate-500">
+                  TERRA CLASSIC
+                </p>
+                <p className="text-sm font-semibold text-white">
+                  Truth Dashboard
+                </p>
+              </div>
+            </div>
             <button
               type="button"
               onClick={() => setDrawerOpen(true)}
-              className="inline-flex items-center justify-center rounded-md border border-slate-800 bg-slate-900/70 px-3 py-2 text-xs uppercase tracking-wider text-slate-200"
+              aria-label="Open menu"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-800 bg-slate-900/70 text-slate-200"
             >
-              Menu
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 6H20M4 12H20M4 18H20"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                />
+              </svg>
             </button>
-            <div className="text-right">
-              <p className="text-xs uppercase tracking-widest text-slate-500">
-                TERRA CLASSIC
-              </p>
-              <p className="text-sm font-semibold text-white">
-                Truth Dashboard
-              </p>
-            </div>
           </div>
         </div>
 
@@ -243,12 +264,17 @@ export default function AppLayout() {
           onClick={() => setDrawerOpen(false)}
         />
         <div
-          className={`absolute left-0 top-0 h-full w-72 border-r border-slate-800 bg-slate-950/95 shadow-2xl backdrop-blur transition-transform ${
+          className={`absolute left-0 top-0 flex h-full w-72 flex-col border-r border-slate-800 bg-slate-950/95 shadow-2xl backdrop-blur transition-transform ${
             drawerOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
           <div className="flex items-center justify-between border-b border-slate-800 px-5 py-4">
             <div className="flex items-center gap-3">
+              <img
+                src={terraClassicSign}
+                alt=""
+                className="h-4 w-4 opacity-70"
+              />
               <div>
                 <p className="text-xs uppercase tracking-widest text-slate-500">
                   TERRA CLASSIC
@@ -330,7 +356,11 @@ export default function AppLayout() {
               </svg>
             </button>
           </div>
-          <nav className="px-4 py-6">
+          <div className="border-b border-slate-800 px-5 py-4 text-sm text-slate-400">
+            Data collected during the research and writing of Terra Classic Four
+            Years After: State of the Chain Report (2022–2026)
+          </div>
+          <nav className="flex-1 px-4 py-6">
             <div className="text-xs uppercase tracking-widest text-slate-500">
               Health
             </div>
@@ -367,6 +397,16 @@ export default function AppLayout() {
               </a>
             </div>
           </nav>
+          <div className="border-t border-slate-800 px-5 py-4 text-xs text-slate-500">
+            All rights reserved @ Terra-Classic.money 2026 - Designed and
+            developed by{" "}
+            <a
+              href="https://dawidskinder.pl"
+              className="underline underline-offset-2"
+            >
+              DawidSkinder.pl
+            </a>
+          </div>
         </div>
       </div>
     </div>
