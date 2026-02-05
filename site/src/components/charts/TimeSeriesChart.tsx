@@ -20,6 +20,10 @@ type TimeSeriesChartProps = {
   series: Series[];
   height?: number;
   className?: string;
+  xTicks?: string[];
+  yTicks?: number[];
+  xTickFormatter?: (isoDate: string) => string;
+  yTickFormatter?: (value: number) => string;
 };
 
 const colors = ["#f7b955", "#60a5fa", "#34d399", "#f87171"];
@@ -33,6 +37,10 @@ export default function TimeSeriesChart({
   series,
   height = 320,
   className = "",
+  xTicks,
+  yTicks,
+  xTickFormatter,
+  yTickFormatter,
 }: TimeSeriesChartProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -76,22 +84,27 @@ export default function TimeSeriesChart({
   const innerWidth = Math.max(width - padding.left - padding.right, 1);
   const resolvedHeight = containerHeight || height;
   const innerHeight = resolvedHeight - padding.top - padding.bottom;
-  const range = max - min || 1;
+  const effectiveMin =
+    yTicks && yTicks.length ? Math.min(min, ...yTicks) : min;
+  const effectiveMax =
+    yTicks && yTicks.length ? Math.max(max, ...yTicks) : max;
+  const range = effectiveMax - effectiveMin || 1;
   const timeRange = maxTime - minTime || 1;
 
   const xForTime = (time: number) =>
     padding.left + ((time - minTime) / timeRange) * innerWidth;
 
   const yForValue = (value: number) =>
-    padding.top + (1 - (value - min) / range) * innerHeight;
+    padding.top + (1 - (value - effectiveMin) / range) * innerHeight;
 
   const basePoints = series[0]?.points ?? [];
   const showEmpty = basePoints.length === 0 || width === 0;
 
-  const xTickCount = 4;
-  const tickTimes = Array.from({ length: xTickCount }, (_, i) =>
-    minTime + (i / (xTickCount - 1)) * timeRange,
-  );
+  const xTickTimes = xTicks?.length
+    ? xTicks.map((tick) => new Date(`${tick}T00:00:00Z`).getTime())
+    : Array.from({ length: 4 }, (_, i) =>
+        minTime + (i / 3) * timeRange,
+      );
 
   const buildTicks = () => {
     const targetCount = 6;
@@ -123,7 +136,7 @@ export default function TimeSeriesChart({
     return ticks;
   };
 
-  const yTicks = buildTicks();
+  const yTickValues = yTicks?.length ? yTicks : buildTicks();
 
   const tooltipTime = hoverState?.time ?? null;
   const cadence = series[0]?.cadence ?? "daily";
@@ -195,7 +208,7 @@ export default function TimeSeriesChart({
               y2={resolvedHeight - padding.bottom}
               stroke="#1f2937"
             />
-            {yTicks.map((tick) => {
+            {yTickValues.map((tick) => {
               const y = yForValue(tick);
               return (
                 <g key={tick}>
@@ -214,27 +227,38 @@ export default function TimeSeriesChart({
                     fill="#94a3b8"
                     fontSize="10"
                   >
-                    {formatValue({ value: tick, unit: yUnit })}
+                    {yTickFormatter
+                      ? yTickFormatter(tick)
+                      : formatValue({ value: tick, unit: yUnit })}
                   </text>
                 </g>
               );
             })}
-            {tickTimes.map((time, index) => {
-              const label = formatDateLabel(
-                new Date(time).toISOString().slice(0, 10),
-                cadence,
-              );
+            {xTickTimes.map((time, index) => {
+              const iso = new Date(time).toISOString().slice(0, 10);
+              const label = xTickFormatter
+                ? xTickFormatter(iso)
+                : formatDateLabel(iso, cadence);
               return (
-                <text
-                  key={index}
-                  x={xForTime(time)}
-                  y={resolvedHeight - 8}
-                  textAnchor="middle"
-                  fill="#94a3b8"
-                  fontSize="10"
-                >
-                  {label}
-                </text>
+                <g key={index}>
+                  <line
+                    x1={xForTime(time)}
+                    y1={padding.top}
+                    x2={xForTime(time)}
+                    y2={resolvedHeight - padding.bottom}
+                    stroke="#1f2937"
+                    strokeDasharray="4 4"
+                  />
+                  <text
+                    x={xForTime(time)}
+                    y={resolvedHeight - 8}
+                    textAnchor="middle"
+                    fill="#94a3b8"
+                    fontSize="10"
+                  >
+                    {label}
+                  </text>
+                </g>
               );
             })}
             {series.map((serie, seriesIndex) => {

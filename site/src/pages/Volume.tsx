@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import Card from "../components/Card";
 import SnapshotErrorPanel from "../components/SnapshotErrorPanel";
 import TimeSeriesChart from "../components/charts/TimeSeriesChart";
@@ -9,7 +9,7 @@ import PageHeader from "../components/PageHeader";
 
 export default function Volume() {
   const { data: snapshot, error } = getSnapshot("lunc-volume");
-  const [windowId, setWindowId] = useState<string>("3m");
+  const [windowId, setWindowId] = useState<string>("1y");
   const chartWrapRef = useRef<HTMLDivElement>(null);
   const [chartHeight, setChartHeight] = useState<number | null>(null);
 
@@ -18,6 +18,58 @@ export default function Volume() {
   }
 
   const view = selectLuncVolume(snapshot, windowId);
+  const monthlyTicks = useMemo(() => {
+    const points = view.series[0]?.points ?? [];
+    if (!points.length) return [];
+    const getDate = (point: { t?: string; periodEnd?: string }) =>
+      new Date(`${point.t ?? point.periodEnd ?? ""}T00:00:00Z`);
+    const startDate = getDate(points[0]);
+    const endDate = getDate(points[points.length - 1]);
+    const start = new Date(
+      Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1),
+    );
+    const end = new Date(
+      Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), 1),
+    );
+    const ticks: string[] = [];
+    const cursor = new Date(start);
+    while (cursor <= end) {
+      ticks.push(cursor.toISOString().slice(0, 10));
+      cursor.setUTCMonth(cursor.getUTCMonth() + 1);
+    }
+    return ticks;
+  }, [view.series]);
+
+  const yTicks = useMemo(
+    () => [
+      600_000_000,
+      500_000_000,
+      400_000_000,
+      300_000_000,
+      200_000_000,
+      100_000_000,
+      75_000_000,
+      50_000_000,
+      25_000_000,
+      0,
+    ],
+    [],
+  );
+
+  const formatMonthLabel = (isoDate: string) =>
+    new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      year: "numeric",
+    }).format(new Date(`${isoDate}T00:00:00Z`));
+
+  const formatUsdTick = (value: number) => {
+    if (value === 0) return "$0.00";
+    const abs = Math.abs(value);
+    if (abs >= 1_000_000_000) return `$${(value / 1_000_000_000).toFixed(2)}B`;
+    if (abs >= 1_000_000) return `$${(value / 1_000_000).toFixed(2)}M`;
+    if (abs >= 1_000) return `$${(value / 1_000).toFixed(2)}K`;
+    return `$${value.toFixed(2)}`;
+  };
 
   useLayoutEffect(() => {
     const updateHeight = () => {
@@ -80,7 +132,14 @@ export default function Volume() {
           className="min-h-80"
           style={chartHeight ? { height: `${chartHeight}px` } : undefined}
         >
-          <TimeSeriesChart series={view.series} className="h-full" />
+          <TimeSeriesChart
+            series={view.series}
+            className="h-full"
+            xTicks={monthlyTicks}
+            xTickFormatter={formatMonthLabel}
+            yTicks={yTicks}
+            yTickFormatter={formatUsdTick}
+          />
         </div>
       </Card>
     </div>
