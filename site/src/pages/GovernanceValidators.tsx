@@ -14,23 +14,25 @@ export default function GovernanceValidators() {
         <div className="grid gap-4 lg:grid-cols-2">
           <div className="space-y-2">
             <label className="text-xs uppercase tracking-wider text-slate-500">
-              Vote window (affects computed vote metrics only)
+              Time window
             </label>
-            <div className="flex flex-wrap gap-2">
-              {["All time", "Last 2 years", "Last year"].map((label) => (
-                <label
-                  key={label}
-                  className="flex items-center gap-2 rounded-full border border-slate-800 px-3 py-2 text-xs uppercase tracking-wider text-slate-300"
-                >
-                  <input type="radio" disabled />
-                  {label}
-                </label>
-              ))}
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap gap-2">
+                {["All time", "Last 2 years", "Last year"].map((label) => (
+                  <label
+                    key={label}
+                    className="flex items-center gap-2 rounded-full border border-slate-800 px-3 py-2 text-xs uppercase tracking-wider text-slate-300"
+                  >
+                    <input type="radio" disabled />
+                    {label}
+                  </label>
+                ))}
+              </div>
+              <label className="flex items-center gap-2 text-xs text-slate-400">
+                <input type="checkbox" disabled />
+                Income &gt; $100
+              </label>
             </div>
-            <label className="flex items-center gap-2 text-xs text-slate-400">
-              <input type="checkbox" disabled />
-              Income &gt; $100
-            </label>
           </div>
           <div className="space-y-2" />
         </div>
