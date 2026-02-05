@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import Card from "../components/Card";
 import SnapshotErrorPanel from "../components/SnapshotErrorPanel";
 import TimeSeriesChart from "../components/charts/TimeSeriesChart";
@@ -10,6 +10,8 @@ import PageHeader from "../components/PageHeader";
 export default function Volume() {
   const { data: snapshot, error } = getSnapshot("lunc-volume");
   const [windowId, setWindowId] = useState<string>("3m");
+  const chartWrapRef = useRef<HTMLDivElement>(null);
+  const [chartHeight, setChartHeight] = useState<number | null>(null);
 
   if (!snapshot) {
     return <SnapshotErrorPanel error={error} />;
@@ -17,11 +19,21 @@ export default function Volume() {
 
   const view = selectLuncVolume(snapshot, windowId);
 
+  useLayoutEffect(() => {
+    const updateHeight = () => {
+      if (!chartWrapRef.current) return;
+      const rect = chartWrapRef.current.getBoundingClientRect();
+      const available = window.innerHeight - rect.top - 32;
+      setChartHeight(Math.max(320, Math.floor(available)));
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
+
   return (
-    <div
-      className="flex flex-col gap-8"
-      style={{ minHeight: "calc(100vh - 64px)" }}
-    >
+    <div className="space-y-8">
       <PageHeader
         eyebrow="Terra Classic Off-Chain Activity"
         title={view.header.title}
@@ -62,8 +74,12 @@ export default function Volume() {
         ))}
       </section>
 
-      <Card className="flex min-h-80 flex-1 flex-col p-0">
-        <div className="min-h-80 flex-1">
+      <Card className="p-0">
+        <div
+          ref={chartWrapRef}
+          className="min-h-80"
+          style={chartHeight ? { height: `${chartHeight}px` } : undefined}
+        >
           <TimeSeriesChart series={view.series} className="h-full" />
         </div>
       </Card>
