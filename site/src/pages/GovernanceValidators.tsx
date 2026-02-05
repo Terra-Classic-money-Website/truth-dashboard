@@ -27,6 +27,10 @@ export default function GovernanceValidators() {
                 </label>
               ))}
             </div>
+            <label className="flex items-center gap-2 text-xs text-slate-400">
+              <input type="checkbox" disabled />
+              Income &gt; $100
+            </label>
           </div>
           <div className="space-y-2" />
         </div>
