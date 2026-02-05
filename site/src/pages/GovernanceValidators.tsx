@@ -1,13 +1,27 @@
+import { useState } from "react";
 import Card from "../components/Card";
+import SnapshotErrorPanel from "../components/SnapshotErrorPanel";
+import { formatTableValue } from "../data/format";
+import { getSnapshot } from "../data/loadSnapshot";
+import { selectGovernanceValidators } from "../data/selectors";
 import PageHeader from "../components/PageHeader";
 
 export default function GovernanceValidators() {
+  const { data: snapshot, error } = getSnapshot("governance-validators");
+  const [windowId, setWindowId] = useState<string>("all");
+
+  if (!snapshot) {
+    return <SnapshotErrorPanel error={error} />;
+  }
+
+  const view = selectGovernanceValidators(snapshot, windowId);
+
   return (
     <div className="space-y-8">
       <PageHeader
         eyebrow="Terra Classic Governance"
-        title="Current validators dashboard"
-        subtitle="Active validator set from validator.info (via local proxy)."
+        title={view.header.title}
+        subtitle={view.header.subtitle}
       />
 
       <Card>
@@ -18,20 +32,29 @@ export default function GovernanceValidators() {
             </label>
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap gap-2">
-                {["All time", "Last 2 years", "Last year"].map((label) => (
+                {view.windows.map((window) => (
                   <label
-                    key={label}
+                    key={window.id}
                     className="flex items-center gap-2 rounded-full border border-slate-800 px-3 py-2 text-xs uppercase tracking-wider text-slate-300"
                   >
-                    <input type="radio" disabled />
-                    {label}
+                    <input
+                      type="radio"
+                      checked={windowId === window.id}
+                      onChange={() => setWindowId(window.id)}
+                    />
+                    {window.label}
                   </label>
                 ))}
               </div>
-              <label className="flex items-center gap-2 text-xs text-slate-400">
-                <input type="checkbox" disabled />
-                Income &gt; $100
-              </label>
+              {view.filters.incomeThresholds.map((threshold) => (
+                <label
+                  key={threshold.id}
+                  className="flex items-center gap-2 text-xs text-slate-400"
+                >
+                  <input type="checkbox" disabled />
+                  {threshold.label}
+                </label>
+              ))}
             </div>
           </div>
           <div className="space-y-2" />
@@ -47,46 +70,26 @@ export default function GovernanceValidators() {
           <table className="w-full text-left text-sm">
             <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
               <tr>
-                <th className="px-4 py-3">Rank</th>
-                <th className="px-4 py-3">Validator</th>
-                <th className="px-4 py-3">Voting power</th>
-                <th className="px-4 py-3">Delegators</th>
-                <th className="px-4 py-3">Income (monthly)</th>
-                <th className="px-4 py-3">Did not vote (1Y)</th>
-                <th className="px-4 py-3">Did not vote (2Y)</th>
-                <th className="px-4 py-3">Yes</th>
-                <th className="px-4 py-3">No</th>
-                <th className="px-4 py-3">Abstain</th>
-                <th className="px-4 py-3">No with veto</th>
+                {view.table.columns.map((column) => (
+                  <th key={column.key} className="px-4 py-3">
+                    {column.label}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              <tr className="text-slate-300">
-                <td className="px-4 py-3">1</td>
-                <td className="px-4 py-3">Validator One</td>
-                <td className="px-4 py-3">7.2%</td>
-                <td className="px-4 py-3">9,420</td>
-                <td className="px-4 py-3">$18.4K</td>
-                <td className="px-4 py-3">6%</td>
-                <td className="px-4 py-3">9%</td>
-                <td className="px-4 py-3">62%</td>
-                <td className="px-4 py-3">21%</td>
-                <td className="px-4 py-3">9%</td>
-                <td className="px-4 py-3">2%</td>
-              </tr>
-              <tr className="text-slate-400">
-                <td className="px-4 py-3">2</td>
-                <td className="px-4 py-3">Validator Two</td>
-                <td className="px-4 py-3">6.4%</td>
-                <td className="px-4 py-3">8,110</td>
-                <td className="px-4 py-3">$15.9K</td>
-                <td className="px-4 py-3">8%</td>
-                <td className="px-4 py-3">12%</td>
-                <td className="px-4 py-3">58%</td>
-                <td className="px-4 py-3">24%</td>
-                <td className="px-4 py-3">12%</td>
-                <td className="px-4 py-3">3%</td>
-              </tr>
+              {view.table.rows.map((row) => (
+                <tr key={row.rank} className="text-slate-300">
+                  {view.table.columns.map((column) => (
+                    <td key={column.key} className="px-4 py-3">
+                      {formatTableValue(
+                        row[column.key as keyof typeof row],
+                        column.unit,
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

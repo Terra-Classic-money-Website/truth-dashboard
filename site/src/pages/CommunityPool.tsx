@@ -1,13 +1,45 @@
+import { useState } from "react";
 import Card from "../components/Card";
+import SnapshotErrorPanel from "../components/SnapshotErrorPanel";
+import TimeSeriesChart from "../components/charts/TimeSeriesChart";
+import { formatTableValue, formatValue } from "../data/format";
+import { getSnapshot } from "../data/loadSnapshot";
+import { selectCommunityPool } from "../data/selectors";
 import PageHeader from "../components/PageHeader";
 
 export default function CommunityPool() {
+  const { data: snapshot, error } = getSnapshot("community-pool");
+  const [windowId, setWindowId] = useState<string>("all");
+
+  if (!snapshot) {
+    return <SnapshotErrorPanel error={error} />;
+  }
+
+  const view = selectCommunityPool(snapshot, windowId);
+  const overviewLookup = Object.fromEntries(
+    view.overviewKpis.map((kpi) => [kpi.id, kpi]),
+  );
+  const totalOutflow = overviewLookup["kpi.totalOutflow"] ?? null;
+  const idleWeeks = overviewLookup["kpi.idleWeeks"] ?? null;
+
+  const totalOutflowBlocks = [
+    { label: "LUNC", kpi: totalOutflow },
+    { label: "USTC", kpi: null },
+    { label: "COMBINED", kpi: totalOutflow },
+  ];
+
+  const idleWeekBlocks = [
+    { label: "LUNC", kpi: idleWeeks },
+    { label: "USTC", kpi: null },
+    { label: "COMBINED", kpi: idleWeeks },
+  ];
+
   return (
     <div className="space-y-8">
       <PageHeader
         eyebrow="Terra Classic Community Pool"
-        title="Balances & Flow Analysis"
-        subtitle="Track historical balances, inflows, and outflows for LUNC and USTC."
+        title={view.header.title}
+        subtitle={view.header.subtitle}
       />
       <Card>
         <div>
@@ -18,17 +50,34 @@ export default function CommunityPool() {
           </p>
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
-          {["1M", "6M", "1Y", "2Y", "3Y", "ALL"].map((label) => (
+          {view.windows.map((window) => (
             <button
-              key={label}
+              key={window.id}
               type="button"
               className="rounded-full border border-slate-800 px-4 py-2 text-xs uppercase tracking-wider text-slate-300"
+              onClick={() => setWindowId(window.id)}
             >
-              {label}
+              {window.label}
             </button>
           ))}
         </div>
       </Card>
+
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {view.kpiTiles.map((kpi) => (
+          <Card key={kpi.id} className="p-4">
+            <div className="text-xs uppercase tracking-wider text-slate-500">
+              {kpi.label}
+            </div>
+            <div className="mt-2 text-lg font-semibold text-white">
+              {formatValue({ value: kpi.value, unit: kpi.unit, scale: kpi.scale })}
+            </div>
+            {kpi.note ? (
+              <div className="mt-1 text-xs text-slate-500">{kpi.note}</div>
+            ) : null}
+          </Card>
+        ))}
+      </section>
 
       <Card>
         <div className="flex flex-wrap items-start justify-between gap-4">
@@ -41,8 +90,8 @@ export default function CommunityPool() {
             </p>
           </div>
         </div>
-        <div className="mt-6 flex h-80 items-center justify-center rounded-xl border border-dashed border-slate-800 bg-slate-950/50 text-sm text-slate-500">
-          Chart placeholder — community pool balance history
+        <div className="mt-6">
+          <TimeSeriesChart series={view.balanceSeries} height={320} />
         </div>
       </Card>
 
@@ -59,8 +108,14 @@ export default function CommunityPool() {
           </div>
           <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400">
             <span>
-              Outflow summary: LUNC 8.57B | USTC 0 | Max impact LUNC 88.28% /
-              USTC 0.00% / Combined 88.28% | Count 16
+              Outflow summary:{" "}
+              {totalOutflow
+                ? formatValue({
+                    value: totalOutflow.value,
+                    unit: totalOutflow.unit,
+                    scale: totalOutflow.scale,
+                  })
+                : "—"}
             </span>
             <label className="flex items-center gap-2">
               <input type="checkbox" disabled />
@@ -79,50 +134,26 @@ export default function CommunityPool() {
           <table className="w-full text-left text-sm">
             <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
               <tr>
-                <th className="px-4 py-3">Period</th>
-                <th className="px-4 py-3">Title</th>
-                <th className="px-4 py-3">Recipient</th>
-                <th className="px-4 py-3">LUNC</th>
-                <th className="px-4 py-3">USTC</th>
-                <th className="px-4 py-3">Impact %</th>
+                {view.spendOutflowsTable.columns.map((column) => (
+                  <th key={column.key} className="px-4 py-3">
+                    {column.label}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody className="text-slate-300">
-              <tr className="align-top">
-                <td className="px-4 py-3">2026-01-24 → 2026-01-31</td>
-                <td className="px-4 py-3">
-                  Spending Proposal: Terra Classic Upgrade to Cosmos SDK v0.53
-                  with IBC v2 (Eureka)
-                </td>
-                <td className="px-4 py-3">terra1...e86v</td>
-                <td className="px-4 py-3">1.05B</td>
-                <td className="px-4 py-3">0</td>
-                <td className="px-4 py-3">12.32%</td>
-              </tr>
-              <tr className="align-top text-slate-400">
-                <td className="px-4 py-3">2025-11-01 → 2025-11-08</td>
-                <td className="px-4 py-3">Fund IBC Relaying Activity</td>
-                <td className="px-4 py-3">terra1...f5t1</td>
-                <td className="px-4 py-3">254.58M</td>
-                <td className="px-4 py-3">0</td>
-                <td className="px-4 py-3">3.31%</td>
-              </tr>
-              <tr className="align-top text-slate-400">
-                <td className="px-4 py-3">
-                  <div>2025-09-28 → 2025-10-05</div>
-                  <span className="mt-2 inline-flex items-center rounded-full border border-amber-300/50 bg-slate-950/50 px-2 py-0.5 text-xs uppercase tracking-wider text-amber-200">
-                    Low conf
-                  </span>
-                </td>
-                <td className="px-4 py-3">
-                  Spending Proposal for Phase 2 of OrbitLabs' Removal of Forked
-                  Modules from Terra
-                </td>
-                <td className="px-4 py-3">terra1...v2fv</td>
-                <td className="px-4 py-3">500M</td>
-                <td className="px-4 py-3">0</td>
-                <td className="px-4 py-3">6.30%</td>
-              </tr>
+              {view.spendOutflowsTable.rows.map((row, index) => (
+                <tr key={`${row.period}-${index}`} className="align-top">
+                  {view.spendOutflowsTable.columns.map((column) => (
+                    <td key={column.key} className="px-4 py-3">
+                      {formatTableValue(
+                        row[column.key as keyof typeof row],
+                        column.unit,
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -144,11 +175,7 @@ export default function CommunityPool() {
               </span>
             </div>
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              {[
-                ["LUNC", "8.57B"],
-                ["USTC", "0"],
-                ["COMBINED", "8.57B"],
-              ].map(([label, value]) => (
+              {totalOutflowBlocks.map(({ label, kpi }) => (
                 <div
                   key={label}
                   className="rounded-xl border border-slate-800 bg-slate-950/60 p-3"
@@ -157,7 +184,13 @@ export default function CommunityPool() {
                     {label}
                   </p>
                   <p className="mt-2 text-lg font-semibold text-white">
-                    {value}
+                    {kpi
+                      ? formatValue({
+                          value: kpi.value,
+                          unit: kpi.unit,
+                          scale: kpi.scale,
+                        })
+                      : "—"}
                   </p>
                 </div>
               ))}
@@ -171,11 +204,7 @@ export default function CommunityPool() {
               </span>
             </div>
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              {[
-                ["LUNC", "141"],
-                ["USTC", "157"],
-                ["COMBINED", "141"],
-              ].map(([label, value]) => (
+              {idleWeekBlocks.map(({ label, kpi }) => (
                 <div
                   key={label}
                   className="rounded-xl border border-slate-800 bg-slate-950/60 p-3"
@@ -184,7 +213,13 @@ export default function CommunityPool() {
                     {label}
                   </p>
                   <p className="mt-2 text-lg font-semibold text-white">
-                    {value}
+                    {kpi
+                      ? formatValue({
+                          value: kpi.value,
+                          unit: kpi.unit,
+                          scale: kpi.scale,
+                        })
+                      : "—"}
                   </p>
                 </div>
               ))}
@@ -198,11 +233,7 @@ export default function CommunityPool() {
               </span>
             </div>
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              {[
-                ["LUNC", "21"],
-                ["USTC", "157"],
-                ["COMBINED", "21"],
-              ].map(([label, value]) => (
+              {["LUNC", "USTC", "COMBINED"].map((label) => (
                 <div
                   key={label}
                   className="rounded-xl border border-slate-800 bg-slate-950/60 p-3"
@@ -210,9 +241,7 @@ export default function CommunityPool() {
                   <p className="text-xs uppercase tracking-wider text-slate-500">
                     {label}
                   </p>
-                  <p className="mt-2 text-lg font-semibold text-white">
-                    {value}
-                  </p>
+                  <p className="mt-2 text-lg font-semibold text-white">—</p>
                 </div>
               ))}
             </div>
@@ -236,9 +265,9 @@ export default function CommunityPool() {
               </p>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {[
-                  ["LUNC", "52.65%/yr"],
-                  ["USTC", "0.00%/yr"],
-                  ["COMBINED", "52.42%/yr"],
+                  ["LUNC", "—"],
+                  ["USTC", "—"],
+                  ["COMBINED", "—"],
                 ].map(([label, value]) => (
                   <div
                     key={label}
@@ -260,9 +289,9 @@ export default function CommunityPool() {
               </p>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {[
-                  ["LUNC", "8.0w / 19.0w"],
-                  ["USTC", "157.0w / 157.0w"],
-                  ["COMBINED", "8.0w / 19.0w"],
+                  ["LUNC", "—"],
+                  ["USTC", "—"],
+                  ["COMBINED", "—"],
                 ].map(([label, value]) => (
                   <div
                     key={label}
@@ -284,9 +313,9 @@ export default function CommunityPool() {
               <p className="text-sm font-semibold text-white">Idle weeks share</p>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {[
-                  ["LUNC", "89.81%"],
-                  ["USTC", "100.00%"],
-                  ["COMBINED", "89.81%"],
+                  ["LUNC", "—"],
+                  ["USTC", "—"],
+                  ["COMBINED", "—"],
                 ].map(([label, value]) => (
                   <div
                     key={label}
@@ -308,9 +337,9 @@ export default function CommunityPool() {
               </p>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {[
-                  ["LUNC", "9.0w"],
+                  ["LUNC", "—"],
                   ["USTC", "—"],
-                  ["COMBINED", "9.0w"],
+                  ["COMBINED", "—"],
                 ].map(([label, value]) => (
                   <div
                     key={label}
@@ -346,9 +375,9 @@ export default function CommunityPool() {
               </p>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {[
-                  ["LUNC", "23.0% / 55.1% / 76.6%"],
+                  ["LUNC", "—"],
                   ["USTC", "—"],
-                  ["COMBINED", "23.0% / 55.1% / 76.6%"],
+                  ["COMBINED", "—"],
                 ].map(([label, value]) => (
                   <div
                     key={label}
@@ -368,9 +397,9 @@ export default function CommunityPool() {
               <p className="text-sm font-semibold text-white">Gini coefficient</p>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {[
-                  ["LUNC", "0.56"],
+                  ["LUNC", "—"],
                   ["USTC", "—"],
-                  ["COMBINED", "0.56"],
+                  ["COMBINED", "—"],
                 ].map(([label, value]) => (
                   <div
                     key={label}
@@ -394,9 +423,9 @@ export default function CommunityPool() {
               </p>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {[
-                  ["LUNC", "6 (37.5%)"],
+                  ["LUNC", "—"],
                   ["USTC", "—"],
-                  ["COMBINED", "6 (37.5%)"],
+                  ["COMBINED", "—"],
                 ].map(([label, value]) => (
                   <div
                     key={label}
@@ -416,9 +445,9 @@ export default function CommunityPool() {
               <p className="text-sm font-semibold text-white">Bursty index</p>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {[
-                  ["LUNC", "7.71"],
+                  ["LUNC", "—"],
                   ["USTC", "—"],
-                  ["COMBINED", "7.71"],
+                  ["COMBINED", "—"],
                 ].map(([label, value]) => (
                   <div
                     key={label}

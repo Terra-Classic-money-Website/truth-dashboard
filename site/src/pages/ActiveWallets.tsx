@@ -1,78 +1,34 @@
+import { useState } from "react";
 import Card from "../components/Card";
+import SnapshotErrorPanel from "../components/SnapshotErrorPanel";
+import TimeSeriesChart from "../components/charts/TimeSeriesChart";
+import {
+  formatDelta,
+  formatNumber,
+  formatPercent,
+  formatTableValue,
+  formatValue,
+} from "../data/format";
+import { getSnapshot } from "../data/loadSnapshot";
+import { selectActiveWallets } from "../data/selectors";
 import PageHeader from "../components/PageHeader";
 
-const kpiSnapshot = [
-  { label: "Current month", value: "14,982", sub: "Jan 26" },
-  { label: "All-time peak", value: "498,729", sub: "Aug 22" },
-  { label: "Drawdown from peak", value: "-97.0%", sub: "Current vs peak" },
-  { label: "12M rolling average", value: "24,333", sub: "Last 12 months" },
-  { label: "12M trend slope", value: "-217 /month", sub: "Linear regression" },
-  { label: "12M stability", value: "28.9%", sub: "Stdev / mean" },
-];
-
-const yearSummary = [
-  ["2026", "14,982", "14,982", "-41.8%", "0", "0.0%"],
-  ["2025", "25,746", "23,452", "-43.5%", "6,716", "26.1%"],
-  ["2024", "45,533", "42,835", "-21.0%", "11,681", "25.7%"],
-  ["2023", "57,670", "58,214", "-78.1%", "13,633", "23.6%"],
-  ["2022", "263,903", "212,151", "—", "143,464", "54.4%"],
-];
-
-const quarterSummary = [
-  ["2026 Q1", "14,982", "-49.0%", "Jan 26 (14,982)", "Jan 26 (14,982)"],
-  ["2025 Q4", "29,376", "+24.2%", "Oct 25 (44,342)", "Nov 25 (18,414)"],
-  ["2025 Q3", "23,645", "+10.0%", "Jul 25 (25,347)", "Aug 25 (22,651)"],
-  ["2025 Q2", "21,496", "-24.5%", "Apr 25 (23,146)", "Jun 25 (18,710)"],
-  ["2025 Q1", "28,465", "-28.9%", "Jan 25 (31,576)", "Mar 25 (26,054)"],
-];
-
-const topMonths = [
-  "Aug 22: 498,729",
-  "Jul 22: 406,085",
-  "Sep 22: 348,416",
-  "Jun 22: 212,151",
-  "Oct 22: 150,304",
-];
-
-const bottomMonths = [
-  "Jan 26: 14,982",
-  "Nov 25: 18,414",
-  "Jun 25: 18,710",
-  "May 25: 22,633",
-  "Aug 25: 22,651",
-];
-
-const thresholds = [
-  ["50,000", "May 23", "26", "Jan 26"],
-  ["25,000", "Mar 25", "8", "Jan 26"],
-  ["15,000", "Jan 26", "1", "Jan 26"],
-];
-
-const seasonalityLeft = [
-  { month: "Jan", value: "45,763" },
-  { month: "Mar", value: "52,214" },
-  { month: "May", value: "38,083", tone: "low" },
-  { month: "Jul", value: "129,525" },
-  { month: "Sep", value: "112,674" },
-  { month: "Nov", value: "67,257" },
-];
-
-const seasonalityRight = [
-  { month: "Feb", value: "54,068" },
-  { month: "Apr", value: "41,071" },
-  { month: "Jun", value: "81,883" },
-  { month: "Aug", value: "149,880", tone: "peak" },
-  { month: "Oct", value: "66,906" },
-  { month: "Dec", value: "59,458" },
-];
-
 export default function ActiveWallets() {
+  const [windowId, setWindowId] = useState<string>("all");
+  const { data: snapshot, error } = getSnapshot("active-wallets");
+
+  if (!snapshot) {
+    return <SnapshotErrorPanel error={error} />;
+  }
+
+  const view = selectActiveWallets(snapshot, windowId);
+
   return (
     <div className="space-y-8">
       <PageHeader
         eyebrow="Terra Classic On-Chain Activity"
-        title="Monthly Active Wallets"
-        subtitle="Participants per month based on transaction senders and recipients on the Terra Classic L1."
+        title={view.header.title}
+        subtitle={view.header.subtitle}
       />
 
       <div className="flex flex-wrap gap-3">
@@ -81,6 +37,11 @@ export default function ActiveWallets() {
             key={label}
             className="rounded-full border border-slate-800 px-4 py-2 text-xs uppercase tracking-wider text-slate-300 hover:border-amber-300 hover:text-amber-200 transition"
             type="button"
+            onClick={() =>
+              setWindowId(
+                label === "All" ? "all" : label === "2 Years" ? "2y" : "3y",
+              )
+            }
           >
             {label}
           </button>
@@ -100,15 +61,31 @@ export default function ActiveWallets() {
             Active wallets
           </div>
         </div>
-        <div className="relative mt-6">
-          <div className="flex h-80 items-center justify-center rounded-xl border border-dashed border-slate-800 bg-slate-950/50 text-sm text-slate-500">
-            Chart placeholder — monthly active wallets trend
-          </div>
-          <div className="absolute inset-0 hidden items-center justify-center rounded-xl bg-slate-950/70 text-sm text-slate-400">
-            Loading snapshot data...
-          </div>
+        <div className="mt-6">
+          <TimeSeriesChart series={view.series} height={320} />
         </div>
       </Card>
+
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {view.kpiTiles.map((kpi) => (
+          <Card key={kpi.id} className="p-4">
+            <div className="text-xs uppercase tracking-wider text-slate-500">
+              {kpi.label}
+            </div>
+            <div className="mt-2 text-lg font-semibold text-white">
+              {formatValue({ value: kpi.value, unit: kpi.unit, scale: kpi.scale })}
+            </div>
+            {kpi.note ? (
+              <div className="mt-1 text-xs text-slate-500">{kpi.note}</div>
+            ) : null}
+            {kpi.delta ? (
+              <div className="mt-1 text-xs text-slate-400">
+                {formatDelta(kpi.delta)}
+              </div>
+            ) : null}
+          </Card>
+        ))}
+      </section>
 
       <section className="space-y-4">
         <div>
@@ -122,39 +99,32 @@ export default function ActiveWallets() {
           <Card>
             <h3 className="text-base font-semibold text-white">Key Highlights</h3>
             <ul className="mt-3 space-y-2 text-sm text-slate-400 list-disc list-inside">
-              <li>
-                Activity is down 97.0% from the peak (peak: Aug 22, 498,729).
-              </li>
-              <li>
-                Over the last 12 months, the trend slope is -217 wallets/month
-                (smoothed).
-              </li>
-              <li>
-                The most severe peak-to-trough decline was -97.0% from Aug 22 to
-                Jan 26.
-              </li>
-              <li>
-                The last month shows decline with MoM change of -41.0%.
-              </li>
-              <li>Year-over-year change is -53.1% (vs Jan 25).</li>
-              <li>The network spent 8 months below 25,000 active wallets.</li>
+              {view.insights.highlights.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </Card>
           <Card>
             <h3 className="text-base font-semibold text-white">KPI Snapshot</h3>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
-              {kpiSnapshot.map((item) => (
+              {view.insights.kpiSnapshot.map((item) => (
                 <div
-                  key={item.label}
+                  key={item.id}
                   className="rounded-xl border border-slate-800 bg-slate-950/50 p-4"
                 >
                   <p className="text-xs uppercase tracking-wider text-slate-500">
                     {item.label}
                   </p>
                   <p className="mt-2 text-lg font-semibold text-white">
-                    {item.value}
+                    {formatValue({
+                      value: item.value,
+                      unit: item.unit,
+                      scale: item.scale,
+                    })}
                   </p>
-                  <p className="mt-1 text-xs text-slate-500">{item.sub}</p>
+                  {item.note ? (
+                    <p className="mt-1 text-xs text-slate-500">{item.note}</p>
+                  ) : null}
                 </div>
               ))}
             </div>
@@ -168,20 +138,22 @@ export default function ActiveWallets() {
               <table className="w-full text-left text-sm">
                 <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
                   <tr>
-                    <th className="px-4 py-3">Year</th>
-                    <th className="px-4 py-3">Avg monthly wallets</th>
-                    <th className="px-4 py-3">Median</th>
-                    <th className="px-4 py-3">YoY change</th>
-                    <th className="px-4 py-3">Volatility</th>
-                    <th className="px-4 py-3">Coeff. of variation</th>
+                    {view.tables.yearSummary.columns.map((column) => (
+                      <th key={column.key} className="px-4 py-3">
+                        {column.label}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {yearSummary.map((row) => (
-                    <tr key={row[0]} className="text-slate-300">
-                      {row.map((cell) => (
-                        <td key={cell} className="px-4 py-3">
-                          {cell}
+                  {view.tables.yearSummary.rows.map((row) => (
+                    <tr key={row.year} className="text-slate-300">
+                      {view.tables.yearSummary.columns.map((column) => (
+                        <td key={column.key} className="px-4 py-3">
+                          {formatTableValue(
+                            row[column.key as keyof typeof row],
+                            column.unit,
+                          )}
                         </td>
                       ))}
                     </tr>
@@ -196,19 +168,22 @@ export default function ActiveWallets() {
               <table className="w-full text-left text-sm">
                 <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
                   <tr>
-                    <th className="px-4 py-3">Quarter</th>
-                    <th className="px-4 py-3">Avg wallets</th>
-                    <th className="px-4 py-3">QoQ change</th>
-                    <th className="px-4 py-3">Best month</th>
-                    <th className="px-4 py-3">Worst month</th>
+                    {view.tables.quarterlySummary.columns.map((column) => (
+                      <th key={column.key} className="px-4 py-3">
+                        {column.label}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {quarterSummary.map((row) => (
-                    <tr key={row[0]} className="text-slate-300">
-                      {row.map((cell) => (
-                        <td key={cell} className="px-4 py-3">
-                          {cell}
+                  {view.tables.quarterlySummary.rows.map((row) => (
+                    <tr key={row.quarter} className="text-slate-300">
+                      {view.tables.quarterlySummary.columns.map((column) => (
+                        <td key={column.key} className="px-4 py-3">
+                          {formatTableValue(
+                            row[column.key as keyof typeof row],
+                            column.unit,
+                          )}
                         </td>
                       ))}
                     </tr>
@@ -228,16 +203,20 @@ export default function ActiveWallets() {
               <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4">
                 <p className="text-sm font-semibold text-white">Top 5 months</p>
                 <ul className="mt-3 space-y-1 text-sm text-slate-400 list-disc list-inside">
-                  {topMonths.map((item) => (
-                    <li key={item}>{item}</li>
+                  {view.extremes.topMonths.map((item) => (
+                    <li key={item.label}>
+                      {item.label}: {formatTableValue(item.value, "count")}
+                    </li>
                   ))}
                 </ul>
               </div>
               <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4">
                 <p className="text-sm font-semibold text-white">Bottom 5 months</p>
                 <ul className="mt-3 space-y-1 text-sm text-slate-400 list-disc list-inside">
-                  {bottomMonths.map((item) => (
-                    <li key={item}>{item}</li>
+                  {view.extremes.bottomMonths.map((item) => (
+                    <li key={item.label}>
+                      {item.label}: {formatTableValue(item.value, "count")}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -246,7 +225,9 @@ export default function ActiveWallets() {
                   Largest MoM increase
                 </p>
                 <p className="mt-3 text-sm text-slate-300">
-                  Jul 22 (+193,934 | +91.4%)
+                  {view.extremes.largestMoMIncrease.label} (
+                  {formatTableValue(view.extremes.largestMoMIncrease.abs, "count")}{" "}
+                  | {formatPercent(view.extremes.largestMoMIncrease.pct)})
                 </p>
               </div>
               <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4">
@@ -254,7 +235,9 @@ export default function ActiveWallets() {
                   Largest MoM decrease
                 </p>
                 <p className="mt-3 text-sm text-slate-300">
-                  Oct 22 (-198,112 | -56.9%)
+                  {view.extremes.largestMoMDecrease.label} (
+                  {formatTableValue(view.extremes.largestMoMDecrease.abs, "count")}{" "}
+                  | {formatPercent(view.extremes.largestMoMDecrease.pct)})
                 </p>
               </div>
               <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-4">
@@ -262,10 +245,15 @@ export default function ActiveWallets() {
                   Max drawdown &amp; recovery
                 </p>
                 <p className="mt-3 text-sm text-slate-300">
-                  Drawdown: -97.0% (Aug 22 → Jan 26)
+                  Drawdown: {formatPercent(view.extremes.drawdownRecovery.drawdownPct)} (
+                  {view.extremes.drawdownRecovery.from} →{" "}
+                  {view.extremes.drawdownRecovery.to})
                 </p>
                 <p className="mt-2 text-sm text-slate-300">
-                  Recovery time: Not recovered within dataset
+                  Recovery time:{" "}
+                  {view.extremes.drawdownRecovery.recovered
+                    ? "Recovered within dataset"
+                    : "Not recovered within dataset"}
                 </p>
               </div>
             </div>
@@ -285,13 +273,14 @@ export default function ActiveWallets() {
                   </tr>
                 </thead>
                 <tbody>
-                  {thresholds.map((row) => (
-                    <tr key={row[0]} className="text-slate-300">
-                      {row.map((cell) => (
-                        <td key={cell} className="px-4 py-3">
-                          {cell}
-                        </td>
-                      ))}
+                  {view.milestones.thresholds.map((row) => (
+                    <tr key={row.threshold} className="text-slate-300">
+                      <td className="px-4 py-3">
+                        {formatNumber(row.threshold)}
+                      </td>
+                      <td className="px-4 py-3">{row.firstReached}</td>
+                      <td className="px-4 py-3">—</td>
+                      <td className="px-4 py-3">{row.lastSeen}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -306,43 +295,8 @@ export default function ActiveWallets() {
               Seasonality Snapshot
             </h3>
             <div className="mt-3 grid gap-4 sm:grid-cols-2">
-              <div className="space-y-2 text-sm text-slate-400">
-                {seasonalityLeft.map((item) => (
-                  <div
-                    key={item.month}
-                    className="flex items-center justify-between"
-                  >
-                    <span className="text-slate-300">{item.month}</span>
-                    <span
-                      className={
-                        item.tone === "low"
-                          ? "text-rose-300"
-                          : "text-slate-200"
-                      }
-                    >
-                      {item.value}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <div className="space-y-2 text-sm text-slate-400">
-                {seasonalityRight.map((item) => (
-                  <div
-                    key={item.month}
-                    className="flex items-center justify-between"
-                  >
-                    <span className="text-slate-300">{item.month}</span>
-                    <span
-                      className={
-                        item.tone === "peak"
-                          ? "text-amber-200"
-                          : "text-slate-200"
-                      }
-                    >
-                      {item.value}
-                    </span>
-                  </div>
-                ))}
+              <div className="text-sm text-slate-400">
+                Snapshot does not include seasonality data.
               </div>
             </div>
           </Card>
@@ -353,22 +307,19 @@ export default function ActiveWallets() {
             <div className="mt-3 space-y-2 text-sm text-slate-400">
               <p>
                 <strong className="text-slate-200">Source:</strong>{" "}
-                terra-classic-fcd.publicnode.com FCD endpoint.
+                {view.method.source} FCD endpoint.
               </p>
               <p>
                 <strong className="text-slate-200">Metric definition:</strong>{" "}
-                Monthly Active Wallets = unique addresses observed participating
-                in on-chain transactions in that month.
+                {view.method.metricDefinition}
               </p>
               <p>
-                <strong className="text-slate-200">Data window:</strong> Jun 22
-                → Jan 26.
+                <strong className="text-slate-200">Data window:</strong>{" "}
+                {view.method.dataWindow}
               </p>
-              <p>
-                <strong className="text-slate-200">Completeness:</strong> Months
-                included: 44; missing months in between: 0.
-              </p>
-              <p>Based on local dataset file.</p>
+              {view.method.notes.map((note) => (
+                <p key={note}>{note}</p>
+              ))}
             </div>
           </Card>
         </div>
