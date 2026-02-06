@@ -51,6 +51,49 @@ export default function CommunityPool() {
   }
 
   const view = useMemo(() => selectCommunityPool(snapshot, windowId), [snapshot, windowId]);
+  const highlights = useMemo(() => {
+    const idleWeeksShareCombined = view.capitalUtilization.idleWeeksSharePct.combined;
+    const topSpendShareCombined = view.spendConcentration.topSpendShare.combined;
+    const eightyTwentyCombined = view.spendConcentration.eightyTwentySpendWeeks.combined;
+    const medianGapCombined = view.capitalUtilization.medianGapWeeks.combined;
+    const longestStreakCombined = view.overview.longestInactivityStreak.combined;
+    const giniCombined = view.spendConcentration.giniCoefficient.combined;
+    const burstyCombined = view.spendConcentration.burstyIndex.combined;
+
+    const idleShareText =
+      idleWeeksShareCombined === null
+        ? ""
+        : ` (~${idleWeeksShareCombined.toFixed(1)}% of weeks in this window)`;
+
+    const topShareText =
+      topSpendShareCombined === null
+        ? ""
+        : ` (Top 1/3/5 weeks: ${topSpendShareCombined.top1.toFixed(1)}%/${topSpendShareCombined.top3.toFixed(1)}%/${topSpendShareCombined.top5.toFixed(1)}%)`;
+
+    const eightyTwentyText =
+      eightyTwentyCombined === null
+        ? ""
+        : `; 80/20 weeks: ${eightyTwentyCombined.weeks} (${eightyTwentyCombined.pct.toFixed(1)}%)`;
+
+    const rhythmText =
+      medianGapCombined === null
+        ? `The median gap between spends and the longest inactivity streak signal inconsistent throughput and low capital velocity.`
+        : `The median gap between spends is ${medianGapCombined.toFixed(1)}w and the longest inactivity streak reaches ${longestStreakCombined}w, signaling inconsistent throughput and low capital velocity.`;
+
+    const giniBurstyText =
+      giniCombined === null
+        ? `The Gini coefficient and Bursty index (when elevated) reinforce that spend is highly unequal across time — a hallmark of episodic governance action rather than structured allocation.`
+        : `The Gini coefficient ${giniCombined.toFixed(2)} and Bursty index ${burstyCombined === null ? "—" : burstyCombined.toFixed(2)} (when elevated) reinforce that spend is highly unequal across time — a hallmark of episodic governance action rather than structured allocation.`;
+
+    return [
+      `Prolonged inactivity dominates. Most weeks show zero outflow${idleShareText}, indicating that capital sat idle rather than being deployed via a predictable budget cadence.`,
+      `Spending is “lumpy”, not planned. Outflows cluster into short bursts (large proposal weeks) separated by long quiet periods — a pattern consistent with reactive, ad-hoc disbursement instead of continuous program funding.`,
+      `High concentration risk. A small number of weeks account for a disproportionate share of total outflows${topShareText}${eightyTwentyText}.`,
+      `Weak operating rhythm. ${rhythmText}`,
+      `Uneven distribution confirms governance “spikiness”. ${giniBurstyText}`,
+      `Net effect: low capital efficiency. The Community Pool behaved more like a dormant treasury punctuated by occasional large drops, rather than a well-managed fund supporting sustained development and ecosystem initiatives.`,
+    ];
+  }, [view]);
 
   return (
     <div className="space-y-8">
@@ -482,6 +525,15 @@ export default function CommunityPool() {
             </div>
           </div>
         </div>
+      </Card>
+
+      <Card>
+        <h3 className="text-base font-semibold text-white">Key Highlights</h3>
+        <ul className="mt-3 list-inside list-disc space-y-2 text-sm text-slate-400">
+          {highlights.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
       </Card>
     </div>
   );
