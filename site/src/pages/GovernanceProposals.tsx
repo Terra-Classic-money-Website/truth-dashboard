@@ -1,18 +1,61 @@
+import { useMemo, useState } from "react";
 import Card from "../components/Card";
-import SnapshotErrorPanel from "../components/SnapshotErrorPanel";
 import { formatTableValue } from "../data/format";
-import { getSnapshot } from "../data/loadSnapshot";
 import { selectGovernanceProposals } from "../data/selectors";
 import PageHeader from "../components/PageHeader";
 
+type ProposalRow = {
+  id: number;
+  title: string;
+  type: string;
+  status: string;
+  votes: string;
+  delegators: number;
+  endDate: string;
+  endDateMs: number;
+};
+
 export default function GovernanceProposals() {
-  const { data: snapshot, error } = getSnapshot("governance-proposals");
+  const view = selectGovernanceProposals();
+  const [query, setQuery] = useState("");
+  const [sortBy, setSortBy] = useState("endDate");
+  const [status, setStatus] = useState("all");
+  const [descending, setDescending] = useState(true);
 
-  if (!snapshot) {
-    return <SnapshotErrorPanel error={error} />;
-  }
+  const rows = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    let result = view.table.rows as ProposalRow[];
 
-  const view = selectGovernanceProposals(snapshot);
+    if (status !== "all") {
+      result = result.filter((row) => row.status.toLowerCase() === status);
+    }
+
+    if (q) {
+      result = result.filter((row) => {
+        return (
+          String(row.id).includes(q) ||
+          row.title.toLowerCase().includes(q) ||
+          row.type.toLowerCase().includes(q)
+        );
+      });
+    }
+
+    const sorted = [...result].sort((a, b) => {
+      if (sortBy === "id") {
+        return a.id - b.id;
+      }
+      if (sortBy === "delegators") {
+        return a.delegators - b.delegators;
+      }
+      return a.endDateMs - b.endDateMs;
+    });
+
+    if (descending) {
+      sorted.reverse();
+    }
+
+    return sorted;
+  }, [descending, query, sortBy, status, view.table.rows]);
 
   return (
     <div className="space-y-8">
@@ -32,7 +75,8 @@ export default function GovernanceProposals() {
               className="w-full rounded-xl border border-slate-800 bg-slate-950/70 px-4 py-2 text-sm text-slate-300"
               placeholder="Search by id, title, type..."
               type="text"
-              disabled
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
             />
           </div>
           <div className="space-y-2">
@@ -41,10 +85,13 @@ export default function GovernanceProposals() {
             </label>
             <select
               className="w-full rounded-xl border border-slate-800 bg-slate-950/70 px-4 py-2 text-sm text-slate-300"
-              disabled
+              value={sortBy}
+              onChange={(event) => setSortBy(event.target.value)}
             >
               {view.filters.sortOptions.map((option) => (
-                <option key={option.id}>{option.label}</option>
+                <option key={option.id} value={option.id}>
+                  {option.label}
+                </option>
               ))}
             </select>
           </div>
@@ -54,10 +101,13 @@ export default function GovernanceProposals() {
             </label>
             <select
               className="w-full rounded-xl border border-slate-800 bg-slate-950/70 px-4 py-2 text-sm text-slate-300"
-              disabled
+              value={status}
+              onChange={(event) => setStatus(event.target.value)}
             >
               {view.filters.statusOptions.map((option) => (
-                <option key={option.id}>{option.label}</option>
+                <option key={option.id} value={option.id}>
+                  {option.label}
+                </option>
               ))}
             </select>
           </div>
@@ -65,7 +115,11 @@ export default function GovernanceProposals() {
 
         <div className="mt-4 flex flex-wrap items-center gap-3">
           <label className="flex items-center gap-2 text-xs text-slate-400">
-            <input type="checkbox" defaultChecked disabled />
+            <input
+              type="checkbox"
+              checked={descending}
+              onChange={(event) => setDescending(event.target.checked)}
+            />
             Descending
           </label>
         </div>
@@ -73,9 +127,7 @@ export default function GovernanceProposals() {
 
       <Card>
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="text-base font-semibold text-white">
-            {view.table.title}
-          </h2>
+          <h2 className="text-base font-semibold text-white">{view.table.title}</h2>
           <span className="text-xs text-slate-500">Table note placeholder</span>
         </div>
         <div className="mt-4 overflow-hidden rounded-xl border border-slate-800">
@@ -90,7 +142,7 @@ export default function GovernanceProposals() {
               </tr>
             </thead>
             <tbody>
-              {view.table.rows.map((row) => (
+              {rows.map((row) => (
                 <tr key={row.id} className="text-slate-300">
                   {view.table.columns.map((column) => (
                     <td key={column.key} className="px-4 py-3">

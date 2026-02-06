@@ -1,20 +1,13 @@
 import { useState } from "react";
 import Card from "../components/Card";
-import SnapshotErrorPanel from "../components/SnapshotErrorPanel";
 import { formatTableValue } from "../data/format";
-import { getSnapshot } from "../data/loadSnapshot";
 import { selectGovernanceValidators } from "../data/selectors";
+import type { GovernanceWindowId } from "../data/governanceRaw";
 import PageHeader from "../components/PageHeader";
 
 export default function GovernanceValidators() {
-  const { data: snapshot, error } = getSnapshot("governance-validators");
-  const [windowId, setWindowId] = useState<string>("all");
-
-  if (!snapshot) {
-    return <SnapshotErrorPanel error={error} />;
-  }
-
-  const view = selectGovernanceValidators(snapshot, windowId);
+  const [windowId, setWindowId] = useState<GovernanceWindowId>("1y");
+  const view = selectGovernanceValidators(windowId);
 
   return (
     <div className="space-y-8">
@@ -40,7 +33,7 @@ export default function GovernanceValidators() {
                     <input
                       type="radio"
                       checked={windowId === window.id}
-                      onChange={() => setWindowId(window.id)}
+                      onChange={() => setWindowId(window.id as GovernanceWindowId)}
                     />
                     {window.label}
                   </label>

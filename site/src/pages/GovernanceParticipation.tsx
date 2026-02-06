@@ -1,21 +1,16 @@
 import { useState } from "react";
 import Card from "../components/Card";
-import SnapshotErrorPanel from "../components/SnapshotErrorPanel";
 import TimeSeriesChart from "../components/charts/TimeSeriesChart";
 import { formatTableValue, formatValue } from "../data/format";
-import { getSnapshot } from "../data/loadSnapshot";
-import { selectGovernanceParticipation } from "../data/selectors";
+import {
+  selectGovernanceParticipation,
+} from "../data/selectors";
+import type { GovernanceWindowId } from "../data/governanceRaw";
 import PageHeader from "../components/PageHeader";
 
 export default function GovernanceParticipation() {
-  const { data: snapshot, error } = getSnapshot("governance-participation");
-  const [windowId, setWindowId] = useState<string>("all");
-
-  if (!snapshot) {
-    return <SnapshotErrorPanel error={error} />;
-  }
-
-  const view = selectGovernanceParticipation(snapshot, windowId);
+  const [windowId, setWindowId] = useState<GovernanceWindowId>("1y");
+  const view = selectGovernanceParticipation(windowId);
 
   return (
     <div className="space-y-8">
@@ -39,7 +34,7 @@ export default function GovernanceParticipation() {
                 <input
                   type="radio"
                   checked={windowId === window.id}
-                  onChange={() => setWindowId(window.id)}
+                  onChange={() => setWindowId(window.id as GovernanceWindowId)}
                 />
                 {window.label}
               </label>
@@ -54,13 +49,10 @@ export default function GovernanceParticipation() {
             <div className="text-xs uppercase tracking-wider text-slate-500">
               {item.label}
             </div>
-            <div
-              className="mt-2 text-lg font-semibold text-white"
-            >
+            <div className="mt-2 text-lg font-semibold text-white">
               {formatValue({
                 value: item.value,
                 unit: item.unit,
-                scale: item.scale,
               })}
             </div>
           </Card>
@@ -83,32 +75,48 @@ export default function GovernanceParticipation() {
           <div className="mt-3">
             <TimeSeriesChart series={view.series} height={260} />
           </div>
-          <div className="mt-3 text-sm text-slate-400">
-            Legend placeholder
-          </div>
+          <div className="mt-3 text-sm text-slate-400">Legend placeholder</div>
         </Card>
         <Card>
           <h2 className="text-base font-semibold text-white">
             Top 15 by non-participation
           </h2>
-          <div className="mt-3 flex h-64 items-center justify-center rounded-xl border border-dashed border-slate-800 bg-slate-950/50 text-sm text-slate-500">
-            Chart placeholder
+          <div className="mt-3 flex h-64 items-start justify-start rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4 text-sm text-slate-300">
+            <ul className="space-y-1">
+              {view.charts.topNonParticipation.labels.map((label, index) => (
+                <li key={label}>
+                  {label}: {formatTableValue(view.charts.topNonParticipation.values[index], "percent")}
+                </li>
+              ))}
+            </ul>
           </div>
         </Card>
         <Card>
           <h2 className="text-base font-semibold text-white">
             Overall vote composition
           </h2>
-          <div className="mt-3 flex h-64 items-center justify-center rounded-xl border border-dashed border-slate-800 bg-slate-950/50 text-sm text-slate-500">
-            Chart placeholder
+          <div className="mt-3 flex h-64 items-start justify-start rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4 text-sm text-slate-300">
+            <ul className="space-y-1">
+              {view.charts.voteComposition.labels.map((label, index) => (
+                <li key={label}>
+                  {label}: {formatTableValue(view.charts.voteComposition.values[index], "count")}
+                </li>
+              ))}
+            </ul>
           </div>
         </Card>
         <Card>
           <h2 className="text-base font-semibold text-white">
             Delegators per proposal (top 20)
           </h2>
-          <div className="mt-3 flex h-64 items-center justify-center rounded-xl border border-dashed border-slate-800 bg-slate-950/50 text-sm text-slate-500">
-            Chart placeholder
+          <div className="mt-3 flex h-64 items-start justify-start rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4 text-sm text-slate-300">
+            <ul className="space-y-1">
+              {view.charts.topDelegatorsPerProposal.labels.map((label, index) => (
+                <li key={label}>
+                  {label}: {formatTableValue(view.charts.topDelegatorsPerProposal.values[index], "count")}
+                </li>
+              ))}
+            </ul>
           </div>
         </Card>
       </section>
