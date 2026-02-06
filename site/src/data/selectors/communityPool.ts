@@ -235,9 +235,20 @@ export function selectCommunityPool(
     combined: computeSeriesStats(weeklyCombinedOutflow, combinedBalanceSeries),
   };
 
+  const markerImpactPct = (marker: (typeof outflowMarkers)[number]) => {
+    const luncImpact =
+      marker.lunc?.preBalance && marker.lunc.preBalance > 0
+        ? (marker.lunc.amount / marker.lunc.preBalance) * 100
+        : 0;
+    const ustcImpact =
+      marker.ustc?.preBalance && marker.ustc.preBalance > 0
+        ? (marker.ustc.amount / marker.ustc.preBalance) * 100
+        : 0;
+    return luncImpact + ustcImpact;
+  };
+
   const combinedImpact = outflowMarkers
-    .map((marker) => marker.combinedImpactPct)
-    .filter((value): value is number => value !== null)
+    .map((marker) => markerImpactPct(marker))
     .reduce((acc, current) => Math.max(acc, current), 0);
 
   const rows = outflowMarkers
@@ -262,7 +273,7 @@ export function selectCommunityPool(
             : `${uniqueRecipients[0]} (+${uniqueRecipients.length - 1})`,
         lunc: marker.lunc?.amount ?? 0,
         ustc: marker.ustc?.amount ?? 0,
-        impactPct: marker.combinedImpactPct ?? 0,
+        impactPct: markerImpactPct(marker),
         lowConfidence: marker.lowConfidence,
       };
     });

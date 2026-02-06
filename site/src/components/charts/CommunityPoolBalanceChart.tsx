@@ -538,6 +538,15 @@ export default function CommunityPoolBalanceChart({
               {(() => {
                 const marker = hovered.marker;
                 if (!marker) return null;
+                const luncImpactPct =
+                  marker.lunc?.preBalance && marker.lunc.preBalance > 0
+                    ? (marker.lunc.amount / marker.lunc.preBalance) * 100
+                    : 0;
+                const ustcImpactPct =
+                  marker.ustc?.preBalance && marker.ustc.preBalance > 0
+                    ? (marker.ustc.amount / marker.ustc.preBalance) * 100
+                    : 0;
+                const combinedImpactPct = luncImpactPct + ustcImpactPct;
                 return (
                   <>
               <div className="font-semibold text-white">
@@ -561,6 +570,10 @@ export default function CommunityPoolBalanceChart({
                   (acc, proposal) => acc + (proposal.residualVsExpected ?? 0),
                   0,
                 );
+                const impactPct =
+                  bucket.preBalance && bucket.preBalance > 0
+                    ? (bucket.amount / bucket.preBalance) * 100
+                    : 0;
                 return (
                   <div key={`marker-tooltip-${denom}`} className="rounded border border-slate-800 bg-slate-900/50 p-2">
                     <div className="font-semibold uppercase text-slate-100">{denom}</div>
@@ -568,13 +581,13 @@ export default function CommunityPoolBalanceChart({
                     <div>Post balance: {compact(postBalance, denom)}</div>
                     <div>Observed Δ: {compact(bucket.observedDelta, denom)}</div>
                     <div>Spend total: {compact(bucket.amount, denom)}</div>
-                    <div>Impact: {bucket.impactPct?.toFixed(2) ?? "—"}%</div>
+                    <div>Impact: {impactPct.toFixed(2)}%</div>
                     <div>Residual: {residual.toFixed(2)}</div>
                   </div>
                 );
               })}
               <div>
-                Combined impact: {marker.combinedImpactPct?.toFixed(2) ?? "0.00"}%
+                Combined impact: {combinedImpactPct.toFixed(2)}%
               </div>
                   </>
                 );
