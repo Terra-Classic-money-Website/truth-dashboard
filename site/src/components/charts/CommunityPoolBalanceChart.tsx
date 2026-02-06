@@ -137,7 +137,7 @@ export default function CommunityPoolBalanceChart({
     return () => observer.disconnect();
   }, []);
 
-  const padding = { left: 72, right: 72, top: 46, bottom: 42 };
+  const padding = { left: 56, right: 56, top: 46, bottom: 42 };
   const plotWidth = Math.max(width - padding.left - padding.right, 1);
   const plotHeight = Math.max(height - padding.top - padding.bottom, 1);
 
@@ -292,7 +292,7 @@ export default function CommunityPoolBalanceChart({
   return (
     <div
       ref={ref}
-      className="relative h-full w-full rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4"
+      className="relative h-full w-full rounded-xl border border-dashed border-slate-800 bg-slate-950/50 px-2 py-4"
       style={{ height }}
     >
       <div className="mb-2 flex flex-wrap items-center justify-end gap-4 text-xs text-slate-300">

@@ -15,6 +15,23 @@ const DENOMS: Array<{ key: DenomKey; label: string }> = [
   { key: "combined", label: "COMBINED" },
 ];
 
+function InfoHint({ text }: { text: string }) {
+  return (
+    <span className="group relative inline-flex">
+      <button
+        type="button"
+        aria-label={text}
+        className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-slate-600 text-[10px] font-semibold leading-none text-slate-400 transition hover:border-slate-400 hover:text-slate-200 focus:outline-none focus:ring-1 focus:ring-slate-400"
+      >
+        i
+      </button>
+      <span className="pointer-events-none absolute left-1/2 top-6 z-20 w-72 -translate-x-1/2 rounded-lg border border-slate-800 bg-slate-950/95 px-3 py-2 text-left text-[11px] font-normal leading-5 text-slate-200 opacity-0 shadow-xl transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100">
+        {text}
+      </span>
+    </span>
+  );
+}
+
 function renderNumber(value: number | null, digits = 0, suffix = "") {
   if (value === null || Number.isNaN(value)) return "—";
   return `${value.toFixed(digits)}${suffix}`;
@@ -160,6 +177,7 @@ export default function CommunityPool() {
           <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
             <div className="flex flex-wrap items-center gap-2 text-sm font-semibold text-white">
               Total outflow
+              <InfoHint text="Sum of weekly governance outflows inside the selected analysis window. Reported separately for LUNC and USTC, plus a combined total." />
               <span className="rounded-full bg-slate-950/70 px-2 py-0.5 text-xs uppercase tracking-wider text-slate-400">
                 Coarse (weekly)
               </span>
@@ -193,6 +211,7 @@ export default function CommunityPool() {
           <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
             <div className="flex flex-wrap items-center gap-2 text-sm font-semibold text-white">
               Idle weeks (zero outflow)
+              <InfoHint text="Number of weeks in the selected window where weekly outflow equals 0 for the given denom. “Combined” counts weeks where both LUNC and USTC outflow are 0." />
               <span className="rounded-full bg-slate-950/70 px-2 py-0.5 text-xs uppercase tracking-wider text-slate-400">
                 Coarse (weekly)
               </span>
@@ -216,6 +235,7 @@ export default function CommunityPool() {
           <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4 lg:col-span-2">
             <div className="flex flex-wrap items-center gap-2 text-sm font-semibold text-white">
               Longest inactivity streak (weeks)
+              <InfoHint text="The longest run of consecutive weeks in the selected window with zero weekly outflow for the given denom. “Combined” requires both denoms to have zero outflow." />
               <span className="rounded-full bg-slate-950/70 px-2 py-0.5 text-xs uppercase tracking-wider text-slate-400">
                 Coarse (weekly)
               </span>
@@ -250,9 +270,10 @@ export default function CommunityPool() {
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <div className="space-y-4">
             <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
-              <p className="text-sm font-semibold text-white">
+              <div className="flex items-center gap-2 text-sm font-semibold text-white">
                 Utilization rate (%/yr)
-              </p>
+                <InfoHint text="Annualized outflow rate based on the selected window: (total outflow ÷ average balance) scaled to a 1-year rate. Higher means faster capital is being spent relative to the pool size." />
+              </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {DENOMS.map(({ key, label }) => (
                   <div
@@ -272,9 +293,10 @@ export default function CommunityPool() {
               </div>
             </div>
             <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
-              <p className="text-sm font-semibold text-white">
+              <div className="flex items-center gap-2 text-sm font-semibold text-white">
                 Typical inactivity (median / p90)
-              </p>
+                <InfoHint text="Typical time between non-zero outflow weeks, measured in weeks. Shown as median and 90th percentile (p90) gaps between spending events." />
+              </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {DENOMS.map(({ key, label }) => (
                   <div
@@ -301,7 +323,10 @@ export default function CommunityPool() {
           </div>
           <div className="space-y-4">
             <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
-              <p className="text-sm font-semibold text-white">Idle weeks share</p>
+              <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                Idle weeks share
+                <InfoHint text="Percent of weeks in the selected window with zero weekly outflow: (idle weeks ÷ total weeks) × 100%." />
+              </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {DENOMS.map(({ key, label }) => (
                   <div
@@ -319,9 +344,10 @@ export default function CommunityPool() {
               </div>
             </div>
             <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
-              <p className="text-sm font-semibold text-white">
+              <div className="flex items-center gap-2 text-sm font-semibold text-white">
                 Median gap between spends
-              </p>
+                <InfoHint text="Median number of weeks between consecutive non-zero outflow weeks in the selected window." />
+              </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {DENOMS.map(({ key, label }) => (
                   <div
@@ -355,9 +381,10 @@ export default function CommunityPool() {
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <div className="space-y-4">
             <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
-              <p className="text-sm font-semibold text-white">
+              <div className="flex items-center gap-2 text-sm font-semibold text-white">
                 Top spend share (1/3/5)
-              </p>
+                <InfoHint text="Share of total outflow concentrated in the top 1, top 3, and top 5 spending weeks (ranked by weekly outflow) within the selected window." />
+              </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {DENOMS.map(({ key, label }) => (
                   <div
@@ -383,7 +410,10 @@ export default function CommunityPool() {
               </div>
             </div>
             <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
-              <p className="text-sm font-semibold text-white">Gini coefficient</p>
+              <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                Gini coefficient
+                <InfoHint text="Inequality of weekly spending amounts across weeks in the selected window (0 = perfectly even, 1 = extremely concentrated)." />
+              </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {DENOMS.map(({ key, label }) => (
                   <div
@@ -403,9 +433,10 @@ export default function CommunityPool() {
           </div>
           <div className="space-y-4">
             <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
-              <p className="text-sm font-semibold text-white">
+              <div className="flex items-center gap-2 text-sm font-semibold text-white">
                 80/20 spend weeks
-              </p>
+                <InfoHint text="How many weeks account for ~80% of total outflow in the selected window, plus that count as a share of all weeks." />
+              </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {DENOMS.map(({ key, label }) => (
                   <div
@@ -429,7 +460,10 @@ export default function CommunityPool() {
               </div>
             </div>
             <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
-              <p className="text-sm font-semibold text-white">Bursty index</p>
+              <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                Bursty index
+                <InfoHint text="A measure of “clumpiness” of spending over time. Higher values mean spend events are more clustered into bursts rather than evenly spaced." />
+              </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {DENOMS.map(({ key, label }) => (
                   <div
