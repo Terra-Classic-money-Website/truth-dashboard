@@ -73,10 +73,10 @@ function VerticalBarChart({ data }: { data: ChartData }) {
             <rect x={x} y={y} width={barWidth} height={barHeight} rx={3} fill={GOLD} />
             <text
               x={x + barWidth / 2}
-              y={height - margin.bottom + 14}
+              y={height - margin.bottom + 18}
               textAnchor="middle"
               fill="#94a3b8"
-              fontSize="12"
+              fontSize="17"
             >
               {data.labels[index]}
             </text>
@@ -95,9 +95,10 @@ function HorizontalBarChart({
   percent?: boolean;
 }) {
   const maxValue = Math.max(...data.values, 1);
+  const scaleMax = percent ? 100 : maxValue;
   const width = 1000;
   const height = 320;
-  const margin = { top: 8, right: 10, bottom: 12, left: 180 };
+  const margin = { top: 8, right: 10, bottom: percent ? 40 : 12, left: 180 };
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
   const rowHeight = plotHeight / Math.max(data.values.length, 1);
@@ -106,7 +107,7 @@ function HorizontalBarChart({
   return (
     <svg viewBox={`0 0 ${width} ${height}`} className="h-full w-full" preserveAspectRatio="none">
       {data.values.map((value, index) => {
-        const normalized = value / maxValue;
+        const normalized = Math.min(value / scaleMax, 1);
         const y = margin.top + index * rowHeight + (rowHeight - barHeight) / 2;
         const barLength = plotWidth * normalized;
         const label = data.labels[index];
@@ -114,20 +115,55 @@ function HorizontalBarChart({
           <g key={`${label}-${index}`}>
             <text
               x={margin.left - 8}
-              y={y + barHeight / 2 + 4}
+              y={y + barHeight / 2 + 5}
               textAnchor="end"
               fill="#cbd5e1"
-              fontSize="13"
+              fontSize="17"
             >
               {truncateLabel(label)}
             </text>
             <rect x={margin.left} y={y} width={barLength} height={barHeight} rx={3} fill={BLUE} />
-            <text x={margin.left + barLength + 6} y={y + barHeight / 2 + 4} fill="#94a3b8" fontSize="12">
+            <text x={margin.left + barLength + 6} y={y + barHeight / 2 + 5} fill="#94a3b8" fontSize="16">
               {percent ? `${value}%` : formatTableValue(value, "count")}
             </text>
           </g>
         );
       })}
+      {percent ? (
+        <g>
+          <line
+            x1={margin.left}
+            y1={height - margin.bottom + 2}
+            x2={width - margin.right}
+            y2={height - margin.bottom + 2}
+            stroke="#1f2937"
+          />
+          {Array.from({ length: 11 }, (_, index) => {
+            const tick = index * 10;
+            const x = margin.left + (plotWidth * tick) / 100;
+            return (
+              <g key={tick}>
+                <line
+                  x1={x}
+                  y1={height - margin.bottom + 2}
+                  x2={x}
+                  y2={height - margin.bottom + 7}
+                  stroke="#334155"
+                />
+                <text
+                  x={x}
+                  y={height - margin.bottom + 22}
+                  textAnchor="middle"
+                  fill="#94a3b8"
+                  fontSize="13"
+                >
+                  {tick}
+                </text>
+              </g>
+            );
+          })}
+        </g>
+      ) : null}
     </svg>
   );
 }
