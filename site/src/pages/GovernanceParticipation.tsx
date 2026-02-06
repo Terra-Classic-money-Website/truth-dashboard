@@ -111,6 +111,10 @@ function HorizontalBarChart({
         const y = margin.top + index * rowHeight + (rowHeight - barHeight) / 2;
         const barLength = plotWidth * normalized;
         const label = data.labels[index];
+        const rawValueX = margin.left + barLength + 6;
+        const maxValueX = width - margin.right - 6;
+        const valueAnchor = rawValueX > maxValueX ? "end" : "start";
+        const valueX = rawValueX > maxValueX ? maxValueX : rawValueX;
         return (
           <g key={`${label}-${index}`}>
             <text
@@ -123,7 +127,13 @@ function HorizontalBarChart({
               {truncateLabel(label)}
             </text>
             <rect x={margin.left} y={y} width={barLength} height={barHeight} rx={3} fill={BLUE} />
-            <text x={margin.left + barLength + 6} y={y + barHeight / 2 + 5} fill="#94a3b8" fontSize="16">
+            <text
+              x={valueX}
+              y={y + barHeight / 2 + 5}
+              fill="#94a3b8"
+              fontSize="16"
+              textAnchor={valueAnchor}
+            >
               {percent ? `${value}%` : formatTableValue(value, "count")}
             </text>
           </g>
