@@ -181,9 +181,8 @@ const ensureGroup = (markerTime, dropTime) => {
 };
 
 totalRows.forEach((row) => {
-  const markerTime = overrideMarkerTime(
-    toDateOnly(getField(row, ["marker_time", "markerTime"])),
-  );
+  const originalMarkerTime = toDateOnly(getField(row, ["marker_time", "markerTime"]));
+  const markerTime = overrideMarkerTime(originalMarkerTime);
   if (!markerTime) return;
   const dropTime = toDateOnly(getField(row, ["drop_time", "dropTime"]));
   const denomRaw = (getField(row, ["denom", "currency"]) ?? "").toUpperCase();
@@ -196,7 +195,12 @@ totalRows.forEach((row) => {
     denom === "LUNC"
       ? balancesByDate.get(markerTime)?.lunc ?? null
       : balancesByDate.get(markerTime)?.ustc ?? null;
-  const preBalance = explicitPreBalance ?? preBalanceFromSeries;
+  const markerWasOverridden =
+    originalMarkerTime !== null && originalMarkerTime !== markerTime;
+  const preBalance =
+    markerWasOverridden && preBalanceFromSeries !== null
+      ? preBalanceFromSeries
+      : explicitPreBalance ?? preBalanceFromSeries;
   const postBalance =
     dropTime === null
       ? null

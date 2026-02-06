@@ -1176,9 +1176,9 @@
           ],
           "lunc": {
             "amount": 1282304596,
-            "preBalance": 1617911645.12515,
+            "preBalance": 1806184698.9880862,
             "impactPct": 79.256775,
-            "observedDelta": 49133557.54847
+            "observedDelta": -139139496.314466
           }
         },
         {
@@ -1226,9 +1226,9 @@
           ],
           "lunc": {
             "amount": 1970259705,
-            "preBalance": 458913375.377277,
+            "preBalance": 2231936376.020511,
             "impactPct": 429.331506,
-            "observedDelta": 94447191.617986
+            "observedDelta": -1678575809.025248
           }
         },
         {
@@ -1304,9 +1304,9 @@
           ],
           "lunc": {
             "amount": 256410256,
-            "preBalance": 5255128695.691155,
+            "preBalance": 5458676525.622785,
             "impactPct": 4.879238,
-            "observedDelta": 79776210.968171
+            "observedDelta": -123771618.963458
           }
         },
         {
@@ -1524,9 +1524,9 @@
           ],
           "lunc": {
             "amount": 792267469.497702,
-            "preBalance": 7000163829.211236,
+            "preBalance": 7760516715.584328,
             "impactPct": 11.317842,
-            "observedDelta": 42708779.47977
+            "observedDelta": -717644106.893322
           }
         },
         {
@@ -1576,9 +1576,9 @@
           ],
           "lunc": {
             "amount": 500000000,
-            "preBalance": 7939644161.88558,
+            "preBalance": 8096062141.540503,
             "impactPct": 6.297511,
-            "observedDelta": 50151587.543627
+            "observedDelta": -106266392.111296
           }
         },
         {
