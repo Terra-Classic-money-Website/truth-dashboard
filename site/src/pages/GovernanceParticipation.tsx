@@ -98,7 +98,7 @@ function HorizontalBarChart({
   const scaleMax = percent ? 100 : maxValue;
   const width = 1000;
   const height = 320;
-  const margin = { top: 8, right: 10, bottom: percent ? 40 : 12, left: 180 };
+  const margin = { top: 8, right: 78, bottom: percent ? 40 : 12, left: 180 };
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
   const rowHeight = plotHeight / Math.max(data.values.length, 1);
@@ -112,7 +112,7 @@ function HorizontalBarChart({
         const barLength = plotWidth * normalized;
         const label = data.labels[index];
         const rawValueX = margin.left + barLength + 6;
-        const maxValueX = width - margin.right - 6;
+        const maxValueX = width - 6;
         const valueAnchor = rawValueX > maxValueX ? "end" : "start";
         const valueX = rawValueX > maxValueX ? maxValueX : rawValueX;
         return (

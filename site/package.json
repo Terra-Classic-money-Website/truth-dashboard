@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "node scripts/build-tailwind.mjs && node scripts/build-expenditures-snapshot.mjs",
+    "predev": "node scripts/build-tailwind.mjs",
     "dev": "vite",
-    "prebuild": "node scripts/build-tailwind.mjs && node scripts/build-expenditures-snapshot.mjs",
+    "prebuild": "node scripts/build-tailwind.mjs",
     "build": "tsc -b && vite build",
     "build:expenditures": "node scripts/build-expenditures-snapshot.mjs",
     "lint": "eslint .",
