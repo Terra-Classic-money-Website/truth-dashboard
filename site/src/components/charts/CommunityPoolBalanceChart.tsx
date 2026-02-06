@@ -48,10 +48,10 @@ const LUNC_COLOR = "#3b82f6";
 const USTC_COLOR = "#22c55e";
 const IMPACT_COLOR = "#facc15";
 
-function formatMonthDay(iso: string) {
+function formatMonthTick(iso: string) {
   return new Intl.DateTimeFormat("en-US", {
     month: "short",
-    day: "2-digit",
+    year: "2-digit",
     timeZone: "UTC",
   }).format(new Date(`${iso}T00:00:00Z`));
 }
@@ -60,11 +60,46 @@ function clamp(value: number, min: number, max: number) {
   return Math.max(min, Math.min(max, value));
 }
 
-function ticksFromMax(maxValue: number, count = 5) {
-  if (!Number.isFinite(maxValue) || maxValue <= 0) {
+function compactAxis(value: number) {
+  const abs = Math.abs(value);
+  if (abs >= 1e9) {
+    const scaled = value / 1e9;
+    const whole = Math.abs(scaled - Math.round(scaled)) < 0.05;
+    return `${whole ? Math.round(scaled) : scaled.toFixed(1)}B`;
+  }
+  if (abs >= 1e6) {
+    const scaled = value / 1e6;
+    const whole = Math.abs(scaled - Math.round(scaled)) < 0.05;
+    return `${whole ? Math.round(scaled) : scaled.toFixed(1)}M`;
+  }
+  if (abs >= 1e3) {
+    const scaled = value / 1e3;
+    const whole = Math.abs(scaled - Math.round(scaled)) < 0.05;
+    return `${whole ? Math.round(scaled) : scaled.toFixed(1)}K`;
+  }
+  return `${Math.round(value)}`;
+}
+
+function buildEvenTicks(minValue: number, maxValue: number, count = 6) {
+  if (!Number.isFinite(minValue) || !Number.isFinite(maxValue)) {
     return [0];
   }
-  return Array.from({ length: count }, (_, i) => (maxValue * i) / (count - 1));
+  if (maxValue <= minValue) {
+    return [minValue];
+  }
+  const step = (maxValue - minValue) / (count - 1);
+  return Array.from({ length: count }, (_, index) => minValue + step * index);
+}
+
+function estimateTooltipBox(marker: Marker | null) {
+  if (!marker) {
+    return { width: 310, height: 230 };
+  }
+  const proposalRows = Math.min(marker.proposals.length, 6);
+  return {
+    width: 360,
+    height: Math.min(340, 190 + proposalRows * 16),
+  };
 }
 
 function compact(value: number | null, unit: "lunc" | "ustc") {
@@ -115,7 +150,13 @@ export default function CommunityPoolBalanceChart({
   const markerPointIndices = useMemo(
     () =>
       balances
-        .map((point, index) => (markerByTime.has(point.t) ? index : -1))
+        .map((point, index) => {
+          const marker = markerByTime.get(point.t);
+          if (!marker) return -1;
+          const hasLunc = (marker.lunc?.amount ?? 0) > 0;
+          const hasUstc = (marker.ustc?.amount ?? 0) > 0;
+          return hasLunc || hasUstc ? index : -1;
+        })
         .filter((index) => index >= 0),
     [balances, markerByTime],
   );
@@ -127,11 +168,25 @@ export default function CommunityPoolBalanceChart({
     return values.length ? Math.max(...values) : 1;
   }, [balances]);
 
+  const luncMin = useMemo(() => {
+    const values = balances
+      .map((point) => point.lunc)
+      .filter((value): value is number => value !== null);
+    return values.length ? Math.min(...values) : 0;
+  }, [balances]);
+
   const ustcMax = useMemo(() => {
     const values = balances
       .map((point) => point.ustc)
       .filter((value): value is number => value !== null);
     return values.length ? Math.max(...values) : 1;
+  }, [balances]);
+
+  const ustcMin = useMemo(() => {
+    const values = balances
+      .map((point) => point.ustc)
+      .filter((value): value is number => value !== null);
+    return values.length ? Math.min(...values) : 0;
   }, [balances]);
 
   const maxImpact = useMemo(() => {
@@ -144,11 +199,33 @@ export default function CommunityPoolBalanceChart({
   const xForIndex = (index: number) =>
     padding.left + (index / Math.max(balances.length - 1, 1)) * plotWidth;
 
+  const luncDomain = useMemo(() => {
+    const span = Math.max(luncMax - luncMin, Math.abs(luncMax) * 0.05, 1);
+    const pad = span * 0.06;
+    return {
+      min: Math.max(0, luncMin - pad),
+      max: luncMax + pad,
+    };
+  }, [luncMin, luncMax]);
+
+  const ustcDomain = useMemo(() => {
+    const span = Math.max(ustcMax - ustcMin, Math.abs(ustcMax) * 0.05, 1);
+    const pad = span * 0.06;
+    return {
+      min: Math.max(0, ustcMin - pad),
+      max: ustcMax + pad,
+    };
+  }, [ustcMin, ustcMax]);
+
   const yForLunc = (value: number) =>
-    padding.top + (1 - value / Math.max(luncMax, 1)) * plotHeight;
+    padding.top +
+    (1 - (value - luncDomain.min) / Math.max(luncDomain.max - luncDomain.min, 1)) *
+      plotHeight;
 
   const yForUstc = (value: number) =>
-    padding.top + (1 - value / Math.max(ustcMax, 1)) * plotHeight;
+    padding.top +
+    (1 - (value - ustcDomain.min) / Math.max(ustcDomain.max - ustcDomain.min, 1)) *
+      plotHeight;
 
   const monthTickIndices = useMemo(() => {
     const ticks: number[] = [];
@@ -162,6 +239,20 @@ export default function CommunityPoolBalanceChart({
     });
     return ticks;
   }, [balances]);
+
+  const visibleMonthTickIndices = useMemo(() => {
+    if (monthTickIndices.length <= 2) return monthTickIndices;
+    const isOneYear = balances.length <= 60;
+    const minTicks = isOneYear ? 8 : 10;
+    const maxTicks = isOneYear ? 12 : 14;
+    const target = clamp(Math.round(width / 150), minTicks, maxTicks);
+    const step = Math.max(1, Math.ceil(monthTickIndices.length / target));
+    return monthTickIndices.filter((_, index) => {
+      const isEdge =
+        index === 0 || index === monthTickIndices.length - 1;
+      return isEdge || index % step === 0;
+    });
+  }, [monthTickIndices, balances.length, width]);
 
   const luncPolyline = balances
     .map((point, index) => {
@@ -188,8 +279,15 @@ export default function CommunityPoolBalanceChart({
     return { point, prev, marker, index: hoverState.pointIndex };
   }, [hoverState, balances, markerByTime]);
 
-  const luncTicks = ticksFromMax(luncMax);
-  const ustcTicks = ticksFromMax(ustcMax);
+  const luncTicks = useMemo(
+    () => buildEvenTicks(luncDomain.min, luncDomain.max, 6),
+    [luncDomain],
+  );
+  const ustcTicks = useMemo(
+    () => buildEvenTicks(ustcDomain.min, ustcDomain.max, 6),
+    [ustcDomain],
+  );
+  const tooltipBox = useMemo(() => estimateTooltipBox(hovered?.marker ?? null), [hovered]);
 
   return (
     <div
@@ -275,7 +373,7 @@ export default function CommunityPoolBalanceChart({
                 fill="#94a3b8"
                 fontSize="10"
               >
-                {formatValue({ value: tick, unit: "lunc", scale: 1 })}
+                {compactAxis(tick)}
               </text>
             </g>
           );
@@ -292,12 +390,12 @@ export default function CommunityPoolBalanceChart({
               fill="#94a3b8"
               fontSize="10"
             >
-              {formatValue({ value: tick, unit: "ustc", scale: 1 })}
+              {compactAxis(tick)}
             </text>
           );
         })}
 
-        {monthTickIndices.map((index) => {
+        {visibleMonthTickIndices.map((index) => {
           const x = xForIndex(index);
           return (
             <g key={`month-${index}`}>
@@ -316,7 +414,7 @@ export default function CommunityPoolBalanceChart({
                 fill="#94a3b8"
                 fontSize="10"
               >
-                {formatMonthDay(balances[index].t)}
+                {formatMonthTick(balances[index].t)}
               </text>
             </g>
           );
@@ -346,26 +444,27 @@ export default function CommunityPoolBalanceChart({
 
         {markerPointIndices.map((index) => {
           const point = balances[index];
+          const marker = markerByTime.get(point.t);
           return (
             <g key={`marker-dot-${point.t}`}>
-              {point.lunc !== null ? (
+              {point.lunc !== null && (marker?.lunc?.amount ?? 0) > 0 ? (
                 <circle
                   cx={xForIndex(index)}
                   cy={yForLunc(point.lunc)}
-                  r={4}
+                  r={5}
                   fill={IMPACT_COLOR}
                   stroke="#0f172a"
-                  strokeWidth={1}
+                  strokeWidth={1.5}
                 />
               ) : null}
-              {point.ustc !== null ? (
+              {point.ustc !== null && (marker?.ustc?.amount ?? 0) > 0 ? (
                 <circle
                   cx={xForIndex(index)}
                   cy={yForUstc(point.ustc)}
-                  r={4}
+                  r={5}
                   fill={IMPACT_COLOR}
                   stroke="#0f172a"
-                  strokeWidth={1}
+                  strokeWidth={1.5}
                 />
               ) : null}
             </g>
@@ -409,10 +508,28 @@ export default function CommunityPoolBalanceChart({
       {hovered && hoverState ? (
         <div
           className="pointer-events-none absolute z-10 max-w-md rounded-lg border border-slate-800 bg-slate-950/95 px-3 py-2 text-xs text-slate-200 shadow-xl"
-          style={{
-            left: clamp(hoverState.x + 12, 12, Math.max(width - 340, 12)),
-            top: clamp(hoverState.y + 12, 12, height - 220),
-          }}
+          style={(() => {
+            const tooltipWidth = tooltipBox.width;
+            const tooltipHeight = tooltipBox.height;
+            const rightPreferred = hoverState.x + 14;
+            const leftPreferred = hoverState.x - tooltipWidth - 14;
+            const topPreferred = hoverState.y + 14;
+            const bottomPreferred = hoverState.y - tooltipHeight - 14;
+
+            const x =
+              rightPreferred + tooltipWidth <= width - 12
+                ? rightPreferred
+                : Math.max(12, leftPreferred);
+            const y =
+              topPreferred + tooltipHeight <= height - 12
+                ? topPreferred
+                : Math.max(12, bottomPreferred);
+
+            return {
+              left: clamp(x, 12, Math.max(width - tooltipWidth - 12, 12)),
+              top: clamp(y, 12, Math.max(height - tooltipHeight - 12, 12)),
+            };
+          })()}
         >
           <div className="text-slate-400">{hovered.point.t}</div>
 

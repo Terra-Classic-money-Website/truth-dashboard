@@ -10,6 +10,15 @@ const outputPath = path.join(
   "src/data/snapshots/expenditures.snapshot.json",
 );
 
+const MARKER_TIME_OVERRIDES = {
+  "2025-03-13": "2025-03-09",
+  "2025-06-01": "2025-05-25",
+  "2025-09-28": "2025-10-12",
+  "2024-06-09": "2024-06-02",
+  "2023-07-02": "2023-06-25",
+  "2023-03-26": "2023-04-09",
+};
+
 function parseCsv(text) {
   const rows = [];
   let row = [];
@@ -94,6 +103,11 @@ function toDateOnly(value) {
   return date.toISOString().slice(0, 10);
 }
 
+function overrideMarkerTime(value) {
+  if (!value) return value;
+  return MARKER_TIME_OVERRIDES[value] ?? value;
+}
+
 function toNumber(value) {
   if (!value) return null;
   const trimmed = value.trim();
@@ -167,7 +181,9 @@ const ensureGroup = (markerTime, dropTime) => {
 };
 
 totalRows.forEach((row) => {
-  const markerTime = toDateOnly(getField(row, ["marker_time", "markerTime"]));
+  const markerTime = overrideMarkerTime(
+    toDateOnly(getField(row, ["marker_time", "markerTime"])),
+  );
   if (!markerTime) return;
   const dropTime = toDateOnly(getField(row, ["drop_time", "dropTime"]));
   const denomRaw = (getField(row, ["denom", "currency"]) ?? "").toUpperCase();
@@ -209,7 +225,9 @@ totalRows.forEach((row) => {
 });
 
 mappingRows.forEach((row) => {
-  const markerTime = toDateOnly(getField(row, ["marker_time", "markerTime"]));
+  const markerTime = overrideMarkerTime(
+    toDateOnly(getField(row, ["marker_time", "markerTime"])),
+  );
   if (!markerTime) return;
   const dropTime = toDateOnly(getField(row, ["drop_time", "dropTime"]));
   const spendTime = toDateOnly(getField(row, ["spend_time", "spendTime"]));
@@ -299,6 +317,15 @@ const outflowsWeekly = Array.from(groups.values())
         : undefined,
     };
   });
+
+const badMarkersRemaining = Object.keys(MARKER_TIME_OVERRIDES).filter((badMarker) =>
+  outflowsWeekly.some((entry) => entry.markerTime === badMarker),
+);
+if (badMarkersRemaining.length > 0) {
+  throw new Error(
+    `Marker override check failed; bad marker dates still present: ${badMarkersRemaining.join(", ")}`,
+  );
+}
 
 const snapshot = {
   schemaVersion: "1.0.0",

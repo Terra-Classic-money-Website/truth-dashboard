@@ -3,7 +3,7 @@
   "dashboardId": "community-pool",
   "title": "Expenditures and investments",
   "subtitle": "Weekly community pool balances with spend intervals anchored at pre-drop marker weeks.",
-  "generatedAt": "2026-02-05",
+  "generatedAt": "2026-02-06",
   "coverage": {
     "start": "2022-05-01",
     "end": "2026-02-01",
@@ -1144,7 +1144,7 @@
           }
         },
         {
-          "markerTime": "2023-03-26",
+          "markerTime": "2023-04-09",
           "dropTime": "2023-04-02",
           "combinedImpactPct": 79.256775,
           "lowConfidence": false,
@@ -1182,7 +1182,7 @@
           }
         },
         {
-          "markerTime": "2023-07-02",
+          "markerTime": "2023-06-25",
           "dropTime": "2023-07-09",
           "combinedImpactPct": 429.331506,
           "lowConfidence": false,
@@ -1284,7 +1284,7 @@
           }
         },
         {
-          "markerTime": "2024-06-09",
+          "markerTime": "2024-06-02",
           "dropTime": "2024-06-16",
           "combinedImpactPct": 4.879238,
           "lowConfidence": false,
@@ -1504,7 +1504,7 @@
           }
         },
         {
-          "markerTime": "2025-06-01",
+          "markerTime": "2025-05-25",
           "dropTime": "2025-06-08",
           "combinedImpactPct": 11.317842,
           "lowConfidence": false,
@@ -1556,7 +1556,7 @@
           }
         },
         {
-          "markerTime": "2025-09-28",
+          "markerTime": "2025-10-12",
           "dropTime": "2025-10-05",
           "combinedImpactPct": 6.297511,
           "lowConfidence": false,
