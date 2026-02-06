@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import terraClassicSign from "../img/terra-classic-sign.svg";
 
 type NavItem = {
@@ -93,14 +93,17 @@ export default function AppLayout() {
       <aside className="hidden md:flex md:w-72 md:flex-col md:sticky md:top-0 md:h-screen md:border-r md:border-slate-800 md:bg-slate-950/75 md:backdrop-blur">
         <div className="px-6 py-6 border-b border-slate-800">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-slate-500">
+            <Link
+              to="/active-wallets"
+              className="flex items-center gap-2 text-xs uppercase tracking-widest text-slate-500"
+            >
               <img
                 src={terraClassicSign}
                 alt=""
                 className="h-4 w-4 opacity-70"
               />
               <span>TERRA CLASSIC</span>
-            </div>
+            </Link>
             <button
               type="button"
               onClick={toggleTheme}
@@ -153,7 +156,12 @@ export default function AppLayout() {
             </button>
           </div>
           <h1 className="mt-2 text-lg font-semibold text-white">
-            Truth Dashboard
+            <Link
+              to="/active-wallets"
+              className="text-white hover:text-white"
+            >
+              Truth Dashboard
+            </Link>
           </h1>
           <p className="mt-2 text-sm text-slate-400">
             Data collected during the research and writing of Terra Classic Four
@@ -205,7 +213,7 @@ export default function AppLayout() {
       <div className="flex min-h-screen flex-1 flex-col">
         <div className="md:hidden sticky top-0 z-40 border-b border-slate-800 bg-slate-950/85 backdrop-blur">
           <div className="flex items-center justify-between px-4 py-3">
-            <div className="flex items-center gap-3">
+            <Link to="/active-wallets" className="flex items-center gap-3">
               <img
                 src={terraClassicSign}
                 alt=""
@@ -219,7 +227,7 @@ export default function AppLayout() {
                   Truth Dashboard
                 </p>
               </div>
-            </div>
+            </Link>
             <button
               type="button"
               onClick={() => setDrawerOpen(true)}
@@ -270,19 +278,25 @@ export default function AppLayout() {
         >
           <div className="flex items-center justify-between border-b border-slate-800 px-5 py-4">
             <div className="flex items-center gap-3">
-              <img
-                src={terraClassicSign}
-                alt=""
-                className="h-4 w-4 opacity-70"
-              />
-              <div>
-                <p className="text-xs uppercase tracking-widest text-slate-500">
-                  TERRA CLASSIC
-                </p>
-                <p className="text-sm font-semibold text-white">
-                  Truth Dashboard
-                </p>
-              </div>
+              <Link
+                to="/active-wallets"
+                className="flex items-center gap-3"
+                onClick={() => setDrawerOpen(false)}
+              >
+                <img
+                  src={terraClassicSign}
+                  alt=""
+                  className="h-4 w-4 opacity-70"
+                />
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-slate-500">
+                    TERRA CLASSIC
+                  </p>
+                  <p className="text-sm font-semibold text-white">
+                    Truth Dashboard
+                  </p>
+                </div>
+              </Link>
               <button
                 type="button"
                 onClick={toggleTheme}
