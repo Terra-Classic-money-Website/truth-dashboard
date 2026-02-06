@@ -39,6 +39,12 @@ function variance(values: number[]) {
   );
 }
 
+function stdDev(values: number[]) {
+  const varValue = variance(values);
+  if (varValue === null) return null;
+  return Math.sqrt(varValue);
+}
+
 function percentile(values: number[], p: number) {
   if (!values.length) return null;
   const sorted = [...values].sort((a, b) => a - b);
@@ -80,6 +86,7 @@ function gapSeries(values: number[]) {
 
 function gini(values: number[]) {
   if (!values.length) return null;
+  if (values.length === 1) return 0;
   const total = values.reduce((acc, current) => acc + current, 0);
   if (total === 0) return null;
   const sorted = [...values].sort((a, b) => a - b);
@@ -145,12 +152,16 @@ function computeSeriesStats(
     };
   }
 
-  const giniCoefficient = gini(outflowSeries);
-  const avgOutflow = mean(outflowSeries);
-  const varianceOutflow = variance(outflowSeries);
+  const activeOutflowSeries = outflowSeries.filter((value) => value > 0);
+  const giniCoefficient = gini(activeOutflowSeries);
+  const avgOutflow = mean(activeOutflowSeries);
+  const stdOutflow = stdDev(activeOutflowSeries);
   const burstyIndex =
-    avgOutflow && avgOutflow > 0 && varianceOutflow !== null
-      ? varianceOutflow / avgOutflow
+    activeOutflowSeries.length >= 2 &&
+    avgOutflow !== null &&
+    avgOutflow > 0 &&
+    stdOutflow !== null
+      ? stdOutflow / avgOutflow
       : null;
 
   return {
