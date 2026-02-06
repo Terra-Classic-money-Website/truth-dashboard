@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Card from "../components/Card";
 import { formatTableValue } from "../data/format";
 import { selectGovernanceValidators } from "../data/selectors";
@@ -7,7 +7,15 @@ import PageHeader from "../components/PageHeader";
 
 export default function GovernanceValidators() {
   const [windowId, setWindowId] = useState<GovernanceWindowId>("1y");
+  const [incomeFilterEnabled, setIncomeFilterEnabled] = useState(false);
   const view = selectGovernanceValidators(windowId);
+  const filteredRows = useMemo(
+    () =>
+      incomeFilterEnabled
+        ? view.table.rows.filter((row) => row.incomeMonthlyUsd > 100)
+        : view.table.rows,
+    [incomeFilterEnabled, view.table.rows],
+  );
 
   return (
     <div className="space-y-8">
@@ -44,7 +52,11 @@ export default function GovernanceValidators() {
                   key={threshold.id}
                   className="flex items-center gap-2 text-xs text-slate-400"
                 >
-                  <input type="checkbox" disabled />
+                  <input
+                    type="checkbox"
+                    checked={incomeFilterEnabled}
+                    onChange={(event) => setIncomeFilterEnabled(event.target.checked)}
+                  />
                   {threshold.label}
                 </label>
               ))}
@@ -71,7 +83,7 @@ export default function GovernanceValidators() {
               </tr>
             </thead>
             <tbody>
-              {view.table.rows.map((row) => (
+              {filteredRows.map((row) => (
                 <tr key={row.rank} className="text-slate-300">
                   {view.table.columns.map((column) => (
                     <td key={column.key} className="px-4 py-3">

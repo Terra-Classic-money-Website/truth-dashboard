@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Card from "../components/Card";
-import TimeSeriesChart from "../components/charts/TimeSeriesChart";
 import { formatTableValue, formatValue } from "../data/format";
 import {
   selectGovernanceParticipation,
@@ -8,9 +7,192 @@ import {
 import type { GovernanceWindowId } from "../data/governanceRaw";
 import PageHeader from "../components/PageHeader";
 
+type ChartData = {
+  labels: string[];
+  values: number[];
+};
+
+const GOLD = "#f7b955";
+const BLUE = "#60a5fa";
+const GREEN = "#34d399";
+const TEAL = "#22d3ee";
+const PURPLE = "#a78bfa";
+const RED = "#f87171";
+
+function sanitizeChartData(input: unknown): ChartData {
+  const series = (input ?? {}) as {
+    labels?: unknown[];
+    values?: unknown[];
+  };
+  const labels = Array.isArray(series.labels)
+    ? series.labels.map((label) => String(label ?? ""))
+    : [];
+  const values = Array.isArray(series.values)
+    ? series.values.map((value) => {
+        const parsed = typeof value === "number" ? value : Number(value ?? 0);
+        return Number.isFinite(parsed) ? parsed : 0;
+      })
+    : [];
+  const len = Math.min(labels.length, values.length);
+  return {
+    labels: labels.slice(0, len),
+    values: values.slice(0, len),
+  };
+}
+
+function truncateLabel(label: string, max = 22) {
+  return label.length > max ? `${label.slice(0, max - 1)}…` : label;
+}
+
+function VerticalBarChart({ data }: { data: ChartData }) {
+  const maxValue = Math.max(...data.values, 1);
+  const width = 1000;
+  const height = 320;
+  const margin = { top: 12, right: 16, bottom: 54, left: 42 };
+  const plotWidth = width - margin.left - margin.right;
+  const plotHeight = height - margin.top - margin.bottom;
+  const slot = plotWidth / Math.max(data.values.length, 1);
+  const barWidth = Math.max(8, slot * 0.66);
+
+  return (
+    <svg viewBox={`0 0 ${width} ${height}`} className="h-full w-full" preserveAspectRatio="none">
+      <line x1={margin.left} y1={margin.top} x2={margin.left} y2={height - margin.bottom} stroke="#1f2937" />
+      <line
+        x1={margin.left}
+        y1={height - margin.bottom}
+        x2={width - margin.right}
+        y2={height - margin.bottom}
+        stroke="#1f2937"
+      />
+      {data.values.map((value, index) => {
+        const barHeight = (value / maxValue) * plotHeight;
+        const x = margin.left + index * slot + (slot - barWidth) / 2;
+        const y = margin.top + (plotHeight - barHeight);
+        return (
+          <g key={`${data.labels[index]}-${index}`}>
+            <rect x={x} y={y} width={barWidth} height={barHeight} rx={3} fill={GOLD} />
+            <text x={x + barWidth / 2} y={height - margin.bottom + 14} textAnchor="middle" fill="#94a3b8" fontSize="10">
+              {data.labels[index]}
+            </text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+function HorizontalBarChart({
+  data,
+  percent = false,
+}: {
+  data: ChartData;
+  percent?: boolean;
+}) {
+  const maxValue = Math.max(...data.values, 1);
+  const width = 1000;
+  const height = 320;
+  const margin = { top: 8, right: 16, bottom: 12, left: 260 };
+  const plotWidth = width - margin.left - margin.right;
+  const plotHeight = height - margin.top - margin.bottom;
+  const rowHeight = plotHeight / Math.max(data.values.length, 1);
+  const barHeight = Math.max(6, rowHeight * 0.62);
+
+  return (
+    <svg viewBox={`0 0 ${width} ${height}`} className="h-full w-full" preserveAspectRatio="none">
+      {data.values.map((value, index) => {
+        const normalized = value / maxValue;
+        const y = margin.top + index * rowHeight + (rowHeight - barHeight) / 2;
+        const barLength = plotWidth * normalized;
+        const label = data.labels[index];
+        return (
+          <g key={`${label}-${index}`}>
+            <text x={margin.left - 8} y={y + barHeight / 2 + 4} textAnchor="end" fill="#cbd5e1" fontSize="11">
+              {truncateLabel(label)}
+            </text>
+            <rect x={margin.left} y={y} width={barLength} height={barHeight} rx={3} fill={BLUE} />
+            <text x={margin.left + barLength + 6} y={y + barHeight / 2 + 4} fill="#94a3b8" fontSize="10">
+              {percent ? `${value}%` : formatTableValue(value, "count")}
+            </text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+function polarToCartesian(cx: number, cy: number, radius: number, angle: number) {
+  const radians = ((angle - 90) * Math.PI) / 180;
+  return {
+    x: cx + radius * Math.cos(radians),
+    y: cy + radius * Math.sin(radians),
+  };
+}
+
+function donutArcPath(cx: number, cy: number, inner: number, outer: number, start: number, end: number) {
+  const startOuter = polarToCartesian(cx, cy, outer, end);
+  const endOuter = polarToCartesian(cx, cy, outer, start);
+  const startInner = polarToCartesian(cx, cy, inner, end);
+  const endInner = polarToCartesian(cx, cy, inner, start);
+  const largeArc = end - start > 180 ? 1 : 0;
+
+  return [
+    `M ${startOuter.x} ${startOuter.y}`,
+    `A ${outer} ${outer} 0 ${largeArc} 0 ${endOuter.x} ${endOuter.y}`,
+    `L ${endInner.x} ${endInner.y}`,
+    `A ${inner} ${inner} 0 ${largeArc} 1 ${startInner.x} ${startInner.y}`,
+    "Z",
+  ].join(" ");
+}
+
+function DonutChart({ data }: { data: ChartData }) {
+  const total = data.values.reduce((sum, value) => sum + value, 0) || 1;
+  const palette = [GOLD, BLUE, GREEN, TEAL, PURPLE, RED];
+  let angleCursor = 0;
+
+  return (
+    <div className="flex h-full items-center gap-6">
+      <svg viewBox="0 0 280 280" className="h-full w-1/2 min-w-[180px]">
+        {data.values.map((value, index) => {
+          const sweep = (value / total) * 360;
+          const start = angleCursor;
+          const end = angleCursor + sweep;
+          angleCursor = end;
+          return (
+            <path
+              key={`${data.labels[index]}-${index}`}
+              d={donutArcPath(140, 140, 58, 108, start, end)}
+              fill={palette[index % palette.length]}
+            />
+          );
+        })}
+      </svg>
+      <ul className="flex-1 space-y-2 text-sm text-slate-300">
+        {data.labels.map((label, index) => (
+          <li key={label} className="flex items-center justify-between gap-2">
+            <span className="inline-flex items-center gap-2">
+              <span
+                className="h-2.5 w-2.5 rounded-full"
+                style={{ backgroundColor: palette[index % palette.length] }}
+              />
+              {label}
+            </span>
+            <span>{formatTableValue(data.values[index], "count")}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default function GovernanceParticipation() {
   const [windowId, setWindowId] = useState<GovernanceWindowId>("1y");
   const view = selectGovernanceParticipation(windowId);
+  const nonParticipationDistribution = sanitizeChartData(
+    view.charts.nonParticipationDistribution,
+  );
+  const topNonParticipation = sanitizeChartData(view.charts.topNonParticipation);
+  const voteComposition = sanitizeChartData(view.charts.voteComposition);
+  const topDelegators = sanitizeChartData(view.charts.topDelegatorsPerProposal);
 
   return (
     <div className="space-y-8">
@@ -72,51 +254,39 @@ export default function GovernanceParticipation() {
           <h2 className="text-base font-semibold text-white">
             Non-participation distribution
           </h2>
-          <div className="mt-3">
-            <TimeSeriesChart series={view.series} height={260} />
+          <div className="mt-3 h-64 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4">
+            <VerticalBarChart data={nonParticipationDistribution} />
           </div>
-          <div className="mt-3 text-sm text-slate-400">Legend placeholder</div>
+          <ul className="mt-3 space-y-1 text-sm text-slate-300">
+            {nonParticipationDistribution.labels.map((label, index) => (
+              <li key={label}>
+                {label}: {formatTableValue(nonParticipationDistribution.values[index], "count")}
+              </li>
+            ))}
+          </ul>
         </Card>
         <Card>
           <h2 className="text-base font-semibold text-white">
             Top 15 by non-participation
           </h2>
-          <div className="mt-3 flex h-64 items-start justify-start rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4 text-sm text-slate-300">
-            <ul className="space-y-1">
-              {view.charts.topNonParticipation.labels.map((label, index) => (
-                <li key={label}>
-                  {label}: {formatTableValue(view.charts.topNonParticipation.values[index], "percent")}
-                </li>
-              ))}
-            </ul>
+          <div className="mt-3 h-64 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4">
+            <HorizontalBarChart data={topNonParticipation} percent />
           </div>
         </Card>
         <Card>
           <h2 className="text-base font-semibold text-white">
             Overall vote composition
           </h2>
-          <div className="mt-3 flex h-64 items-start justify-start rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4 text-sm text-slate-300">
-            <ul className="space-y-1">
-              {view.charts.voteComposition.labels.map((label, index) => (
-                <li key={label}>
-                  {label}: {formatTableValue(view.charts.voteComposition.values[index], "count")}
-                </li>
-              ))}
-            </ul>
+          <div className="mt-3 h-64 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4">
+            <DonutChart data={voteComposition} />
           </div>
         </Card>
         <Card>
           <h2 className="text-base font-semibold text-white">
             Delegators per proposal (top 20)
           </h2>
-          <div className="mt-3 flex h-64 items-start justify-start rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4 text-sm text-slate-300">
-            <ul className="space-y-1">
-              {view.charts.topDelegatorsPerProposal.labels.map((label, index) => (
-                <li key={label}>
-                  {label}: {formatTableValue(view.charts.topDelegatorsPerProposal.values[index], "count")}
-                </li>
-              ))}
-            </ul>
+          <div className="mt-3 h-64 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4">
+            <HorizontalBarChart data={topDelegators} />
           </div>
         </Card>
       </section>

@@ -55,7 +55,8 @@ export function selectGovernanceParticipation(windowId: GovernanceWindowId) {
   const payload = raw.payload;
   const metricCards = payload.kpis.metric_cards ?? [];
   const tableRows = payload.tables.validators_over_60_non_participation ?? [];
-  const seriesSource = payload.charts.nonParticipationDistribution;
+  const chartSeries = payload.data?.chartSeries ?? payload.charts;
+  const seriesSource = chartSeries.nonParticipationDistribution;
 
   const asOf = raw.exported_at.slice(0, 10);
 
@@ -148,9 +149,10 @@ export function selectGovernanceParticipation(windowId: GovernanceWindowId) {
       },
     ],
     charts: {
-      topNonParticipation: payload.charts.topNonParticipation,
-      voteComposition: payload.charts.voteComposition,
-      topDelegatorsPerProposal: payload.charts.topDelegatorsPerProposal,
+      nonParticipationDistribution: chartSeries.nonParticipationDistribution,
+      topNonParticipation: chartSeries.topNonParticipation,
+      voteComposition: chartSeries.voteComposition,
+      topDelegatorsPerProposal: chartSeries.topDelegatorsPerProposal,
     },
   };
 }
