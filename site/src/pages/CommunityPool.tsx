@@ -6,6 +6,7 @@ import { formatTableValue, formatValue } from "../data/format";
 import { getSnapshot } from "../data/loadSnapshot";
 import { selectCommunityPool } from "../data/selectors";
 import PageHeader from "../components/PageHeader";
+import useViewportWidth from "../hooks/useViewportWidth";
 
 type DenomKey = "lunc" | "ustc" | "combined";
 
@@ -45,12 +46,15 @@ function renderPercent(value: number | null, digits = 1) {
 export default function CommunityPool() {
   const { data: snapshot, error } = getSnapshot("community-pool");
   const [windowId, setWindowId] = useState<string>("ALL");
+  const viewportWidth = useViewportWidth();
 
   if (!snapshot) {
     return <SnapshotErrorPanel error={error} />;
   }
 
   const view = useMemo(() => selectCommunityPool(snapshot, windowId), [snapshot, windowId]);
+  const chartHeight =
+    viewportWidth < 640 ? 340 : viewportWidth < 1024 ? 420 : 520;
   const highlights = useMemo(() => {
     const idleWeeksShareCombined = view.capitalUtilization.idleWeeksSharePct.combined;
     const topSpendShareCombined = view.spendConcentration.topSpendShare.combined;
@@ -144,7 +148,7 @@ export default function CommunityPool() {
           <CommunityPoolBalanceChart
             balances={view.balances}
             markers={view.outflowMarkers}
-            height={520}
+            height={chartHeight}
           />
         </div>
       </Card>
@@ -159,14 +163,14 @@ export default function CommunityPool() {
               Derived from mapped marker objects (same source as chart bars).
             </p>
           </div>
-          <div className="text-xs text-slate-400">{view.outflowSummaryText}</div>
+          <div className="text-xs text-slate-400 break-words">{view.outflowSummaryText}</div>
         </div>
-        <div className="mt-4 overflow-hidden rounded-xl border border-slate-800">
-          <table className="w-full text-left text-sm">
+        <div className="section-scroll-x mt-4 rounded-xl border border-slate-800">
+          <table className="w-full min-w-[980px] text-left text-sm">
             <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
               <tr>
                 {view.table.columns.map((column) => (
-                  <th key={column.key} className="px-4 py-3">
+                  <th key={column.key} className="px-4 py-3 whitespace-nowrap">
                     {column.label}
                   </th>
                 ))}
@@ -176,7 +180,17 @@ export default function CommunityPool() {
               {view.table.rows.map((row) => (
                 <tr key={row.period} className="align-top">
                   {view.table.columns.map((column) => (
-                    <td key={column.key} className="px-4 py-3">
+                    <td
+                      key={column.key}
+                      className={[
+                        "px-4 py-3",
+                        column.key === "title"
+                          ? "min-w-[16rem] whitespace-normal break-words"
+                          : column.key === "recipient"
+                            ? "min-w-[14rem] break-all"
+                            : "whitespace-nowrap",
+                      ].join(" ")}
+                    >
                       {column.key === "title" && row.lowConfidence ? (
                         <div className="space-y-1">
                           <div>{row.title}</div>

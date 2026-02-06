@@ -33,6 +33,13 @@ body {
   line-height: 1rem;
 }
 
+.section-scroll-x {
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
 .theme-light {
   color-scheme: light;
   --surface-1: #f8fafc;

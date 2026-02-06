@@ -11,16 +11,20 @@ import {
 import { getSnapshot } from "../data/loadSnapshot";
 import { selectActiveWallets } from "../data/selectors";
 import PageHeader from "../components/PageHeader";
+import useViewportWidth from "../hooks/useViewportWidth";
 
 export default function ActiveWallets() {
   const [windowId, setWindowId] = useState<string>("3y");
   const { data: snapshot, error } = getSnapshot("active-wallets");
+  const viewportWidth = useViewportWidth();
 
   if (!snapshot) {
     return <SnapshotErrorPanel error={error} />;
   }
 
   const view = selectActiveWallets(snapshot, windowId);
+  const chartHeight =
+    viewportWidth < 640 ? 340 : viewportWidth < 1024 ? 470 : 590;
   const monthlyTicks = useMemo(() => {
     const points = view.series[0]?.points ?? [];
     return points.map((point) => point.periodEnd);
@@ -38,7 +42,6 @@ export default function ActiveWallets() {
         eyebrow="Terra Classic On-Chain Activity"
         title={view.header.title}
         subtitle={view.header.subtitle}
-        subtitleClassName="md:max-w-none md:whitespace-nowrap"
       />
 
       <div className="flex flex-wrap gap-3">
@@ -62,7 +65,7 @@ export default function ActiveWallets() {
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h2 className="text-lg font-semibold text-white">Participants</h2>
-            <p className="mt-1 text-sm text-slate-400 md:whitespace-nowrap">
+            <p className="mt-1 text-sm text-slate-400">
               Participants per month based on transaction senders and recipients
               on the Terra Classic L1.
             </p>
@@ -75,7 +78,7 @@ export default function ActiveWallets() {
         <div className="mt-6">
           <TimeSeriesChart
             series={view.series}
-            height={590}
+            height={chartHeight}
             xTicks={monthlyTicks}
             xTickFormatter={formatMonthLabel}
             minXTickGap={48}
@@ -130,12 +133,12 @@ export default function ActiveWallets() {
         <div className="grid gap-4 lg:grid-cols-2">
           <Card>
             <h3 className="text-base font-semibold text-white">Year Summary</h3>
-            <div className="mt-3 overflow-hidden rounded-xl border border-slate-800">
-              <table className="w-full text-left text-sm">
+            <div className="section-scroll-x mt-3 rounded-xl border border-slate-800">
+              <table className="w-full min-w-[760px] text-left text-sm">
                 <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
                   <tr>
                     {view.tables.yearSummary.columns.map((column) => (
-                      <th key={column.key} className="px-4 py-3">
+                      <th key={column.key} className="px-4 py-3 whitespace-nowrap">
                         {column.label}
                       </th>
                     ))}
@@ -145,7 +148,7 @@ export default function ActiveWallets() {
                   {view.tables.yearSummary.rows.map((row) => (
                     <tr key={row.year} className="text-slate-300">
                       {view.tables.yearSummary.columns.map((column) => (
-                        <td key={column.key} className="px-4 py-3">
+                        <td key={column.key} className="px-4 py-3 whitespace-nowrap">
                           {formatTableValue(
                             row[column.key as keyof typeof row],
                             column.unit,
@@ -160,12 +163,12 @@ export default function ActiveWallets() {
           </Card>
           <Card>
             <h3 className="text-base font-semibold text-white">Quarterly Summary</h3>
-            <div className="mt-3 overflow-hidden rounded-xl border border-slate-800">
-              <table className="w-full text-left text-sm">
+            <div className="section-scroll-x mt-3 rounded-xl border border-slate-800">
+              <table className="w-full min-w-[760px] text-left text-sm">
                 <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
                   <tr>
                     {view.tables.quarterlySummary.columns.map((column) => (
-                      <th key={column.key} className="px-4 py-3">
+                      <th key={column.key} className="px-4 py-3 whitespace-nowrap">
                         {column.label}
                       </th>
                     ))}
@@ -175,7 +178,7 @@ export default function ActiveWallets() {
                   {view.tables.quarterlySummary.rows.map((row) => (
                     <tr key={row.quarter} className="text-slate-300">
                       {view.tables.quarterlySummary.columns.map((column) => (
-                        <td key={column.key} className="px-4 py-3">
+                        <td key={column.key} className="px-4 py-3 whitespace-nowrap">
                           {formatTableValue(
                             row[column.key as keyof typeof row],
                             column.unit,
@@ -252,25 +255,25 @@ export default function ActiveWallets() {
             <h3 className="text-base font-semibold text-white">
               Threshold &amp; Milestone Tracker
             </h3>
-            <div className="mt-3 overflow-hidden rounded-xl border border-slate-800">
-              <table className="w-full text-left text-sm">
+            <div className="section-scroll-x mt-3 rounded-xl border border-slate-800">
+              <table className="w-full min-w-[640px] text-left text-sm">
                 <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
                   <tr>
-                    <th className="px-4 py-3">Threshold</th>
-                    <th className="px-4 py-3">First month below</th>
-                    <th className="px-4 py-3">Months below</th>
-                    <th className="px-4 py-3">Most recent below</th>
+                    <th className="px-4 py-3 whitespace-nowrap">Threshold</th>
+                    <th className="px-4 py-3 whitespace-nowrap">First month below</th>
+                    <th className="px-4 py-3 whitespace-nowrap">Months below</th>
+                    <th className="px-4 py-3 whitespace-nowrap">Most recent below</th>
                   </tr>
                 </thead>
                 <tbody>
                   {view.milestones.thresholds.map((row) => (
                     <tr key={row.threshold} className="text-slate-300">
-                      <td className="px-4 py-3">
+                      <td className="px-4 py-3 whitespace-nowrap">
                         {formatNumber(row.threshold)}
                       </td>
-                      <td className="px-4 py-3">{row.firstReached}</td>
-                      <td className="px-4 py-3">{row.monthsBelow}</td>
-                      <td className="px-4 py-3">{row.lastSeen}</td>
+                      <td className="px-4 py-3 whitespace-nowrap">{row.firstReached}</td>
+                      <td className="px-4 py-3 whitespace-nowrap">{row.monthsBelow}</td>
+                      <td className="px-4 py-3 whitespace-nowrap">{row.lastSeen}</td>
                     </tr>
                   ))}
                 </tbody>

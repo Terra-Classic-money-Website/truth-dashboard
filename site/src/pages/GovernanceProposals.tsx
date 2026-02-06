@@ -130,12 +130,12 @@ export default function GovernanceProposals() {
           <h2 className="text-base font-semibold text-white">{view.table.title}</h2>
           <span className="text-xs text-slate-500">Table note placeholder</span>
         </div>
-        <div className="mt-4 overflow-hidden rounded-xl border border-slate-800">
-          <table className="w-full text-left text-sm">
+        <div className="section-scroll-x mt-4 rounded-xl border border-slate-800">
+          <table className="w-full min-w-[1120px] text-left text-sm">
             <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
               <tr>
                 {view.table.columns.map((column) => (
-                  <th key={column.key} className="px-4 py-3">
+                  <th key={column.key} className="px-4 py-3 whitespace-nowrap">
                     {column.label}
                   </th>
                 ))}
@@ -145,7 +145,15 @@ export default function GovernanceProposals() {
               {rows.map((row) => (
                 <tr key={row.id} className="text-slate-300">
                   {view.table.columns.map((column) => (
-                    <td key={column.key} className="px-4 py-3">
+                    <td
+                      key={column.key}
+                      className={[
+                        "px-4 py-3",
+                        column.key === "title" || column.key === "votes"
+                          ? "min-w-[16rem] whitespace-normal break-words"
+                          : "whitespace-nowrap",
+                      ].join(" ")}
+                    >
                       {formatTableValue(
                         row[column.key as keyof typeof row],
                         column.unit,

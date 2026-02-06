@@ -137,7 +137,10 @@ export default function CommunityPoolBalanceChart({
     return () => observer.disconnect();
   }, []);
 
-  const padding = { left: 56, right: 56, top: 46, bottom: 42 };
+  const isMobile = width > 0 && width < 640;
+  const padding = isMobile
+    ? { left: 42, right: 42, top: 40, bottom: 36 }
+    : { left: 56, right: 56, top: 46, bottom: 42 };
   const plotWidth = Math.max(width - padding.left - padding.right, 1);
   const plotHeight = Math.max(height - padding.top - padding.bottom, 1);
 
@@ -243,9 +246,16 @@ export default function CommunityPoolBalanceChart({
   const visibleMonthTickIndices = useMemo(() => {
     if (monthTickIndices.length <= 2) return monthTickIndices;
     const isOneYear = balances.length <= 60;
-    const minTicks = isOneYear ? 8 : 10;
-    const maxTicks = isOneYear ? 12 : 14;
-    const target = clamp(Math.round(width / 150), minTicks, maxTicks);
+    const target =
+      width < 360
+        ? 4
+        : width < 500
+          ? 5
+          : width < 768
+            ? 7
+            : isOneYear
+              ? clamp(Math.round(width / 120), 8, 12)
+              : clamp(Math.round(width / 110), 10, 14);
     const step = Math.max(1, Math.ceil(monthTickIndices.length / target));
     return monthTickIndices.filter((_, index) => {
       const isEdge =
@@ -294,8 +304,17 @@ export default function CommunityPoolBalanceChart({
       ref={ref}
       className="relative h-full w-full rounded-xl border border-dashed border-slate-800 bg-slate-950/50 px-2 py-4"
       style={{ height }}
+      onMouseLeave={() => setHoverState(null)}
+      onMouseMove={(event) => {
+        const rect = event.currentTarget.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const ratio = clamp((x - padding.left) / Math.max(plotWidth, 1), 0, 1);
+        const pointIndex = Math.round(ratio * Math.max(balances.length - 1, 0));
+        setHoverState({ x, y, pointIndex });
+      }}
     >
-      <div className="mb-2 flex flex-wrap items-center justify-end gap-4 text-xs text-slate-300">
+      <div className="mb-2 flex flex-wrap items-center justify-start gap-4 text-xs text-slate-300">
         <div className="flex items-center gap-2">
           <span
             className="inline-block h-2.5 w-10 rounded-sm border"
@@ -322,15 +341,6 @@ export default function CommunityPoolBalanceChart({
       <svg
         viewBox={`0 0 ${Math.max(width, 1)} ${height}`}
         className="h-full w-full"
-        onMouseLeave={() => setHoverState(null)}
-        onMouseMove={(event) => {
-          const rect = event.currentTarget.getBoundingClientRect();
-          const x = event.clientX - rect.left;
-          const y = event.clientY - rect.top;
-          const ratio = clamp((x - padding.left) / Math.max(plotWidth, 1), 0, 1);
-          const pointIndex = Math.round(ratio * Math.max(balances.length - 1, 0));
-          setHoverState({ x, y, pointIndex });
-        }}
       >
         <line
           x1={padding.left}
@@ -371,7 +381,7 @@ export default function CommunityPoolBalanceChart({
                 y={y + 3}
                 textAnchor="end"
                 fill="#94a3b8"
-                fontSize="10"
+                fontSize={isMobile ? "9" : "10"}
               >
                 {compactAxis(tick)}
               </text>
@@ -388,7 +398,7 @@ export default function CommunityPoolBalanceChart({
               y={y + 3}
               textAnchor="start"
               fill="#94a3b8"
-              fontSize="10"
+              fontSize={isMobile ? "9" : "10"}
             >
               {compactAxis(tick)}
             </text>
@@ -412,7 +422,7 @@ export default function CommunityPoolBalanceChart({
                 y={height - 10}
                 textAnchor="middle"
                 fill="#94a3b8"
-                fontSize="10"
+                fontSize={isMobile ? "9" : "10"}
               >
                 {formatMonthTick(balances[index].t)}
               </text>
@@ -507,10 +517,10 @@ export default function CommunityPoolBalanceChart({
 
       {hovered && hoverState ? (
         <div
-          className="pointer-events-none absolute z-10 max-w-md rounded-lg border border-slate-800 bg-slate-950/95 px-3 py-2 text-xs text-slate-200 shadow-xl"
+          className="pointer-events-auto absolute z-10 max-w-none overflow-y-auto rounded-lg border border-slate-800 bg-slate-950/95 px-3 py-2 text-xs text-slate-200 shadow-xl"
           style={(() => {
-            const tooltipWidth = tooltipBox.width;
-            const tooltipHeight = tooltipBox.height;
+            const tooltipWidth = Math.min(tooltipBox.width, Math.max(width - 24, 220));
+            const tooltipHeight = Math.min(tooltipBox.height, Math.max(height - 24, 140));
             const rightPreferred = hoverState.x + 14;
             const leftPreferred = hoverState.x - tooltipWidth - 14;
             const topPreferred = hoverState.y + 14;
@@ -528,6 +538,8 @@ export default function CommunityPoolBalanceChart({
             return {
               left: clamp(x, 12, Math.max(width - tooltipWidth - 12, 12)),
               top: clamp(y, 12, Math.max(height - tooltipHeight - 12, 12)),
+              width: tooltipWidth,
+              maxHeight: Math.max(height - 24, 140),
             };
           })()}
         >

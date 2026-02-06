@@ -6,12 +6,15 @@ import { formatDelta, formatValue } from "../data/format";
 import { getSnapshot } from "../data/loadSnapshot";
 import { selectLuncVolume } from "../data/selectors";
 import PageHeader from "../components/PageHeader";
+import useViewportWidth from "../hooks/useViewportWidth";
 
 export default function Volume() {
   const { data: snapshot, error } = getSnapshot("lunc-volume");
   const [windowId, setWindowId] = useState<string>("1y");
   const chartWrapRef = useRef<HTMLDivElement>(null);
   const [chartHeight, setChartHeight] = useState<number | null>(null);
+  const viewportWidth = useViewportWidth();
+  const isMobile = viewportWidth < 640;
 
   if (!snapshot) {
     return <SnapshotErrorPanel error={error} />;
@@ -76,7 +79,8 @@ export default function Volume() {
       if (!chartWrapRef.current) return;
       const rect = chartWrapRef.current.getBoundingClientRect();
       const available = window.innerHeight - rect.top - 32;
-      setChartHeight(Math.max(320, Math.floor(available)));
+      const minHeight = window.innerWidth < 640 ? 260 : 320;
+      setChartHeight(Math.max(minHeight, Math.floor(available)));
     };
 
     updateHeight();
@@ -139,7 +143,8 @@ export default function Volume() {
             xTickFormatter={formatMonthLabel}
             yTicks={yTicks}
             yTickFormatter={formatUsdTick}
-            forceAllXTicks
+            minXTickGap={isMobile ? 96 : 60}
+            forceAllXTicks={!isMobile}
           />
         </div>
       </Card>
