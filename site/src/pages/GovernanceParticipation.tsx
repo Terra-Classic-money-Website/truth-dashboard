@@ -40,7 +40,7 @@ function sanitizeChartData(input: unknown): ChartData {
   };
 }
 
-function truncateLabel(label: string, max = 22) {
+function truncateLabel(label: string, max = 18) {
   return label.length > max ? `${label.slice(0, max - 1)}…` : label;
 }
 
@@ -48,7 +48,7 @@ function VerticalBarChart({ data }: { data: ChartData }) {
   const maxValue = Math.max(...data.values, 1);
   const width = 1000;
   const height = 320;
-  const margin = { top: 12, right: 16, bottom: 54, left: 42 };
+  const margin = { top: 12, right: 8, bottom: 50, left: 24 };
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
   const slot = plotWidth / Math.max(data.values.length, 1);
@@ -71,7 +71,13 @@ function VerticalBarChart({ data }: { data: ChartData }) {
         return (
           <g key={`${data.labels[index]}-${index}`}>
             <rect x={x} y={y} width={barWidth} height={barHeight} rx={3} fill={GOLD} />
-            <text x={x + barWidth / 2} y={height - margin.bottom + 14} textAnchor="middle" fill="#94a3b8" fontSize="10">
+            <text
+              x={x + barWidth / 2}
+              y={height - margin.bottom + 14}
+              textAnchor="middle"
+              fill="#94a3b8"
+              fontSize="12"
+            >
               {data.labels[index]}
             </text>
           </g>
@@ -91,7 +97,7 @@ function HorizontalBarChart({
   const maxValue = Math.max(...data.values, 1);
   const width = 1000;
   const height = 320;
-  const margin = { top: 8, right: 16, bottom: 12, left: 260 };
+  const margin = { top: 8, right: 10, bottom: 12, left: 180 };
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
   const rowHeight = plotHeight / Math.max(data.values.length, 1);
@@ -106,11 +112,17 @@ function HorizontalBarChart({
         const label = data.labels[index];
         return (
           <g key={`${label}-${index}`}>
-            <text x={margin.left - 8} y={y + barHeight / 2 + 4} textAnchor="end" fill="#cbd5e1" fontSize="11">
+            <text
+              x={margin.left - 8}
+              y={y + barHeight / 2 + 4}
+              textAnchor="end"
+              fill="#cbd5e1"
+              fontSize="13"
+            >
               {truncateLabel(label)}
             </text>
             <rect x={margin.left} y={y} width={barLength} height={barHeight} rx={3} fill={BLUE} />
-            <text x={margin.left + barLength + 6} y={y + barHeight / 2 + 4} fill="#94a3b8" fontSize="10">
+            <text x={margin.left + barLength + 6} y={y + barHeight / 2 + 4} fill="#94a3b8" fontSize="12">
               {percent ? `${value}%` : formatTableValue(value, "count")}
             </text>
           </g>
@@ -166,7 +178,7 @@ function DonutChart({ data }: { data: ChartData }) {
           );
         })}
       </svg>
-      <ul className="flex-1 space-y-2 text-sm text-slate-300">
+      <ul className="flex-1 space-y-2 text-base text-slate-300">
         {data.labels.map((label, index) => (
           <li key={label} className="flex items-center justify-between gap-2">
             <span className="inline-flex items-center gap-2">
@@ -254,10 +266,10 @@ export default function GovernanceParticipation() {
           <h2 className="text-base font-semibold text-white">
             Non-participation distribution
           </h2>
-          <div className="mt-3 h-64 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4">
+          <div className="mt-3 h-64 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-2">
             <VerticalBarChart data={nonParticipationDistribution} />
           </div>
-          <ul className="mt-3 space-y-1 text-sm text-slate-300">
+          <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1 text-base text-slate-300 xl:grid-cols-3">
             {nonParticipationDistribution.labels.map((label, index) => (
               <li key={label}>
                 {label}: {formatTableValue(nonParticipationDistribution.values[index], "count")}
@@ -269,7 +281,7 @@ export default function GovernanceParticipation() {
           <h2 className="text-base font-semibold text-white">
             Top 15 by non-participation
           </h2>
-          <div className="mt-3 h-64 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4">
+          <div className="mt-3 h-64 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-2">
             <HorizontalBarChart data={topNonParticipation} percent />
           </div>
         </Card>
@@ -277,7 +289,7 @@ export default function GovernanceParticipation() {
           <h2 className="text-base font-semibold text-white">
             Overall vote composition
           </h2>
-          <div className="mt-3 h-64 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4">
+          <div className="mt-3 h-64 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-2">
             <DonutChart data={voteComposition} />
           </div>
         </Card>
@@ -285,7 +297,7 @@ export default function GovernanceParticipation() {
           <h2 className="text-base font-semibold text-white">
             Delegators per proposal (top 20)
           </h2>
-          <div className="mt-3 h-64 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-4">
+          <div className="mt-3 h-64 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-2">
             <HorizontalBarChart data={topDelegators} />
           </div>
         </Card>
