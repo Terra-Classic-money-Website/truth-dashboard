@@ -273,7 +273,9 @@ export function selectCommunityPool(
             : `${uniqueRecipients[0]} (+${uniqueRecipients.length - 1})`,
         lunc: marker.lunc?.amount ?? 0,
         ustc: marker.ustc?.amount ?? 0,
-        impactPct: markerImpactPct(marker),
+        // Table uses formatPercent, which expects a ratio for values <= 1.
+        // Keep chart/tooltip math untouched and only normalize table display input.
+        impactPct: markerImpactPct(marker) / 100,
         lowConfidence: marker.lowConfidence,
       };
     });
