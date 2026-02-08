@@ -1339,51 +1339,51 @@
       },
       "metric_cards": [
         {
-          "label": "Average Yes votes per proposal (validators)",
+          "label": "Avg validators voting \"YES\" per proposal",
           "value": "29.8"
         },
         {
-          "label": "Average No votes per proposal (validators)",
+          "label": "Avg validators voting \"NO\" per proposal",
           "value": "9.2"
         },
         {
-          "label": "Average Veto votes per proposal (validators)",
+          "label": "Avg validators voting \"NO (with veto)\" per proposal",
           "value": "3"
         },
         {
-          "label": "Average non-participation per proposal (validators)",
+          "label": "Avg validators who didn't vote (per proposal)",
           "value": "55.3"
         },
         {
-          "label": "Average proposals not voted",
+          "label": "Avg proposals skipped per validator",
           "value": "55.3"
         },
         {
-          "label": "Avg delegators voting per proposal",
+          "label": "Avg wallets voting per proposal",
           "value": "428"
         },
         {
-          "label": "Avg delegators as % of active wallets (last year)",
+          "label": "Voter wallets as % of active wallets",
           "value": "0.37%"
         },
         {
-          "label": "% of all votes not voted",
+          "label": "Share of missed votes (all validators)",
           "value": "30.54%"
         },
         {
-          "label": "% of all votes that are No with Veto",
+          "label": "Share of \"NO (veto)\" votes (all votes)",
           "value": "1.65%"
         },
         {
-          "label": "Active validators in dataset",
+          "label": "Validators included in this dataset",
           "value": "181"
         },
         {
-          "label": "Validators with >60% non-participation",
+          "label": "Validators missing >60% of votes",
           "value": "42"
         },
         {
-          "label": "Validators with >70% non-participation",
+          "label": "Validators missing >70% of votes",
           "value": "36"
         },
         {
@@ -1399,15 +1399,15 @@
           "value": "5"
         },
         {
-          "label": "<50% non-participation statement",
+          "label": "Validators who usually vote (miss <50%)",
           "value": "Validators with <50% non-participation: 135 of 181. That means 25.41% of validators participate in fewer than half of proposals."
         },
         {
-          "label": "Voting power of never-voters",
+          "label": "Voting power held by validators who never vote",
           "value": "Validators with 100% non-participation control 3.95% of total voting power."
         },
         {
-          "label": "Bottom 50% voting power behavior",
+          "label": "How the lower-half (by voting power) behaves",
           "value": "Bottom 50% (by voting power rank) skip 20.78% of proposals on average."
         }
       ]
@@ -7844,51 +7844,51 @@
       ],
       "metricCards": [
         {
-          "label": "Average Yes votes per proposal (validators)",
+          "label": "Avg validators voting \"YES\" per proposal",
           "value": "29.8"
         },
         {
-          "label": "Average No votes per proposal (validators)",
+          "label": "Avg validators voting \"NO\" per proposal",
           "value": "9.2"
         },
         {
-          "label": "Average Veto votes per proposal (validators)",
+          "label": "Avg validators voting \"NO (with veto)\" per proposal",
           "value": "3"
         },
         {
-          "label": "Average non-participation per proposal (validators)",
+          "label": "Avg validators who didn't vote (per proposal)",
           "value": "55.3"
         },
         {
-          "label": "Average proposals not voted",
+          "label": "Avg proposals skipped per validator",
           "value": "55.3"
         },
         {
-          "label": "Avg delegators voting per proposal",
+          "label": "Avg wallets voting per proposal",
           "value": "428"
         },
         {
-          "label": "Avg delegators as % of active wallets (last year)",
+          "label": "Voter wallets as % of active wallets",
           "value": "0.37%"
         },
         {
-          "label": "% of all votes not voted",
+          "label": "Share of missed votes (all validators)",
           "value": "30.54%"
         },
         {
-          "label": "% of all votes that are No with Veto",
+          "label": "Share of \"NO (veto)\" votes (all votes)",
           "value": "1.65%"
         },
         {
-          "label": "Active validators in dataset",
+          "label": "Validators included in this dataset",
           "value": "181"
         },
         {
-          "label": "Validators with >60% non-participation",
+          "label": "Validators missing >60% of votes",
           "value": "42"
         },
         {
-          "label": "Validators with >70% non-participation",
+          "label": "Validators missing >70% of votes",
           "value": "36"
         },
         {
@@ -7904,15 +7904,15 @@
           "value": "5"
         },
         {
-          "label": "<50% non-participation statement",
+          "label": "Validators who usually vote (miss <50%)",
           "value": "Validators with <50% non-participation: 135 of 181. That means 25.41% of validators participate in fewer than half of proposals."
         },
         {
-          "label": "Voting power of never-voters",
+          "label": "Voting power held by validators who never vote",
           "value": "Validators with 100% non-participation control 3.95% of total voting power."
         },
         {
-          "label": "Bottom 50% voting power behavior",
+          "label": "How the lower-half (by voting power) behaves",
           "value": "Bottom 50% (by voting power rank) skip 20.78% of proposals on average."
         }
       ],
