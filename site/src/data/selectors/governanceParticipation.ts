@@ -36,9 +36,13 @@ function asNumber(value: string | number | undefined) {
   if (typeof value !== "string") {
     return 0;
   }
+  const hasPercent = value.includes("%");
   const normalized = value.replace(/[%,$,]/g, "").trim();
   const parsed = Number(normalized);
-  return Number.isFinite(parsed) ? parsed : 0;
+  if (!Number.isFinite(parsed)) {
+    return 0;
+  }
+  return hasPercent ? parsed / 100 : parsed;
 }
 
 function isoDateFromMonthIndex(index: number) {
