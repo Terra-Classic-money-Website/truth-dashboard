@@ -60,6 +60,13 @@ export function selectGovernanceProposals() {
         delegators: asNumber(row.delegators),
         endDate: String(row.endDate ?? ""),
         endDateMs: asNumber(row.endDateMs),
+        yesPct: asNumber(row.yesPct),
+        noPct: asNumber(row.noPct),
+        abstainPct: asNumber(row.abstainPct),
+        vetoPct: asNumber((row as { vetoPct?: unknown; noWithVetoPct?: unknown }).vetoPct),
+        noWithVetoPct: asNumber(
+          (row as { vetoPct?: unknown; noWithVetoPct?: unknown }).noWithVetoPct,
+        ),
       })),
     },
   };
