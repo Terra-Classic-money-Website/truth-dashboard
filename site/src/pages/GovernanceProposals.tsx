@@ -474,12 +474,14 @@ function TopListCard({
   items,
   scoreLabel,
   scoreFormatter,
+  showScoreColumn = true,
 }: {
   title: string;
   subtitle: string;
   items: TopListItem[];
   scoreLabel: string;
   scoreFormatter: (value: number) => string;
+  showScoreColumn?: boolean;
 }) {
   return (
     <Card>
@@ -492,7 +494,9 @@ function TopListCard({
               <th className="px-3 py-2 whitespace-nowrap">ID</th>
               <th className="px-3 py-2 whitespace-nowrap">Title</th>
               <th className="px-3 py-2 whitespace-nowrap">Delegators</th>
-              <th className="px-3 py-2 whitespace-nowrap">{scoreLabel}</th>
+              {showScoreColumn ? (
+                <th className="px-3 py-2 whitespace-nowrap">{scoreLabel}</th>
+              ) : null}
             </tr>
           </thead>
           <tbody>
@@ -503,12 +507,17 @@ function TopListCard({
                   {truncateLabel(item.title, 62)}
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap">{formatCount(item.delegators)}</td>
-                <td className="px-3 py-2 whitespace-nowrap">{scoreFormatter(item.score)}</td>
+                {showScoreColumn ? (
+                  <td className="px-3 py-2 whitespace-nowrap">{scoreFormatter(item.score)}</td>
+                ) : null}
               </tr>
             ))}
             {items.length === 0 ? (
               <tr>
-                <td colSpan={4} className="px-3 py-4 text-center text-slate-500">
+                <td
+                  colSpan={showScoreColumn ? 4 : 3}
+                  className="px-3 py-4 text-center text-slate-500"
+                >
                   No proposals in current view.
                 </td>
               </tr>
@@ -729,20 +738,14 @@ export default function GovernanceProposals() {
           </Card>
         </div>
 
-        <div className="grid gap-4 xl:grid-cols-3">
+        <div className="grid gap-4 xl:grid-cols-2">
           <TopListCard
             title="Most engaged"
             subtitle="Top 10 by delegator count."
             items={insights.topMostEngaged}
             scoreLabel="Delegators"
             scoreFormatter={(value) => formatCount(value)}
-          />
-          <TopListCard
-            title="Most controversial"
-            subtitle="Top 10 by controversy score."
-            items={insights.topMostControversial}
-            scoreLabel="Controversy"
-            scoreFormatter={(value) => formatPercent(value)}
+            showScoreColumn={false}
           />
           <TopListCard
             title="Highest veto"

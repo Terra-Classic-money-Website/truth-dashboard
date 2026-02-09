@@ -152,8 +152,8 @@ function RankedTable({
   rows: Array<Array<string>>;
 }) {
   return (
-    <div className="section-scroll-x mt-3 rounded-xl border border-slate-800">
-      <table className="w-full min-w-[520px] text-left text-sm">
+    <div className="mt-3 rounded-xl border border-slate-800">
+      <table className="w-full table-fixed text-left text-sm">
         <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
           <tr>
             {columns.map((column) => (
@@ -167,7 +167,14 @@ function RankedTable({
           {rows.map((row, index) => (
             <tr key={`${row[0]}-${index}`} className="text-slate-300">
               {row.map((value, valueIndex) => (
-                <td key={`${row[0]}-${columns[valueIndex]}`} className="px-3 py-2 whitespace-nowrap">
+                <td
+                  key={`${row[0]}-${columns[valueIndex]}`}
+                  className={
+                    valueIndex === 0
+                      ? "px-3 py-2 whitespace-normal break-words"
+                      : "px-3 py-2 whitespace-nowrap"
+                  }
+                >
                   {value}
                 </td>
               ))}
@@ -362,7 +369,7 @@ export default function GovernanceValidators() {
           </Card>
         </div>
 
-        <div className="grid gap-4 xl:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-2">
           <Card>
             <div className="flex items-center gap-2 text-sm font-semibold text-white">
               Paid but absent (Top 10)
@@ -381,7 +388,7 @@ export default function GovernanceValidators() {
               ])}
             />
           </Card>
-          <Card>
+          <Card className="lg:col-span-1">
             <div className="flex items-center gap-2 text-sm font-semibold text-white">
               Top validators by effective power
               <InfoHint
@@ -396,32 +403,6 @@ export default function GovernanceValidators() {
                 formatPercent(row.effectivePowerPct),
                 formatPercent(row.votingPower),
                 formatPercent(row.missPct),
-              ])}
-            />
-          </Card>
-          <Card>
-            <div className="flex flex-wrap items-center justify-between gap-2 text-sm font-semibold text-white">
-              <span className="inline-flex items-center gap-2">
-                Delegators at risk (Top 10)
-                <InfoHint
-                  explanation="Delegators currently delegated to validators that miss at least 70% of votes."
-                  formula="sum(delegators where missRate >= 0.7)"
-                />
-              </span>
-              <span className="text-xs text-slate-400">
-                Total at risk:{" "}
-                <span className="font-semibold text-slate-200">
-                  {formatNumber(insights.ranked.delegatorsAtRisk.totalDelegatorsAtRisk)}
-                </span>
-              </span>
-            </div>
-            <RankedTable
-              columns={["Validator", "Delegators", "Missed votes %", "Voting power"]}
-              rows={insights.ranked.delegatorsAtRisk.rows.map((row) => [
-                row.validator,
-                formatNumber(row.delegators),
-                formatPercent(row.missPct),
-                formatPercent(row.votingPower),
               ])}
             />
           </Card>
