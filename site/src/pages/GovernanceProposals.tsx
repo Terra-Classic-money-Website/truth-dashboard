@@ -394,15 +394,20 @@ function MonthlyCountChart({ data }: { data: MonthlyPoint[] }) {
 
 function TypePassRateChart({ data }: { data: TypePassRatePoint[] }) {
   const width = 960;
-  const height = 300;
-  const margin = { top: 8, right: 64, bottom: 38, left: 172 };
+  const height = 340;
+  const margin = { top: 10, right: 72, bottom: 42, left: 180 };
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
   const rowHeight = plotHeight / Math.max(data.length, 1);
-  const barHeight = Math.max(7, rowHeight * 0.58);
+  const barHeight = Math.max(10, rowHeight * 0.58);
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} className="h-full w-full" preserveAspectRatio="none">
+    <svg
+      viewBox={`0 0 ${width} ${height}`}
+      className="h-full"
+      style={{ width: `${width}px`, minWidth: `${width}px` }}
+      preserveAspectRatio="none"
+    >
       <line
         x1={margin.left}
         y1={height - margin.bottom}
@@ -428,7 +433,7 @@ function TypePassRateChart({ data }: { data: TypePassRatePoint[] }) {
               y={height - margin.bottom + 18}
               textAnchor="middle"
               fill="#94a3b8"
-              fontSize={11}
+              fontSize={12}
             >
               {tick}
             </text>
@@ -445,7 +450,7 @@ function TypePassRateChart({ data }: { data: TypePassRatePoint[] }) {
               y={y + barHeight / 2 + 5}
               textAnchor="end"
               fill="#cbd5e1"
-              fontSize={12}
+              fontSize={13}
             >
               {truncateLabel(point.type, 24)}
             </text>
@@ -456,7 +461,7 @@ function TypePassRateChart({ data }: { data: TypePassRatePoint[] }) {
               x={Math.min(margin.left + barWidth + 8, width - margin.right + 2)}
               y={y + barHeight / 2 + 5}
               fill="#cbd5e1"
-              fontSize={11}
+              fontSize={12}
               textAnchor="start"
             >
               {`${point.passRate.toFixed(1)}% (n=${point.count})`}
@@ -732,8 +737,10 @@ export default function GovernanceProposals() {
               <h3 className="text-base font-semibold text-white">Pass rate by type (top 8 types)</h3>
               <InfoHint text="Pass rate per proposal type, sorted by count. Types after top 8 are merged into Other." />
             </div>
-            <div className="mt-3 h-64 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-2">
-              <TypePassRateChart data={insights.passRateByType} />
+            <div className="section-scroll-x mt-3 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-2">
+              <div className="h-80 md:h-64">
+                <TypePassRateChart data={insights.passRateByType} />
+              </div>
             </div>
           </Card>
         </div>
