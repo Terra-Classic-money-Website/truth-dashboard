@@ -147,17 +147,22 @@ function HistogramChart({
 function RankedTable({
   columns,
   rows,
+  compactOnMobile = false,
 }: {
   columns: string[];
   rows: Array<Array<string>>;
+  compactOnMobile?: boolean;
 }) {
+  const tableMinWidth = compactOnMobile ? "540px" : "620px";
+  const baseCellClass = compactOnMobile ? "px-2 py-2 md:px-3" : "px-3 py-2";
+
   return (
     <div className="section-scroll-x section-scroll-mobile-y mt-3 rounded-xl border border-slate-800">
-      <table className="w-full text-left text-sm" style={{ minWidth: "620px" }}>
+      <table className="w-full text-left text-sm" style={{ minWidth: tableMinWidth }}>
         <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
           <tr>
             {columns.map((column) => (
-              <th key={column} className="px-3 py-2 whitespace-nowrap">
+              <th key={column} className={`${baseCellClass} whitespace-nowrap`}>
                 {column}
               </th>
             ))}
@@ -169,8 +174,18 @@ function RankedTable({
               {row.map((value, valueIndex) => (
                 <td
                   key={`${row[0]}-${columns[valueIndex]}`}
-                  className="px-3 py-2 whitespace-nowrap"
-                  style={valueIndex === 0 ? { minWidth: "12rem" } : undefined}
+                  className={
+                    valueIndex === 0
+                      ? compactOnMobile
+                        ? `${baseCellClass} text-xs leading-4 whitespace-normal break-words md:text-sm md:leading-5`
+                        : `${baseCellClass} whitespace-nowrap`
+                      : `${baseCellClass} whitespace-nowrap`
+                  }
+                  style={
+                    valueIndex === 0
+                      ? { minWidth: compactOnMobile ? "8rem" : "12rem" }
+                      : undefined
+                  }
                 >
                   {value}
                 </td>
@@ -401,6 +416,7 @@ export default function GovernanceValidators() {
                 formatPercent(row.votingPower),
                 formatPercent(row.missPct),
               ])}
+              compactOnMobile
             />
           </Card>
         </div>
