@@ -90,7 +90,7 @@ export default function AppLayout() {
 
   return (
     <div className="min-h-screen text-slate-100 md:flex">
-      <aside className="hidden md:flex md:w-72 md:flex-col md:sticky md:top-0 md:h-screen md:border-r md:border-slate-800 md:bg-slate-950/75 md:backdrop-blur">
+      <aside className="hidden md:flex md:w-72 md:shrink-0 md:flex-col md:sticky md:top-0 md:h-screen md:border-r md:border-slate-800 md:bg-slate-950/75 md:backdrop-blur">
         <div className="px-6 py-6 border-b border-slate-800">
           <div className="flex items-center justify-between">
             <Link

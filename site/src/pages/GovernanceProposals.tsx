@@ -395,7 +395,7 @@ function MonthlyCountChart({ data }: { data: MonthlyPoint[] }) {
 function TypePassRateChart({ data }: { data: TypePassRatePoint[] }) {
   const width = 960;
   const height = 340;
-  const margin = { top: 10, right: 72, bottom: 42, left: 180 };
+  const margin = { top: 10, right: 146, bottom: 42, left: 180 };
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
   const rowHeight = plotHeight / Math.max(data.length, 1);
@@ -443,11 +443,6 @@ function TypePassRateChart({ data }: { data: TypePassRatePoint[] }) {
         const y = margin.top + index * rowHeight + (rowHeight - barHeight) / 2;
         const barWidth = (plotWidth * point.passRate) / 100;
         const valueLabel = `${point.passRate.toFixed(1)}% (n=${point.count})`;
-        const approxLabelWidth = Math.max(64, valueLabel.length * 7);
-        const valueX = Math.min(
-          margin.left + barWidth + 8,
-          width - margin.right - approxLabelWidth - 4,
-        );
         return (
           <g key={point.type}>
             <text
@@ -463,11 +458,11 @@ function TypePassRateChart({ data }: { data: TypePassRatePoint[] }) {
               <title>{`Type: ${point.type}\nTotal: ${point.count}\nPassed: ${point.passed}\nRejected: ${point.rejected}\nOther: ${point.other}\nPass rate: ${point.passRate.toFixed(1)}%`}</title>
             </rect>
             <text
-              x={valueX}
+              x={width - 8}
               y={y + barHeight / 2 + 5}
               fill="#cbd5e1"
               fontSize={12}
-              textAnchor="start"
+              textAnchor="end"
             >
               {valueLabel}
             </text>
@@ -491,10 +486,17 @@ function TypePassRateMobileChart({ data }: { data: TypePassRatePoint[] }) {
               {`${point.passRate.toFixed(1)}% (n=${point.count})`}
             </p>
           </div>
-          <div className="mt-2 h-2.5 w-full rounded-full bg-slate-900/80">
+          <div
+            className="mt-2 w-full rounded-full bg-slate-900/80"
+            style={{ height: "10px" }}
+          >
             <div
-              className="h-full rounded-full bg-emerald-400"
-              style={{ width: `${clamp(point.passRate, 0, 100)}%` }}
+              className="rounded-full"
+              style={{
+                width: `${clamp(point.passRate, 0, 100)}%`,
+                height: "100%",
+                backgroundColor: "#34d399",
+              }}
             />
           </div>
         </div>

@@ -11,7 +11,6 @@
     --color-amber-300: oklch(87.9% 0.169 91.605);
     --color-amber-500: oklch(76.9% 0.188 70.08);
     --color-emerald-300: oklch(84.5% 0.143 164.978);
-    --color-emerald-400: oklch(76.5% 0.177 163.223);
     --color-sky-300: oklch(82.8% 0.111 230.318);
     --color-rose-200: oklch(89.2% 0.058 10.001);
     --color-rose-300: oklch(81% 0.117 11.638);
@@ -570,9 +569,6 @@
       background-color: color-mix(in oklab, var(--color-black) 60%, transparent);
     }
   }
-  .bg-emerald-400 {
-    background-color: var(--color-emerald-400);
-  }
   .bg-slate-800 {
     background-color: var(--color-slate-800);
   }
@@ -1011,6 +1007,11 @@
   .md\:w-72 {
     @media (width >= 48rem) {
       width: calc(var(--spacing) * 72);
+    }
+  }
+  .md\:shrink-0 {
+    @media (width >= 48rem) {
+      flex-shrink: 0;
     }
   }
   .md\:grid-cols-2 {
