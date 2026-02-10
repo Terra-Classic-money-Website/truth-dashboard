@@ -311,7 +311,7 @@ export default function GovernanceParticipation() {
         </div>
       </Card>
 
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {view.kpiGrid.map((item) => (
           <Card key={item.id} className="p-4">
             <div className="text-xs uppercase tracking-wider text-slate-500">
@@ -335,7 +335,7 @@ export default function GovernanceParticipation() {
         ))}
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-2">
+      <section className="grid gap-4 xl:grid-cols-2">
         <Card>
           <h2 className="text-base font-semibold text-white">
             Non-participation distribution

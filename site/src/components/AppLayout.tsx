@@ -210,7 +210,7 @@ export default function AppLayout() {
         </div>
       </aside>
 
-      <div className="flex min-h-screen flex-1 flex-col">
+      <div className="flex min-h-screen min-w-0 flex-1 flex-col">
         <div className="md:hidden sticky top-0 z-40 border-b border-slate-800 bg-slate-950/85 backdrop-blur">
           <div className="flex items-center justify-between px-4 py-3">
             <Link to="/active-wallets" className="flex items-center gap-3">

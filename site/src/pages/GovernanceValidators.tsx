@@ -254,7 +254,7 @@ export default function GovernanceValidators() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-4">
           <MetricCard
             title="Income thresholds"
             explanation="How many validators earn at least each monthly income threshold."
@@ -381,7 +381,7 @@ export default function GovernanceValidators() {
           </Card>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-2">
+        <div className="grid gap-4 xl:grid-cols-2">
           <Card>
             <div className="flex items-center gap-2 text-sm font-semibold text-white">
               Paid but absent (Top 10)

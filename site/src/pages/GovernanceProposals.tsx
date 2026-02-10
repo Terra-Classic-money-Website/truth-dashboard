@@ -628,7 +628,7 @@ export default function GovernanceProposals() {
       />
 
       <Card>
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-4 xl:grid-cols-3">
           <div className="space-y-2">
             <label className="text-xs uppercase tracking-wider text-slate-500">
               Search
@@ -697,7 +697,7 @@ export default function GovernanceProposals() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-4">
           <Card className="p-4">
             <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-slate-500">
               Proposals in view
@@ -759,7 +759,7 @@ export default function GovernanceProposals() {
           </Card>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-2">
+        <div className="grid gap-4 xl:grid-cols-2">
           <Card>
             <div className="flex items-center gap-2">
               <h3 className="text-base font-semibold text-white">Proposals per month (count)</h3>
