@@ -33,6 +33,7 @@ type InsightKpis = {
   rejectedRate: number | null;
   otherRate: number | null;
   medianDelegators: number | null;
+  zeroDelegatorCount: number;
   lowEngCount: number;
   lowEngRate: number | null;
   lowEngThreshold: number | null;
@@ -203,6 +204,7 @@ function computeProposalInsights(rows: ProposalRow[]): ProposalInsights {
   const otherRate = count > 0 ? (otherCount / count) * 100 : null;
 
   const medianDelegators = percentile(delegators, 0.5);
+  const zeroDelegatorCount = delegators.filter((value) => value === 0).length;
   const p25Delegators = percentile(delegators, 0.25);
   const lowEngThreshold =
     p25Delegators === null ? null : Math.max(1, Math.floor(p25Delegators));
@@ -312,6 +314,7 @@ function computeProposalInsights(rows: ProposalRow[]): ProposalInsights {
       rejectedRate,
       otherRate,
       medianDelegators,
+      zeroDelegatorCount,
       lowEngCount,
       lowEngRate,
       lowEngThreshold,
@@ -732,6 +735,11 @@ export default function GovernanceProposals() {
               <InfoHint text="Typical number of wallets that voted on a proposal (median). Less sensitive to outliers than average." />
             </div>
             <p className="mt-3 text-2xl font-semibold text-white">{formatCount(insights.kpis.medianDelegators)}</p>
+            {insights.kpis.medianDelegators === 0 ? (
+              <p className="mt-1 text-xs text-slate-500">
+                {`${formatCount(insights.kpis.zeroDelegatorCount)} of ${formatCount(insights.kpis.count)} proposals have 0 delegators`}
+              </p>
+            ) : null}
           </Card>
           <Card className="p-4">
             <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-slate-500">
