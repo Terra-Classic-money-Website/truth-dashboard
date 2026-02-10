@@ -404,8 +404,7 @@ function TypePassRateChart({ data }: { data: TypePassRatePoint[] }) {
   return (
     <svg
       viewBox={`0 0 ${width} ${height}`}
-      className="h-full"
-      style={{ width: `${width}px`, minWidth: `${width}px` }}
+      className="h-full w-full"
       preserveAspectRatio="none"
     >
       <line
@@ -470,6 +469,36 @@ function TypePassRateChart({ data }: { data: TypePassRatePoint[] }) {
         );
       })}
     </svg>
+  );
+}
+
+function TypePassRateMobileChart({ data }: { data: TypePassRatePoint[] }) {
+  return (
+    <div className="space-y-3">
+      {data.map((point) => (
+        <div key={point.type} className="rounded-lg border border-slate-800/80 bg-slate-950/40 px-3 py-2">
+          <div className="flex items-start justify-between gap-2">
+            <p className="text-sm font-medium leading-5 text-slate-200 break-words">
+              {point.type}
+            </p>
+            <p className="shrink-0 text-xs text-slate-400">
+              {`${point.passRate.toFixed(1)}% (n=${point.count})`}
+            </p>
+          </div>
+          <div className="mt-2 h-2.5 w-full rounded-full bg-slate-900/80">
+            <div
+              className="h-full rounded-full bg-emerald-400"
+              style={{ width: `${clamp(point.passRate, 0, 100)}%` }}
+            />
+          </div>
+        </div>
+      ))}
+      <div className="flex items-center justify-between px-1 text-[11px] text-slate-500">
+        <span>0%</span>
+        <span>50%</span>
+        <span>100%</span>
+      </div>
+    </div>
   );
 }
 
@@ -737,8 +766,11 @@ export default function GovernanceProposals() {
               <h3 className="text-base font-semibold text-white">Pass rate by type (top 8 types)</h3>
               <InfoHint text="Pass rate per proposal type, sorted by count. Types after top 8 are merged into Other." />
             </div>
-            <div className="section-scroll-x mt-3 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-2">
-              <div className="h-80 md:h-64">
+            <div className="mt-3 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-3 md:p-2">
+              <div className="md:hidden">
+                <TypePassRateMobileChart data={insights.passRateByType} />
+              </div>
+              <div className="hidden h-64 md:block">
                 <TypePassRateChart data={insights.passRateByType} />
               </div>
             </div>
