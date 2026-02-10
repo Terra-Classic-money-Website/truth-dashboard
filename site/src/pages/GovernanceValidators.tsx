@@ -152,8 +152,8 @@ function RankedTable({
   rows: Array<Array<string>>;
 }) {
   return (
-    <div className="mt-3 rounded-xl border border-slate-800">
-      <table className="w-full table-fixed text-left text-sm">
+    <div className="section-scroll-x section-scroll-mobile-y mt-3 rounded-xl border border-slate-800">
+      <table className="w-full text-left text-sm" style={{ minWidth: "620px" }}>
         <thead className="bg-slate-950/60 text-xs uppercase tracking-wider text-slate-500">
           <tr>
             {columns.map((column) => (
@@ -169,11 +169,8 @@ function RankedTable({
               {row.map((value, valueIndex) => (
                 <td
                   key={`${row[0]}-${columns[valueIndex]}`}
-                  className={
-                    valueIndex === 0
-                      ? "px-3 py-2 whitespace-normal break-words"
-                      : "px-3 py-2 whitespace-nowrap"
-                  }
+                  className="px-3 py-2 whitespace-nowrap"
+                  style={valueIndex === 0 ? { minWidth: "12rem" } : undefined}
                 >
                   {value}
                 </td>
