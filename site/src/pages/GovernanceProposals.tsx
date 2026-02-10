@@ -442,6 +442,12 @@ function TypePassRateChart({ data }: { data: TypePassRatePoint[] }) {
       {data.map((point, index) => {
         const y = margin.top + index * rowHeight + (rowHeight - barHeight) / 2;
         const barWidth = (plotWidth * point.passRate) / 100;
+        const valueLabel = `${point.passRate.toFixed(1)}% (n=${point.count})`;
+        const approxLabelWidth = Math.max(64, valueLabel.length * 7);
+        const valueX = Math.min(
+          margin.left + barWidth + 8,
+          width - margin.right - approxLabelWidth - 4,
+        );
         return (
           <g key={point.type}>
             <text
@@ -451,19 +457,19 @@ function TypePassRateChart({ data }: { data: TypePassRatePoint[] }) {
               fill="#cbd5e1"
               fontSize={13}
             >
-              {truncateLabel(point.type, 24)}
+              {truncateLabel(point.type, 18)}
             </text>
             <rect x={margin.left} y={y} width={barWidth} height={barHeight} rx={3} fill="#34d399">
               <title>{`Type: ${point.type}\nTotal: ${point.count}\nPassed: ${point.passed}\nRejected: ${point.rejected}\nOther: ${point.other}\nPass rate: ${point.passRate.toFixed(1)}%`}</title>
             </rect>
             <text
-              x={Math.min(margin.left + barWidth + 8, width - margin.right + 2)}
+              x={valueX}
               y={y + barHeight / 2 + 5}
               fill="#cbd5e1"
               fontSize={12}
               textAnchor="start"
             >
-              {`${point.passRate.toFixed(1)}% (n=${point.count})`}
+              {valueLabel}
             </text>
           </g>
         );
@@ -766,11 +772,11 @@ export default function GovernanceProposals() {
               <h3 className="text-base font-semibold text-white">Pass rate by type (top 8 types)</h3>
               <InfoHint text="Pass rate per proposal type, sorted by count. Types after top 8 are merged into Other." />
             </div>
-            <div className="mt-3 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-3 md:p-2">
+            <div className="mt-3 overflow-x-hidden rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-3 md:p-2">
               <div className="md:hidden">
                 <TypePassRateMobileChart data={insights.passRateByType} />
               </div>
-              <div className="hidden h-64 md:block">
+              <div className="hidden h-64 min-w-0 overflow-hidden md:block">
                 <TypePassRateChart data={insights.passRateByType} />
               </div>
             </div>
