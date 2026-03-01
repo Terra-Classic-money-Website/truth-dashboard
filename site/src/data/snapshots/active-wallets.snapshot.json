@@ -6,7 +6,7 @@
   "generatedAt": "2026-02-05",
   "coverage": {
     "start": "2022-06-30",
-    "end": "2026-01-31",
+    "end": "2026-02-28",
     "cadence": "monthly"
   },
   "sources": [
@@ -219,6 +219,10 @@
           {
             "periodEnd": "2026-01-31",
             "v": 17009
+          },
+          {
+            "periodEnd": "2026-02-28",
+            "v": 17078
           }
         ]
       },
@@ -243,12 +247,12 @@
       {
         "id": "kpi.mawTotal",
         "label": "Monthly active wallets",
-        "value": 17009,
+        "value": 17078,
         "unit": "count",
         "scale": 1,
-        "asOf": "2026-01-31",
+        "asOf": "2026-02-28",
         "delta": {
-          "value": -0.32964174516218026,
+          "value": 0.00405667587747663,
           "unit": "percent",
           "vs": "prev_period"
         },
@@ -260,7 +264,7 @@
         "value": null,
         "unit": "count",
         "scale": 1,
-        "asOf": "2026-01-31",
+        "asOf": "2026-02-28",
         "delta": null,
         "note": "Not available in dataset"
       },
@@ -270,7 +274,7 @@
         "value": null,
         "unit": "count",
         "scale": 1,
-        "asOf": "2026-01-31",
+        "asOf": "2026-02-28",
         "delta": null,
         "note": "Not available in dataset"
       },
@@ -280,7 +284,7 @@
         "value": null,
         "unit": "percent",
         "scale": 1,
-        "asOf": "2026-01-31",
+        "asOf": "2026-02-28",
         "delta": null,
         "note": "Not available in dataset"
       }
@@ -288,19 +292,19 @@
     "insights": {
       "highlights": [
         "Activity is down -96.6% from the peak (peak: Aug 22, 498,729).",
-        "Over the last 12 months, the trend slope is -139 wallets/month (smoothed).",
-        "The last month shows decline with MoM change of -33.0%.",
-        "Year-over-year change is -46.7% (vs Jan 25).",
-        "The network spent 8 months below 25,000 active wallets."
+        "Over the last 12 months, the trend slope is -188 wallets/month (smoothed).",
+        "The last month shows growth with MoM change of 0.4%.",
+        "Year-over-year change is -42.5% (vs Feb 25).",
+        "The network spent 9 months below 25,000 active wallets."
       ],
       "kpiSnapshot": [
         {
           "id": "kpi.currentMonth",
           "label": "Current month",
-          "value": 17009,
+          "value": 17078,
           "unit": "count",
-          "asOf": "2026-01-31",
-          "note": "Jan 26"
+          "asOf": "2026-02-28",
+          "note": "Feb 26"
         },
         {
           "id": "kpi.allTimePeak",
@@ -313,33 +317,33 @@
         {
           "id": "kpi.drawdown",
           "label": "Drawdown from peak",
-          "value": -0.9658953058675153,
+          "value": -0.9657569541775193,
           "unit": "percent",
-          "asOf": "2026-01-31",
+          "asOf": "2026-02-28",
           "note": "Current vs peak"
         },
         {
           "id": "kpi.roll12Avg",
           "label": "12M rolling average",
-          "value": 24502.166666666668,
+          "value": 23449.916666666668,
           "unit": "count",
-          "asOf": "2026-01-31",
+          "asOf": "2026-02-28",
           "note": "Last 12 months"
         },
         {
           "id": "kpi.trendSlope",
           "label": "12M trend slope",
-          "value": -138.85314685314685,
+          "value": -187.9055944055944,
           "unit": "count",
-          "asOf": "2026-01-31",
+          "asOf": "2026-02-28",
           "note": "wallets / month"
         },
         {
           "id": "kpi.stability",
           "label": "12M stability",
-          "value": 0.27897397004324953,
+          "value": 0.2953045157578934,
           "unit": "percent",
-          "asOf": "2026-01-31",
+          "asOf": "2026-02-28",
           "note": "stdev / mean"
         }
       ]
@@ -420,11 +424,11 @@
           },
           {
             "year": "2026",
-            "avgMonthly": 17009,
-            "median": 17009,
-            "yoy": -0.339349409289529,
-            "volatility": 0,
-            "cv": 0
+            "avgMonthly": 17043.5,
+            "median": 17043.5,
+            "yoy": -0.3380093866321411,
+            "volatility": 34.5,
+            "cv": 0.002024232111948837
           }
         ]
       },
@@ -568,9 +572,9 @@
           },
           {
             "quarter": "2026 Q1",
-            "avg": 17009,
-            "qoq": -0.420996493776169,
-            "bestMonth": "Jan 26 (17,009)",
+            "avg": 17043.5,
+            "qoq": -0.41982207899783275,
+            "bestMonth": "Feb 26 (17,078)",
             "worstMonth": "Jan 26 (17,009)"
           }
         ]
@@ -605,6 +609,10 @@
           "value": 17009
         },
         {
+          "label": "Feb 26",
+          "value": 17078
+        },
+        {
           "label": "Nov 25",
           "value": 18414
         },
@@ -615,10 +623,6 @@
         {
           "label": "May 25",
           "value": 22633
-        },
-        {
-          "label": "Aug 25",
-          "value": 22651
         }
       ],
       "largestMoMIncrease": {
@@ -632,9 +636,9 @@
         "pct": -0.5686076414401176
       },
       "drawdownRecovery": {
-        "drawdownPct": -0.9658953058675153,
+        "drawdownPct": -0.9657569541775193,
         "from": "2022-08-31",
-        "to": "2026-01-31",
+        "to": "2026-02-28",
         "recovered": false
       }
     },
@@ -643,19 +647,19 @@
         {
           "threshold": 50000,
           "firstReached": "2023-05-31",
-          "lastSeen": "2026-01-31"
+          "lastSeen": "2026-02-28"
         },
         {
           "threshold": 25000,
           "firstReached": "2025-03-31",
-          "lastSeen": "2026-01-31"
+          "lastSeen": "2026-02-28"
         }
       ]
     },
     "method": {
       "source": "terra-classic-fcd.publicnode.com",
       "metricDefinition": "Monthly Active Wallets = unique addresses observed participating in on-chain transactions in that month.",
-      "dataWindow": "Jun 22 → Jan 26",
+      "dataWindow": "Jun 22 → Feb 26",
       "notes": [
         "Snapshot compiled from bundled monthly dataset.",
         "Null months were excluded from the series."
