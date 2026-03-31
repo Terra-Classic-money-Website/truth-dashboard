@@ -6,7 +6,7 @@
   "generatedAt": "2026-02-05",
   "coverage": {
     "start": "2022-06-30",
-    "end": "2026-02-28",
+    "end": "2026-03-31",
     "cadence": "monthly"
   },
   "sources": [
@@ -254,7 +254,7 @@
         "value": 17078,
         "unit": "count",
         "scale": 1,
-        "asOf": "2026-02-28",
+        "asOf": "2026-03-31",
         "delta": {
           "value": 0.00405667587747663,
           "unit": "percent",
@@ -268,7 +268,7 @@
         "value": null,
         "unit": "count",
         "scale": 1,
-        "asOf": "2026-02-28",
+        "asOf": "2026-03-31",
         "delta": null,
         "note": "Not available in dataset"
       },
@@ -278,7 +278,7 @@
         "value": null,
         "unit": "count",
         "scale": 1,
-        "asOf": "2026-02-28",
+        "asOf": "2026-03-31",
         "delta": null,
         "note": "Not available in dataset"
       },
@@ -288,7 +288,7 @@
         "value": null,
         "unit": "percent",
         "scale": 1,
-        "asOf": "2026-02-28",
+        "asOf": "2026-03-31",
         "delta": null,
         "note": "Not available in dataset"
       }
@@ -307,7 +307,7 @@
           "label": "Current month",
           "value": 17078,
           "unit": "count",
-          "asOf": "2026-02-28",
+          "asOf": "2026-03-31",
           "note": "Feb 26"
         },
         {
@@ -323,7 +323,7 @@
           "label": "Drawdown from peak",
           "value": -0.9657569541775193,
           "unit": "percent",
-          "asOf": "2026-02-28",
+          "asOf": "2026-03-31",
           "note": "Current vs peak"
         },
         {
@@ -331,7 +331,7 @@
           "label": "12M rolling average",
           "value": 23449.916666666668,
           "unit": "count",
-          "asOf": "2026-02-28",
+          "asOf": "2026-03-31",
           "note": "Last 12 months"
         },
         {
@@ -339,7 +339,7 @@
           "label": "12M trend slope",
           "value": -187.9055944055944,
           "unit": "count",
-          "asOf": "2026-02-28",
+          "asOf": "2026-03-31",
           "note": "wallets / month"
         },
         {
@@ -347,7 +347,7 @@
           "label": "12M stability",
           "value": 0.2953045157578934,
           "unit": "percent",
-          "asOf": "2026-02-28",
+          "asOf": "2026-03-31",
           "note": "stdev / mean"
         }
       ]
@@ -579,7 +579,7 @@
             "avg": 17043.5,
             "qoq": -0.41982207899783275,
             "bestMonth": "Feb 26 (17,078)",
-            "worstMonth": "Jan 26 (17,009)"
+            "worstMonth": "Mar 31 (13,773)"
           }
         ]
       }
@@ -642,7 +642,7 @@
       "drawdownRecovery": {
         "drawdownPct": -0.9657569541775193,
         "from": "2022-08-31",
-        "to": "2026-02-28",
+        "to": "2026-03-31",
         "recovered": false
       }
     },
@@ -651,12 +651,12 @@
         {
           "threshold": 50000,
           "firstReached": "2023-05-31",
-          "lastSeen": "2026-02-28"
+          "lastSeen": "2026-03-31"
         },
         {
           "threshold": 25000,
           "firstReached": "2025-03-31",
-          "lastSeen": "2026-02-28"
+          "lastSeen": "2026-03-31"
         }
       ]
     },
