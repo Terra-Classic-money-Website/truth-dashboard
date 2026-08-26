@@ -8,6 +8,7 @@
     "dev": "vite",
     "prebuild": "node scripts/build-tailwind.mjs",
     "build": "tsc -b && vite build",
+    "postbuild": "node scripts/build-spa-fallback.mjs",
     "build:cmc-most-viewed": "node scripts/build-cmc-most-viewed-snapshot.mjs",
     "build:expenditures": "node scripts/build-expenditures-snapshot.mjs",
     "lint": "eslint .",
