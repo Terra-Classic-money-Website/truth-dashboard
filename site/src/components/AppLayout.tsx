@@ -9,7 +9,7 @@ type NavItem = {
 
 const healthLinks: NavItem[] = [
   { label: "Active On-Chain Wallets", to: "/active-wallets" },
-  { label: "24h Trading Volume", to: "/volume" },
+  { label: "Trading Volume (CoinGecko)", to: "/volume" },
 ];
 
 const managementLinks: NavItem[] = [
