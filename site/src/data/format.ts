@@ -41,6 +41,9 @@ export function formatValue({
   unit: string;
   scale?: number;
 }) {
+  if (unit === "rank") {
+    return `#${formatNumber(value)}`;
+  }
   if (unit === "percent") {
     return formatPercent(value);
   }
@@ -76,6 +79,13 @@ export function formatDelta(delta: {
   vs: string;
 } | null) {
   if (!delta) return null;
+  if (delta.unit === "rank") {
+    const vs = delta.vs.replace(/_/g, " ");
+    if (delta.value === 0) return `Unchanged vs ${vs}`;
+    const positions = Math.abs(delta.value);
+    const direction = delta.value < 0 ? "better" : "worse";
+    return `${positions} position${positions === 1 ? "" : "s"} ${direction} vs ${vs}`;
+  }
   const value =
     delta.unit === "percent" ? formatPercent(delta.value) : formatNumber(delta.value);
   const vs = delta.vs.replace(/_/g, " ");
@@ -99,7 +109,21 @@ export function formatTableValue(
 }
 
 export function formatDateLabel(dateString: string, cadence: string) {
-  const date = new Date(`${dateString}T00:00:00Z`);
+  const parsedDate = new Date(dateString);
+  const date = Number.isFinite(parsedDate.getTime())
+    ? parsedDate
+    : new Date(`${dateString}T00:00:00Z`);
+  if (cadence === "snapshot") {
+    return `${new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone: "UTC",
+    }).format(date)} UTC`;
+  }
   const formatter =
     cadence === "daily" || cadence === "weekly"
       ? new Intl.DateTimeFormat("en-US", { month: "short", day: "2-digit" })

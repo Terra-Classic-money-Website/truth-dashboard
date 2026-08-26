@@ -1,0 +1,2695 @@
+{
+  "schemaVersion": "1.0.0",
+  "dashboardId": "cmc-most-viewed-rank",
+  "title": "CMC Most Viewed rank — Historical",
+  "subtitle": "Terra Classic’s observed position in CoinMarketCap’s Most Viewed Cryptocurrencies list, reconstructed from Internet Archive snapshots.",
+  "generatedAt": "2026-08-26T14:29:54.273Z",
+  "coverage": {
+    "start": "2020-11-19",
+    "end": "2026-08-04",
+    "cadence": "irregular Wayback captures"
+  },
+  "sources": [
+    {
+      "id": "wayback-cdx-cmc-most-viewed",
+      "label": "Internet Archive Wayback Machine",
+      "type": "archive",
+      "notes": "CDX capture index for https://coinmarketcap.com/most-viewed-pages/; 145 HTTP 200 HTML captures retained with capture-level provenance."
+    }
+  ],
+  "notes": [
+    "Rank is the displayed position in CoinMarketCap’s Most Viewed list, not Terra Classic’s market-cap rank.",
+    "Wayback captures are irregular. The chart does not assign a rank between observations.",
+    "Terra Classic was previously labelled Terra / LUNA; captures are joined by stable CoinMarketCap asset ID 4172 and slug terra-luna.",
+    "The observations array retains every CDX capture returned by the query; the plotted series includes captures where the Terra row was parseable."
+  ],
+  "timeWindows": [
+    {
+      "id": "3m",
+      "label": "3M",
+      "days": 92
+    },
+    {
+      "id": "6m",
+      "label": "6M",
+      "days": 183
+    },
+    {
+      "id": "1y",
+      "label": "1Y",
+      "days": 365
+    },
+    {
+      "id": "2y",
+      "label": "2Y",
+      "days": 730
+    },
+    {
+      "id": "all",
+      "label": "ALL",
+      "days": null
+    }
+  ],
+  "data": {
+    "series": {
+      "mostViewedRank": {
+        "points": [
+          {
+            "t": "2021-03-22T09:01:14.000Z",
+            "v": 26
+          },
+          {
+            "t": "2021-12-27T14:34:57.000Z",
+            "v": 29
+          },
+          {
+            "t": "2021-12-27T20:35:33.000Z",
+            "v": 29
+          },
+          {
+            "t": "2022-03-16T21:05:10.000Z",
+            "v": 15
+          },
+          {
+            "t": "2022-05-16T12:54:51.000Z",
+            "v": 4
+          },
+          {
+            "t": "2022-05-18T13:45:03.000Z",
+            "v": 8
+          },
+          {
+            "t": "2022-06-09T21:18:32.000Z",
+            "v": 9
+          },
+          {
+            "t": "2022-06-29T20:55:30.000Z",
+            "v": 7
+          },
+          {
+            "t": "2022-09-21T09:17:35.000Z",
+            "v": 7
+          },
+          {
+            "t": "2022-09-21T10:18:30.000Z",
+            "v": 7
+          },
+          {
+            "t": "2022-09-21T10:27:34.000Z",
+            "v": 7
+          },
+          {
+            "t": "2022-12-22T00:24:02.000Z",
+            "v": 5
+          },
+          {
+            "t": "2022-12-22T14:36:03.000Z",
+            "v": 4
+          },
+          {
+            "t": "2023-02-26T10:34:50.000Z",
+            "v": 9
+          },
+          {
+            "t": "2023-03-14T17:37:10.000Z",
+            "v": 9
+          },
+          {
+            "t": "2023-04-10T22:45:24.000Z",
+            "v": 12
+          },
+          {
+            "t": "2023-04-10T22:45:31.000Z",
+            "v": 12
+          },
+          {
+            "t": "2023-04-10T22:46:23.000Z",
+            "v": 12
+          },
+          {
+            "t": "2023-04-10T22:46:28.000Z",
+            "v": 12
+          },
+          {
+            "t": "2023-04-10T22:46:33.000Z",
+            "v": 12
+          },
+          {
+            "t": "2023-04-10T22:46:36.000Z",
+            "v": 12
+          },
+          {
+            "t": "2023-05-26T19:08:29.000Z",
+            "v": 17
+          },
+          {
+            "t": "2023-06-07T22:48:40.000Z",
+            "v": 7
+          },
+          {
+            "t": "2023-07-04T14:52:55.000Z",
+            "v": 10
+          },
+          {
+            "t": "2023-07-25T18:54:32.000Z",
+            "v": 12
+          },
+          {
+            "t": "2023-07-30T20:21:44.000Z",
+            "v": 14
+          },
+          {
+            "t": "2023-08-03T04:51:02.000Z",
+            "v": 14
+          },
+          {
+            "t": "2023-11-26T21:57:00.000Z",
+            "v": 12
+          },
+          {
+            "t": "2023-12-15T00:57:17.000Z",
+            "v": 17
+          },
+          {
+            "t": "2024-02-29T17:04:26.000Z",
+            "v": 23
+          },
+          {
+            "t": "2024-02-29T17:12:51.000Z",
+            "v": 23
+          },
+          {
+            "t": "2024-03-08T05:31:06.000Z",
+            "v": 27
+          },
+          {
+            "t": "2024-03-19T13:36:49.000Z",
+            "v": 41
+          },
+          {
+            "t": "2024-03-20T19:54:28.000Z",
+            "v": 43
+          },
+          {
+            "t": "2024-03-24T06:05:37.000Z",
+            "v": 33
+          },
+          {
+            "t": "2024-03-30T15:18:50.000Z",
+            "v": 47
+          },
+          {
+            "t": "2024-04-27T19:28:12.000Z",
+            "v": 31
+          },
+          {
+            "t": "2024-04-28T17:46:27.000Z",
+            "v": 37
+          },
+          {
+            "t": "2024-05-05T23:23:37.000Z",
+            "v": 39
+          },
+          {
+            "t": "2024-05-20T06:02:32.000Z",
+            "v": 20
+          },
+          {
+            "t": "2024-05-21T00:47:26.000Z",
+            "v": 21
+          },
+          {
+            "t": "2024-05-23T23:12:35.000Z",
+            "v": 19
+          },
+          {
+            "t": "2024-05-24T07:07:40.000Z",
+            "v": 22
+          },
+          {
+            "t": "2024-06-11T00:12:37.000Z",
+            "v": 35
+          },
+          {
+            "t": "2024-06-15T00:11:26.000Z",
+            "v": 34
+          },
+          {
+            "t": "2024-06-26T10:30:14.000Z",
+            "v": 23
+          },
+          {
+            "t": "2024-06-28T15:41:45.000Z",
+            "v": 25
+          },
+          {
+            "t": "2024-06-28T22:11:02.000Z",
+            "v": 26
+          },
+          {
+            "t": "2024-06-29T00:21:16.000Z",
+            "v": 26
+          },
+          {
+            "t": "2024-07-25T09:55:18.000Z",
+            "v": 24
+          },
+          {
+            "t": "2024-08-17T10:15:12.000Z",
+            "v": 19
+          },
+          {
+            "t": "2024-08-22T13:06:39.000Z",
+            "v": 18
+          },
+          {
+            "t": "2024-08-23T06:41:26.000Z",
+            "v": 19
+          },
+          {
+            "t": "2024-09-15T22:00:11.000Z",
+            "v": 14
+          },
+          {
+            "t": "2024-10-07T11:50:30.000Z",
+            "v": 22
+          },
+          {
+            "t": "2024-11-16T06:58:57.000Z",
+            "v": 41
+          },
+          {
+            "t": "2024-11-24T11:26:03.000Z",
+            "v": 32
+          },
+          {
+            "t": "2024-11-25T12:05:37.000Z",
+            "v": 29
+          },
+          {
+            "t": "2024-11-26T18:20:08.000Z",
+            "v": 37
+          },
+          {
+            "t": "2024-12-03T09:52:24.000Z",
+            "v": 27
+          },
+          {
+            "t": "2024-12-03T12:01:49.000Z",
+            "v": 27
+          },
+          {
+            "t": "2024-12-09T09:31:43.000Z",
+            "v": 36
+          },
+          {
+            "t": "2024-12-11T16:32:40.000Z",
+            "v": 30
+          },
+          {
+            "t": "2024-12-11T19:22:35.000Z",
+            "v": 32
+          },
+          {
+            "t": "2024-12-14T01:20:48.000Z",
+            "v": 36
+          },
+          {
+            "t": "2024-12-23T23:46:31.000Z",
+            "v": 31
+          },
+          {
+            "t": "2025-01-18T09:47:52.000Z",
+            "v": 50
+          },
+          {
+            "t": "2025-01-18T16:10:49.000Z",
+            "v": 48
+          },
+          {
+            "t": "2025-01-20T19:40:03.000Z",
+            "v": 53
+          },
+          {
+            "t": "2025-01-23T18:39:05.000Z",
+            "v": 54
+          },
+          {
+            "t": "2025-01-26T18:46:35.000Z",
+            "v": 50
+          },
+          {
+            "t": "2025-01-27T19:23:10.000Z",
+            "v": 54
+          },
+          {
+            "t": "2025-02-01T10:53:54.000Z",
+            "v": 57
+          },
+          {
+            "t": "2025-02-15T14:33:58.000Z",
+            "v": 33
+          },
+          {
+            "t": "2025-03-02T02:14:39.000Z",
+            "v": 31
+          },
+          {
+            "t": "2025-03-06T13:32:25.000Z",
+            "v": 34
+          },
+          {
+            "t": "2025-03-10T17:58:35.000Z",
+            "v": 31
+          },
+          {
+            "t": "2025-03-11T00:15:15.000Z",
+            "v": 29
+          },
+          {
+            "t": "2025-03-13T01:27:49.000Z",
+            "v": 28
+          },
+          {
+            "t": "2025-03-28T10:24:17.000Z",
+            "v": 31
+          },
+          {
+            "t": "2025-04-09T17:29:33.000Z",
+            "v": 31
+          },
+          {
+            "t": "2025-04-14T19:14:41.000Z",
+            "v": 31
+          },
+          {
+            "t": "2025-05-05T08:10:20.000Z",
+            "v": 41
+          },
+          {
+            "t": "2025-05-06T04:15:02.000Z",
+            "v": 39
+          },
+          {
+            "t": "2025-06-05T06:51:40.000Z",
+            "v": 47
+          },
+          {
+            "t": "2025-07-05T08:58:24.000Z",
+            "v": 40
+          },
+          {
+            "t": "2025-07-14T22:49:32.000Z",
+            "v": 44
+          },
+          {
+            "t": "2025-07-24T20:10:56.000Z",
+            "v": 46
+          },
+          {
+            "t": "2025-07-28T23:23:40.000Z",
+            "v": 50
+          },
+          {
+            "t": "2025-08-04T15:52:10.000Z",
+            "v": 50
+          },
+          {
+            "t": "2025-08-06T17:45:41.000Z",
+            "v": 53
+          },
+          {
+            "t": "2025-08-25T03:13:10.000Z",
+            "v": 38
+          },
+          {
+            "t": "2025-09-01T07:08:27.000Z",
+            "v": 42
+          },
+          {
+            "t": "2025-09-04T23:55:55.000Z",
+            "v": 43
+          },
+          {
+            "t": "2025-10-05T02:55:52.000Z",
+            "v": 52
+          },
+          {
+            "t": "2025-11-07T15:46:21.000Z",
+            "v": 49
+          },
+          {
+            "t": "2025-11-07T16:02:56.000Z",
+            "v": 49
+          },
+          {
+            "t": "2025-11-17T07:13:26.000Z",
+            "v": 42
+          },
+          {
+            "t": "2025-12-16T19:35:43.000Z",
+            "v": 13
+          },
+          {
+            "t": "2025-12-18T02:09:09.000Z",
+            "v": 14
+          },
+          {
+            "t": "2025-12-20T09:18:37.000Z",
+            "v": 13
+          },
+          {
+            "t": "2026-02-04T18:12:32.000Z",
+            "v": 27
+          },
+          {
+            "t": "2026-03-01T05:35:09.000Z",
+            "v": 12
+          },
+          {
+            "t": "2026-03-01T07:24:59.000Z",
+            "v": 12
+          },
+          {
+            "t": "2026-03-05T14:52:28.000Z",
+            "v": 14
+          },
+          {
+            "t": "2026-03-31T22:57:25.000Z",
+            "v": 46
+          },
+          {
+            "t": "2026-05-01T19:17:26.000Z",
+            "v": 5
+          },
+          {
+            "t": "2026-06-01T00:05:39.000Z",
+            "v": 9
+          },
+          {
+            "t": "2026-07-03T18:45:09.000Z",
+            "v": 11
+          },
+          {
+            "t": "2026-08-04T11:41:32.000Z",
+            "v": 14
+          }
+        ]
+      }
+    },
+    "observations": [
+      {
+        "captureTimestamp": "20201119012434",
+        "capturedAt": "2020-11-19T01:24:34.000Z",
+        "observedDate": "2020-11-19",
+        "archiveUrl": "https://web.archive.org/web/20201119012434id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "23TIITRRVWBD4C5Z3NIPVSTACQ6JR73E",
+        "archiveBytes": 28817,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20201130145542",
+        "capturedAt": "2020-11-30T14:55:42.000Z",
+        "observedDate": "2020-11-30",
+        "archiveUrl": "https://web.archive.org/web/20201130145542id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "NL5LIRBFQXGUALMMQWBZPBHDHDVTUBBW",
+        "archiveBytes": 48544,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20201204204703",
+        "capturedAt": "2020-12-04T20:47:03.000Z",
+        "observedDate": "2020-12-04",
+        "archiveUrl": "https://web.archive.org/web/20201204204703id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "QMPC6Y76LZTJVEJ542S3RGJCK6GNILOI",
+        "archiveBytes": 43140,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20201220164136",
+        "capturedAt": "2020-12-20T16:41:36.000Z",
+        "observedDate": "2020-12-20",
+        "archiveUrl": "https://web.archive.org/web/20201220164136id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "DIXUQLVRL36FWIZMO7K2VFDLMHJFXJC5",
+        "archiveBytes": 40889,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20201221013808",
+        "capturedAt": "2020-12-21T01:38:08.000Z",
+        "observedDate": "2020-12-21",
+        "archiveUrl": "https://web.archive.org/web/20201221013808id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "RJY5X2HHLZUNHTJXU57KU7V4ZLLOA7NF",
+        "archiveBytes": 40804,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20201222050936",
+        "capturedAt": "2020-12-22T05:09:36.000Z",
+        "observedDate": "2020-12-22",
+        "archiveUrl": "https://web.archive.org/web/20201222050936id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "GWPKJHPVOK6V2YVYP54SWX5WPL37QUAL",
+        "archiveBytes": 41317,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20201227030623",
+        "capturedAt": "2020-12-27T03:06:23.000Z",
+        "observedDate": "2020-12-27",
+        "archiveUrl": "https://web.archive.org/web/20201227030623id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "FY7TBIPQFYGCKZI4ZWRDFXGETJKW2BKB",
+        "archiveBytes": 41725,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210221072334",
+        "capturedAt": "2021-02-21T07:23:34.000Z",
+        "observedDate": "2021-02-21",
+        "archiveUrl": "https://web.archive.org/web/20210221072334id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "6DM766YDAN37UMWD2M75BIZVRY3GFB5P",
+        "archiveBytes": 41263,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210228132931",
+        "capturedAt": "2021-02-28T13:29:31.000Z",
+        "observedDate": "2021-02-28",
+        "archiveUrl": "https://web.archive.org/web/20210228132931id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "3DTLNUGCIDGW3MON6ARRSMVRA2L2CUCD",
+        "archiveBytes": 42291,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210322090114",
+        "capturedAt": "2021-03-22T09:01:14.000Z",
+        "observedDate": "2021-03-22",
+        "archiveUrl": "https://web.archive.org/web/20210322090114id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "SPKP2DYOSJ7VOVHMHDEFSSZHJHAEUVSI",
+        "archiveBytes": 40691,
+        "status": "rank_observed",
+        "rank": 26,
+        "assetName": "Terra",
+        "assetSymbol": "LUNA",
+        "marketCapRank": 15,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210323004411",
+        "capturedAt": "2021-03-23T00:44:11.000Z",
+        "observedDate": "2021-03-23",
+        "archiveUrl": "https://web.archive.org/web/20210323004411id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "ZAQIFZQ3BJIK52G35BEFYIXYMYTPO34Z",
+        "archiveBytes": 40838,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210402051352",
+        "capturedAt": "2021-04-02T05:13:52.000Z",
+        "observedDate": "2021-04-02",
+        "archiveUrl": "https://web.archive.org/web/20210402051352id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "RWTF554MYXDD2YK37DTWAMPDB7KAXLKC",
+        "archiveBytes": 29505,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210404135857",
+        "capturedAt": "2021-04-04T13:58:57.000Z",
+        "observedDate": "2021-04-04",
+        "archiveUrl": "https://web.archive.org/web/20210404135857id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "G4Z322SSZWO42S5SFYER4QO5BI4HSZWI",
+        "archiveBytes": 35327,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210425222152",
+        "capturedAt": "2021-04-25T22:21:52.000Z",
+        "observedDate": "2021-04-25",
+        "archiveUrl": "https://web.archive.org/web/20210425222152id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "RGBA73XXP2SYSQEDFHUGHHDPR6C5PHJR",
+        "archiveBytes": 36114,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210428121417",
+        "capturedAt": "2021-04-28T12:14:17.000Z",
+        "observedDate": "2021-04-28",
+        "archiveUrl": "https://web.archive.org/web/20210428121417id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "KFPIONYHXKUAACH4DPHVQ37NCJKO2AFC",
+        "archiveBytes": 35826,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210430032722",
+        "capturedAt": "2021-04-30T03:27:22.000Z",
+        "observedDate": "2021-04-30",
+        "archiveUrl": "https://web.archive.org/web/20210430032722id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "5ABA6YFE3RVEUDOR5KL6B7DGKSBWBITM",
+        "archiveBytes": 36413,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210510085434",
+        "capturedAt": "2021-05-10T08:54:34.000Z",
+        "observedDate": "2021-05-10",
+        "archiveUrl": "https://web.archive.org/web/20210510085434id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "BWJRPE2IUKQD437SK2N3336PZDV3FMJK",
+        "archiveBytes": 36054,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210516135300",
+        "capturedAt": "2021-05-16T13:53:00.000Z",
+        "observedDate": "2021-05-16",
+        "archiveUrl": "https://web.archive.org/web/20210516135300id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "QGOZNAA3AFXHBLNSTLSESLHJUHQ6PS5D",
+        "archiveBytes": 32885,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210520173611",
+        "capturedAt": "2021-05-20T17:36:11.000Z",
+        "observedDate": "2021-05-20",
+        "archiveUrl": "https://web.archive.org/web/20210520173611id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "27WXOGCEEIUGII47UZVL6ANXQSOPTXAV",
+        "archiveBytes": 34168,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210530091928",
+        "capturedAt": "2021-05-30T09:19:28.000Z",
+        "observedDate": "2021-05-30",
+        "archiveUrl": "https://web.archive.org/web/20210530091928id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "HHIIKEULIQPQQLXKSURU2L2IBEKW46D6",
+        "archiveBytes": 33390,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210602182220",
+        "capturedAt": "2021-06-02T18:22:20.000Z",
+        "observedDate": "2021-06-02",
+        "archiveUrl": "https://web.archive.org/web/20210602182220id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "OLD3MBP2YPJ7IWBL4K2IH23YLZLMY44K",
+        "archiveBytes": 33737,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210603203340",
+        "capturedAt": "2021-06-03T20:33:40.000Z",
+        "observedDate": "2021-06-03",
+        "archiveUrl": "https://web.archive.org/web/20210603203340id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "KOJE5SQ7UML4IQP64WF55QWNTKXNPAGJ",
+        "archiveBytes": 33718,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210604013504",
+        "capturedAt": "2021-06-04T01:35:04.000Z",
+        "observedDate": "2021-06-04",
+        "archiveUrl": "https://web.archive.org/web/20210604013504id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "MV3WBX2BV3PI36N74K2X4WGTY7BLT3IX",
+        "archiveBytes": 33648,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210609215741",
+        "capturedAt": "2021-06-09T21:57:41.000Z",
+        "observedDate": "2021-06-09",
+        "archiveUrl": "https://web.archive.org/web/20210609215741id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "I763XZCKLSG675WBL6IRZ677FLUEJPYW",
+        "archiveBytes": 27248,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210622141817",
+        "capturedAt": "2021-06-22T14:18:17.000Z",
+        "observedDate": "2021-06-22",
+        "archiveUrl": "https://web.archive.org/web/20210622141817id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "TLPIDGIOTWUZTKE3EEEG774XB37ZS73K",
+        "archiveBytes": 27551,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210625045408",
+        "capturedAt": "2021-06-25T04:54:08.000Z",
+        "observedDate": "2021-06-25",
+        "archiveUrl": "https://web.archive.org/web/20210625045408id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "25A2TCZ2LPK36KWOC663FUNFEIAUPZ7T",
+        "archiveBytes": 27691,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210705042932",
+        "capturedAt": "2021-07-05T04:29:32.000Z",
+        "observedDate": "2021-07-05",
+        "archiveUrl": "https://web.archive.org/web/20210705042932id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "VVPSDXLVY7C4Y2G5BI3IGSXIVFBGLUCI",
+        "archiveBytes": 29093,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210802094930",
+        "capturedAt": "2021-08-02T09:49:30.000Z",
+        "observedDate": "2021-08-02",
+        "archiveUrl": "https://web.archive.org/web/20210802094930id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "VHPHCJ3KMDFR2I6NE6OHFGNNZDMMGJFH",
+        "archiveBytes": 32624,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20210827145244",
+        "capturedAt": "2021-08-27T14:52:44.000Z",
+        "observedDate": "2021-08-27",
+        "archiveUrl": "https://web.archive.org/web/20210827145244id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "N5UCV3CNF5WBE73ZJT3TFINQ5RDZ5OFX",
+        "archiveBytes": 26216,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20211021222809",
+        "capturedAt": "2021-10-21T22:28:09.000Z",
+        "observedDate": "2021-10-21",
+        "archiveUrl": "https://web.archive.org/web/20211021222809id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "663JVRECGNCDQBNIGGGABI5QXL7CCCCP",
+        "archiveBytes": 32588,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20211028013858",
+        "capturedAt": "2021-10-28T01:38:58.000Z",
+        "observedDate": "2021-10-28",
+        "archiveUrl": "https://web.archive.org/web/20211028013858id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "ZTCBL4ARRBV25KLZ4HSKIKWB224CXHG7",
+        "archiveBytes": 21002,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20211110123703",
+        "capturedAt": "2021-11-10T12:37:03.000Z",
+        "observedDate": "2021-11-10",
+        "archiveUrl": "https://web.archive.org/web/20211110123703id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "KSTREZ4LLD7GFID7UEMH35GSCDMWMJRP",
+        "archiveBytes": 33420,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20211110221922",
+        "capturedAt": "2021-11-10T22:19:22.000Z",
+        "observedDate": "2021-11-10",
+        "archiveUrl": "https://web.archive.org/web/20211110221922id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "FUYP5REXK45IFM7AIYMVR6W2HLZ4KCFD",
+        "archiveBytes": 32804,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20211114090617",
+        "capturedAt": "2021-11-14T09:06:17.000Z",
+        "observedDate": "2021-11-14",
+        "archiveUrl": "https://web.archive.org/web/20211114090617id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "6FL24XQ7VHJC6J6OFRFGVS3R63FHEGED",
+        "archiveBytes": 32224,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20211215015442",
+        "capturedAt": "2021-12-15T01:54:42.000Z",
+        "observedDate": "2021-12-15",
+        "archiveUrl": "https://web.archive.org/web/20211215015442id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "Y5DO37SYGHEPNNKGPJLLCZ2WJNZM75ND",
+        "archiveBytes": 34833,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20211227143457",
+        "capturedAt": "2021-12-27T14:34:57.000Z",
+        "observedDate": "2021-12-27",
+        "archiveUrl": "https://web.archive.org/web/20211227143457id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "PDSDNB72ZGOTCQA5VIA2IJVHVNPKSLHI",
+        "archiveBytes": 35698,
+        "status": "rank_observed",
+        "rank": 29,
+        "assetName": "Terra",
+        "assetSymbol": "LUNA",
+        "marketCapRank": 9,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20211227203533",
+        "capturedAt": "2021-12-27T20:35:33.000Z",
+        "observedDate": "2021-12-27",
+        "archiveUrl": "https://web.archive.org/web/20211227203533id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "QTLQZ5IOXVU7GORCJY2XR45S3TJYPVGO",
+        "archiveBytes": 35801,
+        "status": "rank_observed",
+        "rank": 29,
+        "assetName": "Terra",
+        "assetSymbol": "LUNA",
+        "marketCapRank": 9,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20220209203145",
+        "capturedAt": "2022-02-09T20:31:45.000Z",
+        "observedDate": "2022-02-09",
+        "archiveUrl": "https://web.archive.org/web/20220209203145id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "NZOLPCIIIBA7C74RQJRNK45JBSYZIJBZ",
+        "archiveBytes": 35060,
+        "status": "not_observed",
+        "rank": null,
+        "assetName": null,
+        "assetSymbol": null,
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20220316210510",
+        "capturedAt": "2022-03-16T21:05:10.000Z",
+        "observedDate": "2022-03-16",
+        "archiveUrl": "https://web.archive.org/web/20220316210510id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "YCIVOZRD4NH4G2HGLXY5NMPYC7QLYAOO",
+        "archiveBytes": 36368,
+        "status": "rank_observed",
+        "rank": 15,
+        "assetName": "Terra",
+        "assetSymbol": "LUNA",
+        "marketCapRank": 7,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20220516125451",
+        "capturedAt": "2022-05-16T12:54:51.000Z",
+        "observedDate": "2022-05-16",
+        "archiveUrl": "https://web.archive.org/web/20220516125451id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "YG2XWSUQKUJ7OM6B26YLSGE4JRNOHK4T",
+        "archiveBytes": 36404,
+        "status": "rank_observed",
+        "rank": 4,
+        "assetName": "Terra",
+        "assetSymbol": "LUNA",
+        "marketCapRank": 211,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20220518134503",
+        "capturedAt": "2022-05-18T13:45:03.000Z",
+        "observedDate": "2022-05-18",
+        "archiveUrl": "https://web.archive.org/web/20220518134503id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "PHTHVLMBXH3UYM4UX75LEACGL7N4JFUT",
+        "archiveBytes": 36702,
+        "status": "rank_observed",
+        "rank": 8,
+        "assetName": "Terra",
+        "assetSymbol": "LUNA",
+        "marketCapRank": 212,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20220609211832",
+        "capturedAt": "2022-06-09T21:18:32.000Z",
+        "observedDate": "2022-06-09",
+        "archiveUrl": "https://web.archive.org/web/20220609211832id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "JRV2T5JMIUZ6WSSSUHM25XY333XZ5NP7",
+        "archiveBytes": 32556,
+        "status": "rank_observed",
+        "rank": 9,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 214,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20220629205530",
+        "capturedAt": "2022-06-29T20:55:30.000Z",
+        "observedDate": "2022-06-29",
+        "archiveUrl": "https://web.archive.org/web/20220629205530id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "DKFQMN4IPROBJYVJU3DESRXPCIK23ITR",
+        "archiveBytes": 33090,
+        "status": "rank_observed",
+        "rank": 7,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20220921091735",
+        "capturedAt": "2022-09-21T09:17:35.000Z",
+        "observedDate": "2022-09-21",
+        "archiveUrl": "https://web.archive.org/web/20220921091735id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "NGEQDVKFQMERKSHZ3IRPKSOKB2I3K24J",
+        "archiveBytes": 34835,
+        "status": "rank_observed",
+        "rank": 7,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20220921101830",
+        "capturedAt": "2022-09-21T10:18:30.000Z",
+        "observedDate": "2022-09-21",
+        "archiveUrl": "https://web.archive.org/web/20220921101830id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "LEIPSTQ4H2BTRJFH57I36GJESCKVLTA7",
+        "archiveBytes": 35029,
+        "status": "rank_observed",
+        "rank": 7,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20220921102734",
+        "capturedAt": "2022-09-21T10:27:34.000Z",
+        "observedDate": "2022-09-21",
+        "archiveUrl": "https://web.archive.org/web/20220921102734id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "S3O6OSLBOHU5UVTESW2ISUEFSTMZANRB",
+        "archiveBytes": 35197,
+        "status": "rank_observed",
+        "rank": 7,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20221222002402",
+        "capturedAt": "2022-12-22T00:24:02.000Z",
+        "observedDate": "2022-12-22",
+        "archiveUrl": "https://web.archive.org/web/20221222002402id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "VMO4PHH7PW7MJ3FCY2T2KRMXEF33XIIP",
+        "archiveBytes": 33507,
+        "status": "rank_observed",
+        "rank": 5,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20221222143603",
+        "capturedAt": "2022-12-22T14:36:03.000Z",
+        "observedDate": "2022-12-22",
+        "archiveUrl": "https://web.archive.org/web/20221222143603id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "6TB4NTIBR5D7AEGRVHWW5OVYDVHGROJS",
+        "archiveBytes": 32482,
+        "status": "rank_observed",
+        "rank": 4,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20230226103450",
+        "capturedAt": "2023-02-26T10:34:50.000Z",
+        "observedDate": "2023-02-26",
+        "archiveUrl": "https://web.archive.org/web/20230226103450id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "G4LGAWRT3K2RNNG633BVH24FHHW5CAAC",
+        "archiveBytes": 80507,
+        "status": "rank_observed",
+        "rank": 9,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20230314173710",
+        "capturedAt": "2023-03-14T17:37:10.000Z",
+        "observedDate": "2023-03-14",
+        "archiveUrl": "https://web.archive.org/web/20230314173710id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "OUFGHFIPZMP2HADP3YMMW4G375LFYQYH",
+        "archiveBytes": 36663,
+        "status": "rank_observed",
+        "rank": 9,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20230410224524",
+        "capturedAt": "2023-04-10T22:45:24.000Z",
+        "observedDate": "2023-04-10",
+        "archiveUrl": "https://web.archive.org/web/20230410224524id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "KRIEURBWNSR2ZEQ7KNFUGEY2HRQLMVJB",
+        "archiveBytes": 35269,
+        "status": "rank_observed",
+        "rank": 12,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20230410224531",
+        "capturedAt": "2023-04-10T22:45:31.000Z",
+        "observedDate": "2023-04-10",
+        "archiveUrl": "https://web.archive.org/web/20230410224531id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "KRIEURBWNSR2ZEQ7KNFUGEY2HRQLMVJB",
+        "archiveBytes": 35268,
+        "status": "rank_observed",
+        "rank": 12,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20230410224623",
+        "capturedAt": "2023-04-10T22:46:23.000Z",
+        "observedDate": "2023-04-10",
+        "archiveUrl": "https://web.archive.org/web/20230410224623id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "KRIEURBWNSR2ZEQ7KNFUGEY2HRQLMVJB",
+        "archiveBytes": 35277,
+        "status": "rank_observed",
+        "rank": 12,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20230410224628",
+        "capturedAt": "2023-04-10T22:46:28.000Z",
+        "observedDate": "2023-04-10",
+        "archiveUrl": "https://web.archive.org/web/20230410224628id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "TI3QJ4CTKJSVAKJTE3AMMTH7PM3NDRGZ",
+        "archiveBytes": 73467,
+        "status": "rank_observed",
+        "rank": 12,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20230410224633",
+        "capturedAt": "2023-04-10T22:46:33.000Z",
+        "observedDate": "2023-04-10",
+        "archiveUrl": "https://web.archive.org/web/20230410224633id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "TI3QJ4CTKJSVAKJTE3AMMTH7PM3NDRGZ",
+        "archiveBytes": 73473,
+        "status": "rank_observed",
+        "rank": 12,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20230410224636",
+        "capturedAt": "2023-04-10T22:46:36.000Z",
+        "observedDate": "2023-04-10",
+        "archiveUrl": "https://web.archive.org/web/20230410224636id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "TI3QJ4CTKJSVAKJTE3AMMTH7PM3NDRGZ",
+        "archiveBytes": 73471,
+        "status": "rank_observed",
+        "rank": 12,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20230526190829",
+        "capturedAt": "2023-05-26T19:08:29.000Z",
+        "observedDate": "2023-05-26",
+        "archiveUrl": "https://web.archive.org/web/20230526190829id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "35CIZ565WD7WSSERW6KOKNAOHDN6XQPH",
+        "archiveBytes": 37543,
+        "status": "rank_observed",
+        "rank": 17,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20230607224840",
+        "capturedAt": "2023-06-07T22:48:40.000Z",
+        "observedDate": "2023-06-07",
+        "archiveUrl": "https://web.archive.org/web/20230607224840id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "RRDSI7JZ5WPMJ33JJ3OQE4TI3757HWGB",
+        "archiveBytes": 31948,
+        "status": "rank_observed",
+        "rank": 7,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20230704145255",
+        "capturedAt": "2023-07-04T14:52:55.000Z",
+        "observedDate": "2023-07-04",
+        "archiveUrl": "https://web.archive.org/web/20230704145255id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "DKIJIRUL6PU4AM56QTLE3COOK4D3MO4Y",
+        "archiveBytes": 32738,
+        "status": "rank_observed",
+        "rank": 10,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20230725185432",
+        "capturedAt": "2023-07-25T18:54:32.000Z",
+        "observedDate": "2023-07-25",
+        "archiveUrl": "https://web.archive.org/web/20230725185432id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "7RPU54VMDQJIM2MVWBWFUYZ3LIGRCRVW",
+        "archiveBytes": 31769,
+        "status": "rank_observed",
+        "rank": 12,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20230730202144",
+        "capturedAt": "2023-07-30T20:21:44.000Z",
+        "observedDate": "2023-07-30",
+        "archiveUrl": "https://web.archive.org/web/20230730202144id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "YWH2VWCET3TMIJSM3QHPO5MP2QAJFDY3",
+        "archiveBytes": 32223,
+        "status": "rank_observed",
+        "rank": 14,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20230803045102",
+        "capturedAt": "2023-08-03T04:51:02.000Z",
+        "observedDate": "2023-08-03",
+        "archiveUrl": "https://web.archive.org/web/20230803045102id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "6L6YB7LAXB7ZVVYPA5PDWUKDNHOTW355",
+        "archiveBytes": 31683,
+        "status": "rank_observed",
+        "rank": 14,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20231126215700",
+        "capturedAt": "2023-11-26T21:57:00.000Z",
+        "observedDate": "2023-11-26",
+        "archiveUrl": "https://web.archive.org/web/20231126215700id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "ID5P7NDUXTKST6UPEVD7QZDY7ZLOMFMC",
+        "archiveBytes": 39889,
+        "status": "rank_observed",
+        "rank": 12,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20231215005717",
+        "capturedAt": "2023-12-15T00:57:17.000Z",
+        "observedDate": "2023-12-15",
+        "archiveUrl": "https://web.archive.org/web/20231215005717id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "FMR7HXBSAMRRTTIT3QMDNCQG4OMRWJEN",
+        "archiveBytes": 39135,
+        "status": "rank_observed",
+        "rank": 17,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240229170426",
+        "capturedAt": "2024-02-29T17:04:26.000Z",
+        "observedDate": "2024-02-29",
+        "archiveUrl": "https://web.archive.org/web/20240229170426id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "B4KQ3LJEK7HUC36ZFOHOODXHADQPVZM7",
+        "archiveBytes": 39403,
+        "status": "rank_observed",
+        "rank": 23,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240229171251",
+        "capturedAt": "2024-02-29T17:12:51.000Z",
+        "observedDate": "2024-02-29",
+        "archiveUrl": "https://web.archive.org/web/20240229171251id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "JFSVKZABHZPS53KBGAMY6B2BROKYNWJ3",
+        "archiveBytes": 39501,
+        "status": "rank_observed",
+        "rank": 23,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240308053106",
+        "capturedAt": "2024-03-08T05:31:06.000Z",
+        "observedDate": "2024-03-08",
+        "archiveUrl": "https://web.archive.org/web/20240308053106id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "REW4FNHOLODUWKVPSPGPOFX3CQ6IZPDK",
+        "archiveBytes": 39015,
+        "status": "rank_observed",
+        "rank": 27,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240319133649",
+        "capturedAt": "2024-03-19T13:36:49.000Z",
+        "observedDate": "2024-03-19",
+        "archiveUrl": "https://web.archive.org/web/20240319133649id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "TXDJZB5HRPVUBWDTDS263FOQHJYSLQNN",
+        "archiveBytes": 65305,
+        "status": "rank_observed",
+        "rank": 41,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 112,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240320195428",
+        "capturedAt": "2024-03-20T19:54:28.000Z",
+        "observedDate": "2024-03-20",
+        "archiveUrl": "https://web.archive.org/web/20240320195428id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "UUATOPIUZYWMHKLBXUHPQM6BI7LOBQGN",
+        "archiveBytes": 65496,
+        "status": "rank_observed",
+        "rank": 43,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 113,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240324060537",
+        "capturedAt": "2024-03-24T06:05:37.000Z",
+        "observedDate": "2024-03-24",
+        "archiveUrl": "https://web.archive.org/web/20240324060537id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "7QHPN45Q2LROY7FHOIV5JRTXN7IB52HY",
+        "archiveBytes": 65904,
+        "status": "rank_observed",
+        "rank": 33,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 105,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240330151850",
+        "capturedAt": "2024-03-30T15:18:50.000Z",
+        "observedDate": "2024-03-30",
+        "archiveUrl": "https://web.archive.org/web/20240330151850id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "FJJ5J7CIKTLA5DI3KUX2PHULY2GNNDOZ",
+        "archiveBytes": 65747,
+        "status": "rank_observed",
+        "rank": 47,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 110,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240427192812",
+        "capturedAt": "2024-04-27T19:28:12.000Z",
+        "observedDate": "2024-04-27",
+        "archiveUrl": "https://web.archive.org/web/20240427192812id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "CDAHXC5GV5ACHKLGQPQR7ZPGZHAMM5CI",
+        "archiveBytes": 65533,
+        "status": "rank_observed",
+        "rank": 31,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 114,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240428174627",
+        "capturedAt": "2024-04-28T17:46:27.000Z",
+        "observedDate": "2024-04-28",
+        "archiveUrl": "https://web.archive.org/web/20240428174627id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "XIOF2XFFQP3UHF4HFNBSZ5J4PRN2N4NA",
+        "archiveBytes": 65518,
+        "status": "rank_observed",
+        "rank": 37,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 116,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240505232337",
+        "capturedAt": "2024-05-05T23:23:37.000Z",
+        "observedDate": "2024-05-05",
+        "archiveUrl": "https://web.archive.org/web/20240505232337id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "XY2MOOTHNXUUMAFMAA3DAURZHBJ4VA4K",
+        "archiveBytes": 66297,
+        "status": "rank_observed",
+        "rank": 39,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 112,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240520060232",
+        "capturedAt": "2024-05-20T06:02:32.000Z",
+        "observedDate": "2024-05-20",
+        "archiveUrl": "https://web.archive.org/web/20240520060232id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "RPXBEYYXFBAGGNOFNUFAT3ZM45AHEALZ",
+        "archiveBytes": 65302,
+        "status": "rank_observed",
+        "rank": 20,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 110,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240521004726",
+        "capturedAt": "2024-05-21T00:47:26.000Z",
+        "observedDate": "2024-05-21",
+        "archiveUrl": "https://web.archive.org/web/20240521004726id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "LSY7ZMPXPZ4G43SANQUDTPXSF3LCKL22",
+        "archiveBytes": 66490,
+        "status": "rank_observed",
+        "rank": 21,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 118,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240523231235",
+        "capturedAt": "2024-05-23T23:12:35.000Z",
+        "observedDate": "2024-05-23",
+        "archiveUrl": "https://web.archive.org/web/20240523231235id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "6LRYXMLNQMZZRW2POGKGNN6WC2IPQ4RB",
+        "archiveBytes": 66813,
+        "status": "rank_observed",
+        "rank": 19,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 116,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240524070740",
+        "capturedAt": "2024-05-24T07:07:40.000Z",
+        "observedDate": "2024-05-24",
+        "archiveUrl": "https://web.archive.org/web/20240524070740id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "5ITL4UEVSEIGYZJT5JOWXTAB5J6BXW3V",
+        "archiveBytes": 64894,
+        "status": "rank_observed",
+        "rank": 22,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 116,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240611001237",
+        "capturedAt": "2024-06-11T00:12:37.000Z",
+        "observedDate": "2024-06-11",
+        "archiveUrl": "https://web.archive.org/web/20240611001237id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "2UI65RGACHFVX3G62O52FYO2YYSEHETF",
+        "archiveBytes": 67178,
+        "status": "rank_observed",
+        "rank": 35,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 118,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240615001126",
+        "capturedAt": "2024-06-15T00:11:26.000Z",
+        "observedDate": "2024-06-15",
+        "archiveUrl": "https://web.archive.org/web/20240615001126id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "PD2VUXE6QCVVN7FCV7MACOGC5ECRFTAA",
+        "archiveBytes": 64832,
+        "status": "rank_observed",
+        "rank": 34,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 120,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240626103014",
+        "capturedAt": "2024-06-26T10:30:14.000Z",
+        "observedDate": "2024-06-26",
+        "archiveUrl": "https://web.archive.org/web/20240626103014id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "UCSOVXPLR7YCFRHYVSWBJGB75W3Z36ZZ",
+        "archiveBytes": 65698,
+        "status": "rank_observed",
+        "rank": 23,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 133,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240628154145",
+        "capturedAt": "2024-06-28T15:41:45.000Z",
+        "observedDate": "2024-06-28",
+        "archiveUrl": "https://web.archive.org/web/20240628154145id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "XN2OPAUOBTKGBVP7I636TXS6LFFF52RO",
+        "archiveBytes": 64627,
+        "status": "rank_observed",
+        "rank": 25,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 127,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240628221102",
+        "capturedAt": "2024-06-28T22:11:02.000Z",
+        "observedDate": "2024-06-28",
+        "archiveUrl": "https://web.archive.org/web/20240628221102id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "A2UMK5VSI4BIFK74BVQSYVTHUIYGGW5T",
+        "archiveBytes": 66766,
+        "status": "rank_observed",
+        "rank": 26,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 127,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240629002116",
+        "capturedAt": "2024-06-29T00:21:16.000Z",
+        "observedDate": "2024-06-29",
+        "archiveUrl": "https://web.archive.org/web/20240629002116id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "XLFNWXO35VKSHR2MSAUAIUR7ZCFVKSM6",
+        "archiveBytes": 64263,
+        "status": "rank_observed",
+        "rank": 26,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 130,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240725095518",
+        "capturedAt": "2024-07-25T09:55:18.000Z",
+        "observedDate": "2024-07-25",
+        "archiveUrl": "https://web.archive.org/web/20240725095518id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "7GNDHG2PCVMOWRBXONXJWPORMZG4TQ2W",
+        "archiveBytes": 64686,
+        "status": "rank_observed",
+        "rank": 24,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 130,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240817101512",
+        "capturedAt": "2024-08-17T10:15:12.000Z",
+        "observedDate": "2024-08-17",
+        "archiveUrl": "https://web.archive.org/web/20240817101512id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "NRKDFNX6VYJYG2LDWLRAGBMCVRUOVFYC",
+        "archiveBytes": 62377,
+        "status": "rank_observed",
+        "rank": 19,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 118,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240822130639",
+        "capturedAt": "2024-08-22T13:06:39.000Z",
+        "observedDate": "2024-08-22",
+        "archiveUrl": "https://web.archive.org/web/20240822130639id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "NAHSLRWUPKFSMMADOQC7KZMTFEQ5VU3X",
+        "archiveBytes": 62843,
+        "status": "rank_observed",
+        "rank": 18,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 120,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240823064126",
+        "capturedAt": "2024-08-23T06:41:26.000Z",
+        "observedDate": "2024-08-23",
+        "archiveUrl": "https://web.archive.org/web/20240823064126id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "AWMQ676WQUDW7U4TWEANNEGGIHS2FLQA",
+        "archiveBytes": 62627,
+        "status": "rank_observed",
+        "rank": 19,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 120,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240915220011",
+        "capturedAt": "2024-09-15T22:00:11.000Z",
+        "observedDate": "2024-09-15",
+        "archiveUrl": "https://web.archive.org/web/20240915220011id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "F66VUY6OHB3LBSI437ETNPFJRWNZ3B5O",
+        "archiveBytes": 63144,
+        "status": "rank_observed",
+        "rank": 14,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 114,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20241007115030",
+        "capturedAt": "2024-10-07T11:50:30.000Z",
+        "observedDate": "2024-10-07",
+        "archiveUrl": "https://web.archive.org/web/20241007115030id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "JC3ZC5H2AIWPVDDQH57SW524FJCNYESR",
+        "archiveBytes": 63402,
+        "status": "rank_observed",
+        "rank": 22,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 119,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20241116065857",
+        "capturedAt": "2024-11-16T06:58:57.000Z",
+        "observedDate": "2024-11-16",
+        "archiveUrl": "https://web.archive.org/web/20241116065857id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "62YKFFDAUXMKAZN7HVOVMDW3KAKNYPXM",
+        "archiveBytes": 65030,
+        "status": "rank_observed",
+        "rank": 41,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 125,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20241124112603",
+        "capturedAt": "2024-11-24T11:26:03.000Z",
+        "observedDate": "2024-11-24",
+        "archiveUrl": "https://web.archive.org/web/20241124112603id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "HN4WJLZULRXZ63YR5CHBJZKWFB7AKMXK",
+        "archiveBytes": 64104,
+        "status": "rank_observed",
+        "rank": 32,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 121,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20241125120537",
+        "capturedAt": "2024-11-25T12:05:37.000Z",
+        "observedDate": "2024-11-25",
+        "archiveUrl": "https://web.archive.org/web/20241125120537id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "477OLD7Q6BIXQZKXXU62FRFFOHYVP47V",
+        "archiveBytes": 63726,
+        "status": "rank_observed",
+        "rank": 29,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 124,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20241126182008",
+        "capturedAt": "2024-11-26T18:20:08.000Z",
+        "observedDate": "2024-11-26",
+        "archiveUrl": "https://web.archive.org/web/20241126182008id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "HO4NJGJRF57FWREARHU34JUQVK4U4RMS",
+        "archiveBytes": 64577,
+        "status": "rank_observed",
+        "rank": 37,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 125,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20241203095224",
+        "capturedAt": "2024-12-03T09:52:24.000Z",
+        "observedDate": "2024-12-03",
+        "archiveUrl": "https://web.archive.org/web/20241203095224id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "B7KMDPO6O3GQZYZS5JBTH6W3DBC5TIPL",
+        "archiveBytes": 63976,
+        "status": "rank_observed",
+        "rank": 27,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 121,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20241203120149",
+        "capturedAt": "2024-12-03T12:01:49.000Z",
+        "observedDate": "2024-12-03",
+        "archiveUrl": "https://web.archive.org/web/20241203120149id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "LFSJBYXDVYZTQVGGZSI334XULJP7XGCD",
+        "archiveBytes": 64448,
+        "status": "rank_observed",
+        "rank": 27,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 121,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20241209093143",
+        "capturedAt": "2024-12-09T09:31:43.000Z",
+        "observedDate": "2024-12-09",
+        "archiveUrl": "https://web.archive.org/web/20241209093143id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "MLQLHTDIBULPCSV3SAWGP4PNABIDT7IR",
+        "archiveBytes": 64191,
+        "status": "rank_observed",
+        "rank": 36,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 128,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20241211163240",
+        "capturedAt": "2024-12-11T16:32:40.000Z",
+        "observedDate": "2024-12-11",
+        "archiveUrl": "https://web.archive.org/web/20241211163240id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "CZAZ2F3VS66GYIWPGLA3OJAA3NPFACLJ",
+        "archiveBytes": 64910,
+        "status": "rank_observed",
+        "rank": 30,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 136,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20241211192235",
+        "capturedAt": "2024-12-11T19:22:35.000Z",
+        "observedDate": "2024-12-11",
+        "archiveUrl": "https://web.archive.org/web/20241211192235id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "LZEO3N6V7ZMUNYMSFOEU2OHTX3GUBQBS",
+        "archiveBytes": 64904,
+        "status": "rank_observed",
+        "rank": 32,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 135,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20241214012048",
+        "capturedAt": "2024-12-14T01:20:48.000Z",
+        "observedDate": "2024-12-14",
+        "archiveUrl": "https://web.archive.org/web/20241214012048id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "6SAHVBXFP5IPY76G5IIMGUG2T5HT7HM5",
+        "archiveBytes": 64186,
+        "status": "rank_observed",
+        "rank": 36,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 137,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20241223234631",
+        "capturedAt": "2024-12-23T23:46:31.000Z",
+        "observedDate": "2024-12-23",
+        "archiveUrl": "https://web.archive.org/web/20241223234631id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "KZVGQD2ASCVB7G6WZ2HLPB7KP5A2CXHQ",
+        "archiveBytes": 64832,
+        "status": "rank_observed",
+        "rank": 31,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 136,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250118094752",
+        "capturedAt": "2025-01-18T09:47:52.000Z",
+        "observedDate": "2025-01-18",
+        "archiveUrl": "https://web.archive.org/web/20250118094752id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "P3GWTGY4OGWDDEVMI3SEFJ42NFYLQJLY",
+        "archiveBytes": 65021,
+        "status": "rank_observed",
+        "rank": 50,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 142,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250118161049",
+        "capturedAt": "2025-01-18T16:10:49.000Z",
+        "observedDate": "2025-01-18",
+        "archiveUrl": "https://web.archive.org/web/20250118161049id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "7V5E5V3AMSCAKEMELON365LUEZMHTQFJ",
+        "archiveBytes": 64452,
+        "status": "rank_observed",
+        "rank": 48,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 143,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250120194003",
+        "capturedAt": "2025-01-20T19:40:03.000Z",
+        "observedDate": "2025-01-20",
+        "archiveUrl": "https://web.archive.org/web/20250120194003id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "5NF5AKSJ7PC5XRBDTTG4CRR43XOTNNOY",
+        "archiveBytes": 65002,
+        "status": "rank_observed",
+        "rank": 53,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 147,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250123183905",
+        "capturedAt": "2025-01-23T18:39:05.000Z",
+        "observedDate": "2025-01-23",
+        "archiveUrl": "https://web.archive.org/web/20250123183905id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "SOJB25QMWYRIXI6Z4YUQ7ANPOFFOIFPC",
+        "archiveBytes": 65376,
+        "status": "rank_observed",
+        "rank": 54,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 151,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250126184635",
+        "capturedAt": "2025-01-26T18:46:35.000Z",
+        "observedDate": "2025-01-26",
+        "archiveUrl": "https://web.archive.org/web/20250126184635id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "DA3BZEC3RUF64X7EBBEP4I67PVGIRXBE",
+        "archiveBytes": 64555,
+        "status": "rank_observed",
+        "rank": 50,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 152,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250127192310",
+        "capturedAt": "2025-01-27T19:23:10.000Z",
+        "observedDate": "2025-01-27",
+        "archiveUrl": "https://web.archive.org/web/20250127192310id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "TZEFD7K4WJDJEKD5GGSO6IO7DIP3MVZG",
+        "archiveBytes": 64784,
+        "status": "rank_observed",
+        "rank": 54,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 154,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250201105354",
+        "capturedAt": "2025-02-01T10:53:54.000Z",
+        "observedDate": "2025-02-01",
+        "archiveUrl": "https://web.archive.org/web/20250201105354id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "2QIEVMM2XA4B3SPTLWMMEF57SKVJ4S5I",
+        "archiveBytes": 65540,
+        "status": "rank_observed",
+        "rank": 57,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 154,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250215143358",
+        "capturedAt": "2025-02-15T14:33:58.000Z",
+        "observedDate": "2025-02-15",
+        "archiveUrl": "https://web.archive.org/web/20250215143358id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "Q5X2HFUINWPYZTCYABKLEEJUHROGXYDH",
+        "archiveBytes": 64898,
+        "status": "rank_observed",
+        "rank": 33,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 138,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250302021439",
+        "capturedAt": "2025-03-02T02:14:39.000Z",
+        "observedDate": "2025-03-02",
+        "archiveUrl": "https://web.archive.org/web/20250302021439id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "ZNPU7VHDASHNQ7B63OR7LMHZDBNAT2ZM",
+        "archiveBytes": 65248,
+        "status": "rank_observed",
+        "rank": 31,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 144,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250306133225",
+        "capturedAt": "2025-03-06T13:32:25.000Z",
+        "observedDate": "2025-03-06",
+        "archiveUrl": "https://web.archive.org/web/20250306133225id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "YLAO35KWAZMLMHITG4O5TYSAYU7VRCDB",
+        "archiveBytes": 65352,
+        "status": "rank_observed",
+        "rank": 34,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 139,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250310175835",
+        "capturedAt": "2025-03-10T17:58:35.000Z",
+        "observedDate": "2025-03-10",
+        "archiveUrl": "https://web.archive.org/web/20250310175835id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "DVSVQFA4LOCFHQN6CUOALVWETVARTL7H",
+        "archiveBytes": 64382,
+        "status": "rank_observed",
+        "rank": 31,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 132,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250311001515",
+        "capturedAt": "2025-03-11T00:15:15.000Z",
+        "observedDate": "2025-03-11",
+        "archiveUrl": "https://web.archive.org/web/20250311001515id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "XKTOQOHFETYMEXGLXJI3L47C4WYMGJHS",
+        "archiveBytes": 64018,
+        "status": "rank_observed",
+        "rank": 29,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 132,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250313012749",
+        "capturedAt": "2025-03-13T01:27:49.000Z",
+        "observedDate": "2025-03-13",
+        "archiveUrl": "https://web.archive.org/web/20250313012749id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "2IF7F7WSK6ADT56RF35GM7ISHYP3PI6I",
+        "archiveBytes": 65279,
+        "status": "rank_observed",
+        "rank": 28,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 131,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250328102417",
+        "capturedAt": "2025-03-28T10:24:17.000Z",
+        "observedDate": "2025-03-28",
+        "archiveUrl": "https://web.archive.org/web/20250328102417id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "322GGKJHDWAGV3JIR7UP2VIRCLK6WEDA",
+        "archiveBytes": 65980,
+        "status": "rank_observed",
+        "rank": 31,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 132,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250409172933",
+        "capturedAt": "2025-04-09T17:29:33.000Z",
+        "observedDate": "2025-04-09",
+        "archiveUrl": "https://web.archive.org/web/20250409172933id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "MKJW7B5HN2AFP4K7IWMU2UQXM5WQDAZ3",
+        "archiveBytes": 65180,
+        "status": "rank_observed",
+        "rank": 31,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 128,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250414191441",
+        "capturedAt": "2025-04-14T19:14:41.000Z",
+        "observedDate": "2025-04-14",
+        "archiveUrl": "https://web.archive.org/web/20250414191441id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "AL7ZL6S2O3JGC77GRCS23LT3EM4CDCI3",
+        "archiveBytes": 65230,
+        "status": "rank_observed",
+        "rank": 31,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 133,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250505081020",
+        "capturedAt": "2025-05-05T08:10:20.000Z",
+        "observedDate": "2025-05-05",
+        "archiveUrl": "https://web.archive.org/web/20250505081020id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "X6PDGGDI576NG6MGVYDKQEMI7FRLI2KI",
+        "archiveBytes": 66440,
+        "status": "rank_observed",
+        "rank": 41,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 149,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250506041502",
+        "capturedAt": "2025-05-06T04:15:02.000Z",
+        "observedDate": "2025-05-06",
+        "archiveUrl": "https://web.archive.org/web/20250506041502id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "UZZ4XVHGCPX4CE2JMYK5KII7AIXKZJJ4",
+        "archiveBytes": 65237,
+        "status": "rank_observed",
+        "rank": 39,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 146,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250605065140",
+        "capturedAt": "2025-06-05T06:51:40.000Z",
+        "observedDate": "2025-06-05",
+        "archiveUrl": "https://web.archive.org/web/20250605065140id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "C75CQ5MXP6TW5FG6C4J53RMZPNBM76RM",
+        "archiveBytes": 56400,
+        "status": "rank_observed",
+        "rank": 47,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 153,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250705085824",
+        "capturedAt": "2025-07-05T08:58:24.000Z",
+        "observedDate": "2025-07-05",
+        "archiveUrl": "https://web.archive.org/web/20250705085824id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "M2EQDRUG6M2FJHKMO5T5W3CR3P2H3FC5",
+        "archiveBytes": 56485,
+        "status": "rank_observed",
+        "rank": 40,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 147,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250714224932",
+        "capturedAt": "2025-07-14T22:49:32.000Z",
+        "observedDate": "2025-07-14",
+        "archiveUrl": "https://web.archive.org/web/20250714224932id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "TM4KWOO3FBEO6IDTEZVMOPXABUNVLS74",
+        "archiveBytes": 58447,
+        "status": "rank_observed",
+        "rank": 44,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 153,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250724201056",
+        "capturedAt": "2025-07-24T20:10:56.000Z",
+        "observedDate": "2025-07-24",
+        "archiveUrl": "https://web.archive.org/web/20250724201056id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "USNLWYDCBCJXXDFAWACHHEUUJHCG5JZK",
+        "archiveBytes": 50326,
+        "status": "rank_observed",
+        "rank": 46,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 158,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250728232340",
+        "capturedAt": "2025-07-28T23:23:40.000Z",
+        "observedDate": "2025-07-28",
+        "archiveUrl": "https://web.archive.org/web/20250728232340id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "3O4VUCG6ZQOBJTGMQ2DMQBYGRWDOWEBA",
+        "archiveBytes": 58511,
+        "status": "rank_observed",
+        "rank": 50,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 156,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250804155210",
+        "capturedAt": "2025-08-04T15:52:10.000Z",
+        "observedDate": "2025-08-04",
+        "archiveUrl": "https://web.archive.org/web/20250804155210id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "IR5BKRMEH5YDZWTDM2XFFYTV5D5NQXP3",
+        "archiveBytes": 59054,
+        "status": "rank_observed",
+        "rank": 50,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 152,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250806174541",
+        "capturedAt": "2025-08-06T17:45:41.000Z",
+        "observedDate": "2025-08-06",
+        "archiveUrl": "https://web.archive.org/web/20250806174541id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "URBXQVPMOUBUF55AFN23ZDUT6HQRQGNS",
+        "archiveBytes": 57461,
+        "status": "rank_observed",
+        "rank": 53,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 152,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250825031310",
+        "capturedAt": "2025-08-25T03:13:10.000Z",
+        "observedDate": "2025-08-25",
+        "archiveUrl": "https://web.archive.org/web/20250825031310id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "FD2SMBN2JASYELWIVIM4SHDNK4RO65QA",
+        "archiveBytes": 58709,
+        "status": "rank_observed",
+        "rank": 38,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 158,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250901070827",
+        "capturedAt": "2025-09-01T07:08:27.000Z",
+        "observedDate": "2025-09-01",
+        "archiveUrl": "https://web.archive.org/web/20250901070827id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "EZ7AMTAAFGRORMRXSZVOBW7GFEST3EWD",
+        "archiveBytes": 58820,
+        "status": "rank_observed",
+        "rank": 42,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 153,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250904235555",
+        "capturedAt": "2025-09-04T23:55:55.000Z",
+        "observedDate": "2025-09-04",
+        "archiveUrl": "https://web.archive.org/web/20250904235555id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "NXOIJLZWMV6XXXQD5DQOTHNXD7TXIENO",
+        "archiveBytes": 60109,
+        "status": "rank_observed",
+        "rank": 43,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 154,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20251005025552",
+        "capturedAt": "2025-10-05T02:55:52.000Z",
+        "observedDate": "2025-10-05",
+        "archiveUrl": "https://web.archive.org/web/20251005025552id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "LKIBXUF6GRNKSWQ6INZUH2EZEZ2W3CRU",
+        "archiveBytes": 59995,
+        "status": "rank_observed",
+        "rank": 52,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 171,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20251107154621",
+        "capturedAt": "2025-11-07T15:46:21.000Z",
+        "observedDate": "2025-11-07",
+        "archiveUrl": "https://web.archive.org/web/20251107154621id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "6NNCHGWRXR6BLR4TNPMSNPRSPJ7ZMIGO",
+        "archiveBytes": 59903,
+        "status": "rank_observed",
+        "rank": 49,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 173,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20251107160256",
+        "capturedAt": "2025-11-07T16:02:56.000Z",
+        "observedDate": "2025-11-07",
+        "archiveUrl": "https://web.archive.org/web/20251107160256id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "FX6AJ6TVP565KPJP74XFFDGBMB2MBDC7",
+        "archiveBytes": 60331,
+        "status": "rank_observed",
+        "rank": 49,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 173,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20251117071326",
+        "capturedAt": "2025-11-17T07:13:26.000Z",
+        "observedDate": "2025-11-17",
+        "archiveUrl": "https://web.archive.org/web/20251117071326id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "7WHQI3DSYDF26JPQSB2HEYAGJ3GIQHCB",
+        "archiveBytes": 59950,
+        "status": "rank_observed",
+        "rank": 42,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 183,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20251216193543",
+        "capturedAt": "2025-12-16T19:35:43.000Z",
+        "observedDate": "2025-12-16",
+        "archiveUrl": "https://web.archive.org/web/20251216193543id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "I5Q347WQ76ZRV3GXXB267ZZ47WM3PM4N",
+        "archiveBytes": 61164,
+        "status": "rank_observed",
+        "rank": 13,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 149,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20251218020909",
+        "capturedAt": "2025-12-18T02:09:09.000Z",
+        "observedDate": "2025-12-18",
+        "archiveUrl": "https://web.archive.org/web/20251218020909id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "WP5TP4MSUUM4YXU7ONQRR4LVBHA7NOPC",
+        "archiveBytes": 61410,
+        "status": "rank_observed",
+        "rank": 14,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 146,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20251220091837",
+        "capturedAt": "2025-12-20T09:18:37.000Z",
+        "observedDate": "2025-12-20",
+        "archiveUrl": "https://web.archive.org/web/20251220091837id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "FC72XTRB7PELAC3SYRKQBEDC6OUNN5BN",
+        "archiveBytes": 61476,
+        "status": "rank_observed",
+        "rank": 13,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 147,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20260204181232",
+        "capturedAt": "2026-02-04T18:12:32.000Z",
+        "observedDate": "2026-02-04",
+        "archiveUrl": "https://web.archive.org/web/20260204181232id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "U7QLR3C3THV7YSIQWHQH77QJ5EF6EPTO",
+        "archiveBytes": 61073,
+        "status": "rank_observed",
+        "rank": 27,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 140,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20260301053509",
+        "capturedAt": "2026-03-01T05:35:09.000Z",
+        "observedDate": "2026-03-01",
+        "archiveUrl": "https://web.archive.org/web/20260301053509id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "Y6N7UDE474XFPR7JHI24WKNJGZJ35ZON",
+        "archiveBytes": 61757,
+        "status": "rank_observed",
+        "rank": 12,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 126,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20260301072459",
+        "capturedAt": "2026-03-01T07:24:59.000Z",
+        "observedDate": "2026-03-01",
+        "archiveUrl": "https://web.archive.org/web/20260301072459id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "RGCBL2MOE66PSGRE4RIOSSGYWQRATU6L",
+        "archiveBytes": 61798,
+        "status": "rank_observed",
+        "rank": 12,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 126,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20260305145228",
+        "capturedAt": "2026-03-05T14:52:28.000Z",
+        "observedDate": "2026-03-05",
+        "archiveUrl": "https://web.archive.org/web/20260305145228id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "WPPBRBT5ACLRHE3RQXLE4CVKTYNODU5E",
+        "archiveBytes": 60153,
+        "status": "rank_observed",
+        "rank": 14,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 128,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20260331225725",
+        "capturedAt": "2026-03-31T22:57:25.000Z",
+        "observedDate": "2026-03-31",
+        "archiveUrl": "https://web.archive.org/web/20260331225725id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "O4US3FD3UVFVACQLYJO3PIEWW2IACQIW",
+        "archiveBytes": 61675,
+        "status": "rank_observed",
+        "rank": 46,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 128,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20260501191726",
+        "capturedAt": "2026-05-01T19:17:26.000Z",
+        "observedDate": "2026-05-01",
+        "archiveUrl": "https://web.archive.org/web/20260501191726id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "2JKVEJZZI3EOLMQGCSZLKM4OOHXUFHBY",
+        "archiveBytes": 93702,
+        "status": "rank_observed",
+        "rank": 5,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 97,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20260601000539",
+        "capturedAt": "2026-06-01T00:05:39.000Z",
+        "observedDate": "2026-06-01",
+        "archiveUrl": "https://web.archive.org/web/20260601000539id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "UHDY7OCEC4NNAS6HUQ2TXGPHKKPUIODR",
+        "archiveBytes": 94657,
+        "status": "rank_observed",
+        "rank": 9,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 88,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20260703184509",
+        "capturedAt": "2026-07-03T18:45:09.000Z",
+        "observedDate": "2026-07-03",
+        "archiveUrl": "https://web.archive.org/web/20260703184509id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "3ELXSJXVLHV5BXVOW2HITUW73S6SSGN3",
+        "archiveBytes": 96553,
+        "status": "rank_observed",
+        "rank": 11,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 95,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20260804114132",
+        "capturedAt": "2026-08-04T11:41:32.000Z",
+        "observedDate": "2026-08-04",
+        "archiveUrl": "https://web.archive.org/web/20260804114132id_/https://coinmarketcap.com/most-viewed-pages/",
+        "originalUrl": "https://coinmarketcap.com/most-viewed-pages/",
+        "digest": "54RWLURMSEW7GOUH3NNV664E73WZXADO",
+        "archiveBytes": 97679,
+        "status": "rank_observed",
+        "rank": 14,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "marketCapRank": 98,
+        "error": null
+      }
+    ],
+    "currentObservation": {
+      "observedDate": "2026-08-26",
+      "recordedAt": "2026-08-26T14:42:10.000Z",
+      "rank": 27,
+      "sourceLabel": "User-provided screenshot of the CoinMarketCap page",
+      "sourceUrl": "https://coinmarketcap.com/most-viewed-pages/",
+      "evidence": "The attached screenshot shows Terra Classic / LUNC at displayed list position 27. The screenshot does not expose its capture time; the date is the day this evidence was added to the dashboard."
+    },
+    "stats": {
+      "cdxCaptureCount": 145,
+      "fetchedCaptureCount": 145,
+      "rankObservationCount": 110,
+      "notObservedCount": 35,
+      "parseFailedCount": 0,
+      "fetchFailedCount": 0,
+      "uniqueObservationDates": 94
+    }
+  }
+}

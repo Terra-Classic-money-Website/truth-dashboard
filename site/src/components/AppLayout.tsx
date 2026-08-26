@@ -11,6 +11,7 @@ const healthLinks: NavItem[] = [
   { label: "Active On-Chain Wallets", to: "/active-wallets" },
   { label: "Trading Volume (CoinGecko)", to: "/volume" },
   { label: "Trading Volume (DEX / On-Chain)", to: "/dex-volume" },
+  { label: "CMC Most Viewed rank", to: "/cmc-most-viewed-rank" },
 ];
 
 const managementLinks: NavItem[] = [

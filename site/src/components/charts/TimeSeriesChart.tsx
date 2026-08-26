@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { formatDateLabel, formatValue } from "../../data/format";
 
 type Point = {
   periodEnd?: string;
   t?: string;
   v: number;
+  tooltipLabel?: string;
 };
 
 type Series = {
@@ -26,12 +27,31 @@ type TimeSeriesChartProps = {
   yTickFormatter?: (value: number) => string;
   minXTickGap?: number;
   forceAllXTicks?: boolean;
+  invertY?: boolean;
+  showPoints?: boolean;
+  maxGapDays?: number;
 };
 
 const colors = ["#f7b955", "#60a5fa", "#34d399", "#f87171"];
 
 function getPointDate(point: Point) {
   return point.t ?? point.periodEnd ?? "";
+}
+
+function getPointTime(point: Point) {
+  const raw = getPointDate(point);
+  const parsed = new Date(raw);
+  if (Number.isFinite(parsed.getTime())) return parsed.getTime();
+  return new Date(`${raw}T00:00:00Z`).getTime();
+}
+
+function getClosestPoint(points: Point[], time: number) {
+  return points.reduce((closest, point) => {
+    if (!closest) return point;
+    return Math.abs(getPointTime(point) - time) < Math.abs(getPointTime(closest) - time)
+      ? point
+      : closest;
+  }, null as Point | null);
 }
 
 export default function TimeSeriesChart({
@@ -45,6 +65,9 @@ export default function TimeSeriesChart({
   yTickFormatter,
   minXTickGap = 80,
   forceAllXTicks = false,
+  invertY = false,
+  showPoints = false,
+  maxGapDays,
 }: TimeSeriesChartProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -72,9 +95,7 @@ export default function TimeSeriesChart({
   const { min, max, minTime, maxTime } = useMemo(() => {
     const allPoints = series.flatMap((s) => s.points);
     const values = allPoints.map((p) => p.v);
-    const times = allPoints
-      .map((p) => new Date(`${getPointDate(p)}T00:00:00Z`).getTime())
-      .filter((value) => Number.isFinite(value));
+    const times = allPoints.map(getPointTime).filter((value) => Number.isFinite(value));
     return {
       min: values.length ? Math.min(...values) : 0,
       max: values.length ? Math.max(...values) : 1,
@@ -83,7 +104,10 @@ export default function TimeSeriesChart({
     };
   }, [series]);
 
-  const padding = { top: 16, right: 20, bottom: 32, left: 52 };
+  const padding = useMemo(
+    () => ({ top: 16, right: 20, bottom: 32, left: 52 }),
+    [],
+  );
   const width = containerWidth || 0;
   const innerWidth = Math.max(width - padding.left - padding.right, 1);
   const resolvedHeight = containerHeight || height;
@@ -95,11 +119,21 @@ export default function TimeSeriesChart({
   const range = effectiveMax - effectiveMin || 1;
   const timeRange = maxTime - minTime || 1;
 
-  const xForTime = (time: number) =>
-    padding.left + ((time - minTime) / timeRange) * innerWidth;
+  const xForTime = useCallback(
+    (time: number) =>
+      padding.left + ((time - minTime) / timeRange) * innerWidth,
+    [innerWidth, minTime, padding, timeRange],
+  );
 
-  const yForValue = (value: number) =>
-    padding.top + (1 - (value - effectiveMin) / range) * innerHeight;
+  const yForValue = useCallback(
+    (value: number) =>
+      padding.top +
+      (invertY
+        ? (value - effectiveMin) / range
+        : 1 - (value - effectiveMin) / range) *
+        innerHeight,
+    [effectiveMin, innerHeight, invertY, padding, range],
+  );
 
   const basePoints = series[0]?.points ?? [];
   const showEmpty = basePoints.length === 0 || width === 0;
@@ -160,18 +194,10 @@ export default function TimeSeriesChart({
 
   const tooltipPoint =
     tooltipTime !== null
-      ? basePoints.reduce((closest, point) => {
-          const time = new Date(
-            `${getPointDate(point)}T00:00:00Z`,
-          ).getTime();
-          if (!closest) return point;
-          const closestTime = new Date(
-            `${getPointDate(closest)}T00:00:00Z`,
-          ).getTime();
-          return Math.abs(time - tooltipTime) < Math.abs(closestTime - tooltipTime)
-            ? point
-            : closest;
-        }, null as Point | null)
+      ? getClosestPoint(
+          series.flatMap((serie) => serie.points),
+          tooltipTime,
+        )
       : null;
   const hoverSeriesPoints = useMemo(() => {
     if (tooltipTime === null) {
@@ -179,23 +205,11 @@ export default function TimeSeriesChart({
     }
     return series
       .map((serie, index) => {
-        const point = serie.points.reduce((closest, candidate) => {
-          const candidateTime = new Date(
-            `${getPointDate(candidate)}T00:00:00Z`,
-          ).getTime();
-          if (!closest) return candidate;
-          const closestTime = new Date(
-            `${getPointDate(closest)}T00:00:00Z`,
-          ).getTime();
-          return Math.abs(candidateTime - tooltipTime) <
-            Math.abs(closestTime - tooltipTime)
-            ? candidate
-            : closest;
-        }, null as Point | null);
+        const point = getClosestPoint(serie.points, tooltipTime);
         if (!point) {
           return null;
         }
-        const pointTime = new Date(`${getPointDate(point)}T00:00:00Z`).getTime();
+        const pointTime = getPointTime(point);
         return {
           seriesIndex: index,
           point,
@@ -320,24 +334,55 @@ export default function TimeSeriesChart({
             })}
             {series.map((serie, seriesIndex) => {
               const stroke = colors[seriesIndex % colors.length];
-              const polyline = serie.points
-                .map((point) => {
-                  const time = new Date(
-                    `${getPointDate(point)}T00:00:00Z`,
-                  ).getTime();
-                  const x = xForTime(time);
-                  const y = yForValue(point.v);
-                  return `${x},${y}`;
-                })
-                .join(" ");
+              const segments: Point[][] = [[]];
+              serie.points.forEach((point, pointIndex) => {
+                const previous = serie.points[pointIndex - 1];
+                const gapDays = previous
+                  ? (getPointTime(point) - getPointTime(previous)) / 86_400_000
+                  : 0;
+                if (
+                  previous &&
+                  maxGapDays !== undefined &&
+                  gapDays > maxGapDays
+                ) {
+                  segments.push([]);
+                }
+                segments[segments.length - 1].push(point);
+              });
               return (
-                <polyline
-                  key={serie.label}
-                  fill="none"
-                  stroke={stroke}
-                  strokeWidth="2"
-                  points={polyline}
-                />
+                <g key={serie.label}>
+                  {segments.map((segment, segmentIndex) => {
+                    const polyline = segment
+                      .map((point) => {
+                        const x = xForTime(getPointTime(point));
+                        const y = yForValue(point.v);
+                        return `${x},${y}`;
+                      })
+                      .join(" ");
+                    return segment.length > 1 ? (
+                      <polyline
+                        key={`${serie.label}-${segmentIndex}`}
+                        fill="none"
+                        stroke={stroke}
+                        strokeWidth="2"
+                        points={polyline}
+                      />
+                    ) : null;
+                  })}
+                  {showPoints
+                    ? serie.points.map((point) => (
+                        <circle
+                          key={`${serie.label}-${getPointDate(point)}`}
+                          cx={xForTime(getPointTime(point))}
+                          cy={yForValue(point.v)}
+                          r={3.5}
+                          fill={stroke}
+                          stroke="#0f172a"
+                          strokeWidth={1.5}
+                        />
+                      ))
+                    : null}
+                </g>
               );
             })}
             {tooltipTime !== null ? (
@@ -377,36 +422,21 @@ export default function TimeSeriesChart({
               }}
             >
               <div className="text-slate-400">
-                {formatDateLabel(
-                  getPointDate(tooltipPoint),
-                  cadence,
-                )}
+                {tooltipPoint.tooltipLabel ??
+                  formatDateLabel(getPointDate(tooltipPoint), cadence)}
               </div>
               <div className="mt-1 space-y-1">
-                {series.map((serie) => {
-                  const point =
-                    tooltipTime !== null
-                      ? serie.points.reduce((closest, candidate) => {
-                          const candidateTime = new Date(
-                            `${getPointDate(candidate)}T00:00:00Z`,
-                          ).getTime();
-                          if (!closest) return candidate;
-                          const closestTime = new Date(
-                            `${getPointDate(closest)}T00:00:00Z`,
-                          ).getTime();
-                          return Math.abs(candidateTime - tooltipTime) <
-                            Math.abs(closestTime - tooltipTime)
-                            ? candidate
-                            : closest;
-                        }, null as Point | null)
-                      : null;
-                  const value = point ? point.v : 0;
+                {series.map((serie, seriesIndex) => {
+                  const match = hoverSeriesPoints.find(
+                    (candidate) => candidate.seriesIndex === seriesIndex,
+                  );
+                  if (!match) return null;
                   return (
                     <div key={serie.label} className="flex gap-2">
                       <span className="text-slate-400">{serie.label}:</span>
                       <span>
                         {formatValue({
-                          value,
+                          value: match.point.v,
                           unit: serie.unit,
                           scale: serie.scale,
                         })}
