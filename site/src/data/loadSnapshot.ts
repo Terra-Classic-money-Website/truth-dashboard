@@ -1,6 +1,7 @@
 import type { z } from "zod";
 import activeWalletsJson from "./snapshots/active-wallets.snapshot.json";
 import communityPoolJson from "./snapshots/expenditures.snapshot.json";
+import dexVolumeJson from "./snapshots/dex-volume.snapshot.json";
 import governanceParticipationJson from "./snapshots/governance-participation.snapshot.json";
 import governanceProposalsJson from "./snapshots/governance-proposals.snapshot.json";
 import governanceValidatorsJson from "./snapshots/governance-validators.snapshot.json";
@@ -8,6 +9,7 @@ import luncVolumeJson from "./snapshots/lunc-volume.snapshot.json";
 import {
   activeWalletsSnapshotSchema,
   communityPoolSnapshotSchema,
+  dexVolumeSnapshotSchema,
   governanceParticipationSnapshotSchema,
   governanceProposalsSnapshotSchema,
   governanceValidatorsSnapshotSchema,
@@ -16,6 +18,7 @@ import {
 
 export type DashboardId =
   | "active-wallets"
+  | "dex-volume"
   | "lunc-volume"
   | "community-pool"
   | "governance-participation"
@@ -26,6 +29,10 @@ type SnapshotMap = {
   "active-wallets": {
     raw: unknown;
     schema: typeof activeWalletsSnapshotSchema;
+  };
+  "dex-volume": {
+    raw: unknown;
+    schema: typeof dexVolumeSnapshotSchema;
   };
   "lunc-volume": {
     raw: unknown;
@@ -51,6 +58,7 @@ type SnapshotMap = {
 
 type SnapshotById = {
   "active-wallets": z.infer<typeof activeWalletsSnapshotSchema>;
+  "dex-volume": z.infer<typeof dexVolumeSnapshotSchema>;
   "lunc-volume": z.infer<typeof luncVolumeSnapshotSchema>;
   "community-pool": z.infer<typeof communityPoolSnapshotSchema>;
   "governance-participation": z.infer<typeof governanceParticipationSnapshotSchema>;
@@ -62,6 +70,10 @@ const snapshots: SnapshotMap = {
   "active-wallets": {
     raw: activeWalletsJson,
     schema: activeWalletsSnapshotSchema,
+  },
+  "dex-volume": {
+    raw: dexVolumeJson,
+    schema: dexVolumeSnapshotSchema,
   },
   "lunc-volume": {
     raw: luncVolumeJson,

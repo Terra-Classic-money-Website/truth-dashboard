@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import terraClassicSign from "../img/terra-classic-sign.svg";
 
 type NavItem = {
@@ -10,6 +10,7 @@ type NavItem = {
 const healthLinks: NavItem[] = [
   { label: "Active On-Chain Wallets", to: "/active-wallets" },
   { label: "Trading Volume (CoinGecko)", to: "/volume" },
+  { label: "Trading Volume (DEX / On-Chain)", to: "/dex-volume" },
 ];
 
 const managementLinks: NavItem[] = [
@@ -66,12 +67,6 @@ export default function AppLayout() {
     }
     return "dark";
   });
-  const location = useLocation();
-
-  useEffect(() => {
-    setDrawerOpen(false);
-  }, [location.pathname]);
-
   useEffect(() => {
     const root = document.documentElement;
     if (theme === "light") {

@@ -228,7 +228,11 @@ function DonutChart({
 }) {
   const total = data.values.reduce((sum, value) => sum + value, 0) || 1;
   const palette = [GOLD, BLUE, GREEN, TEAL, PURPLE, RED];
-  let angleCursor = 0;
+  const angleStarts = data.values.map((_, index) =>
+    data.values
+      .slice(0, index)
+      .reduce((sum, value) => sum + (value / total) * 360, 0),
+  );
 
   return (
     <div className="flex h-full flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
@@ -238,9 +242,8 @@ function DonutChart({
       >
         {data.values.map((value, index) => {
           const sweep = (value / total) * 360;
-          const start = angleCursor;
-          const end = angleCursor + sweep;
-          angleCursor = end;
+          const start = angleStarts[index];
+          const end = start + sweep;
           return (
             <path
               key={`${data.labels[index]}-${index}`}

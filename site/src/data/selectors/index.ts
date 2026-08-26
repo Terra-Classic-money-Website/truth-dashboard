@@ -1,4 +1,5 @@
 export * from "./activeWallets";
+export * from "./dexVolume";
 export * from "./luncVolume";
 export * from "./communityPool";
 export * from "./governanceParticipation";

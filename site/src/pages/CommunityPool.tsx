@@ -48,14 +48,14 @@ export default function CommunityPool() {
   const [windowId, setWindowId] = useState<string>("ALL");
   const viewportWidth = useViewportWidth();
 
-  if (!snapshot) {
-    return <SnapshotErrorPanel error={error} />;
-  }
-
-  const view = useMemo(() => selectCommunityPool(snapshot, windowId), [snapshot, windowId]);
+  const view = useMemo(
+    () => (snapshot ? selectCommunityPool(snapshot, windowId) : null),
+    [snapshot, windowId],
+  );
   const chartHeight =
     viewportWidth < 640 ? 340 : viewportWidth < 1024 ? 420 : 520;
   const highlights = useMemo(() => {
+    if (!view) return [];
     const idleWeeksShareCombined = view.capitalUtilization.idleWeeksSharePct.combined;
     const topSpendShareCombined = view.spendConcentration.topSpendShare.combined;
     const eightyTwentyCombined = view.spendConcentration.eightyTwentySpendWeeks.combined;
@@ -98,6 +98,10 @@ export default function CommunityPool() {
       `Net effect: low capital efficiency. The Community Pool behaved more like a dormant treasury punctuated by occasional large drops, rather than a well-managed fund supporting sustained development and ecosystem initiatives.`,
     ];
   }, [view]);
+
+  if (!snapshot || !view) {
+    return <SnapshotErrorPanel error={error} />;
+  }
 
   return (
     <div className="space-y-8">

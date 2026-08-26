@@ -1,5 +1,6 @@
 export * from "./common";
 export * from "./active-wallets";
+export * from "./dex-volume";
 export * from "./lunc-volume";
 export * from "./community-pool";
 export * from "./expenditures";
