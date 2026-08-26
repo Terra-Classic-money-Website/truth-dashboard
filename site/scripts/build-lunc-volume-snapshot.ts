@@ -1,7 +1,8 @@
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 
-const root = path.resolve("/workspaces/truth-dashboard/site");
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const rawPath = path.join(
   root,
   "src/data/snapshots/lunc-volume.timeseries.json",
@@ -73,6 +74,7 @@ snapshot.timeWindows = [
   { id: "3m", label: "3M", days: 92 },
   { id: "6m", label: "6M", days: 183 },
   { id: "1y", label: "1Y", days: 365 },
+  { id: "2y", label: "2Y", days: 730 },
 ];
 
 snapshot.data = {
