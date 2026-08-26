@@ -6,6 +6,7 @@ import { formatDelta, formatValue } from "../data/format";
 import { getSnapshot } from "../data/loadSnapshot";
 import { selectLuncVolume } from "../data/selectors";
 import PageHeader from "../components/PageHeader";
+import VolumeInsights from "../components/VolumeInsights";
 import useViewportWidth from "../hooks/useViewportWidth";
 
 export default function Volume() {
@@ -15,14 +16,12 @@ export default function Volume() {
   const [chartHeight, setChartHeight] = useState<number | null>(null);
   const viewportWidth = useViewportWidth();
   const isMobile = viewportWidth < 640;
-
-  if (!snapshot) {
-    return <SnapshotErrorPanel error={error} />;
-  }
-
-  const view = selectLuncVolume(snapshot, windowId);
+  const view = useMemo(
+    () => (snapshot ? selectLuncVolume(snapshot, windowId) : null),
+    [snapshot, windowId],
+  );
   const monthlyTicks = useMemo(() => {
-    const points = view.series[0]?.points ?? [];
+    const points = view?.series[0]?.points ?? [];
     if (!points.length) return [];
     const getDate = (point: { t?: string; periodEnd?: string }) =>
       new Date(`${point.t ?? point.periodEnd ?? ""}T00:00:00Z`);
@@ -41,7 +40,7 @@ export default function Volume() {
       cursor.setUTCMonth(cursor.getUTCMonth() + 1);
     }
     return ticks;
-  }, [view.series]);
+  }, [view]);
 
   const yTicks = useMemo(
     () => [
@@ -59,6 +58,24 @@ export default function Volume() {
     [],
   );
 
+  useLayoutEffect(() => {
+    const updateHeight = () => {
+      if (!chartWrapRef.current) return;
+      const rect = chartWrapRef.current.getBoundingClientRect();
+      const available = window.innerHeight - rect.top - 32;
+      const minHeight = window.innerWidth < 640 ? 260 : 320;
+      setChartHeight(Math.max(minHeight, Math.floor(available)));
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
+
+  if (!snapshot || !view) {
+    return <SnapshotErrorPanel error={error} />;
+  }
+
   const formatMonthLabel = (isoDate: string) =>
     new Intl.DateTimeFormat("en-US", {
       month: "short",
@@ -74,20 +91,6 @@ export default function Volume() {
     return `$${value.toFixed(2)}`;
   };
 
-  useLayoutEffect(() => {
-    const updateHeight = () => {
-      if (!chartWrapRef.current) return;
-      const rect = chartWrapRef.current.getBoundingClientRect();
-      const available = window.innerHeight - rect.top - 32;
-      const minHeight = window.innerWidth < 640 ? 260 : 320;
-      setChartHeight(Math.max(minHeight, Math.floor(available)));
-    };
-
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    return () => window.removeEventListener("resize", updateHeight);
-  }, []);
-
   return (
     <div className="space-y-8">
       <PageHeader
@@ -101,7 +104,12 @@ export default function Volume() {
           <button
             key={window.id}
             type="button"
-            className="rounded-full border border-slate-800 px-4 py-2 text-xs uppercase tracking-wider text-slate-300 hover:border-amber-300 hover:text-amber-200 transition"
+            aria-pressed={window.id === windowId}
+            className={`rounded-full border px-4 py-2 text-xs uppercase tracking-wider transition ${
+              window.id === windowId
+                ? "border-amber-300/70 bg-amber-300/10 text-amber-200"
+                : "border-slate-800 text-slate-300 hover:border-amber-300 hover:text-amber-200"
+            }`}
             onClick={() => setWindowId(window.id)}
           >
             {window.label}
@@ -148,6 +156,8 @@ export default function Volume() {
           />
         </div>
       </Card>
+
+      <VolumeInsights insights={view.insights} />
     </div>
   );
 }

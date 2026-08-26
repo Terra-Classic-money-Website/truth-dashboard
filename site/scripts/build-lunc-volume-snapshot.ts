@@ -21,6 +21,23 @@ type RawDataset = {
   points: RawPoint[];
 };
 
+type VolumeSnapshot = {
+  generatedAt?: string;
+  subtitle?: string;
+  coverage?: {
+    start: string;
+    end: string;
+    cadence: string;
+  };
+  timeWindows?: Array<{
+    id: string;
+    label: string;
+    days: number;
+  }>;
+  data?: unknown;
+  [key: string]: unknown;
+};
+
 function formatDate(date: Date) {
   return date.toISOString().slice(0, 10);
 }
@@ -60,7 +77,7 @@ const maxPoint = sorted.reduce((acc, point) =>
 const avg =
   sorted.reduce((sum, point) => sum + point.v, 0) / sorted.length;
 
-const snapshot = readJson<any>(snapshotPath);
+const snapshot = readJson<VolumeSnapshot>(snapshotPath);
 snapshot.generatedAt = formatDate(new Date());
 snapshot.subtitle =
   "CoinGecko market_chart/range volume data for Terra Classic (LUNC)";

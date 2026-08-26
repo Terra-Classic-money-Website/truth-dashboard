@@ -17,18 +17,21 @@ export default function ActiveWallets() {
   const [windowId, setWindowId] = useState<string>("3y");
   const { data: snapshot, error } = getSnapshot("active-wallets");
   const viewportWidth = useViewportWidth();
+  const view = useMemo(
+    () => (snapshot ? selectActiveWallets(snapshot, windowId) : null),
+    [snapshot, windowId],
+  );
+  const monthlyTicks = useMemo(() => {
+    const points = view?.series[0]?.points ?? [];
+    return points.map((point) => point.periodEnd);
+  }, [view]);
 
-  if (!snapshot) {
+  if (!snapshot || !view) {
     return <SnapshotErrorPanel error={error} />;
   }
 
-  const view = selectActiveWallets(snapshot, windowId);
   const chartHeight =
     viewportWidth < 640 ? 340 : viewportWidth < 1024 ? 470 : 590;
-  const monthlyTicks = useMemo(() => {
-    const points = view.series[0]?.points ?? [];
-    return points.map((point) => point.periodEnd);
-  }, [view.series]);
   const formatMonthLabel = (isoDate: string) =>
     new Intl.DateTimeFormat("en-US", {
       month: "short",

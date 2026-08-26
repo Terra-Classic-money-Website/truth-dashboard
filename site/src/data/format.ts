@@ -25,6 +25,13 @@ export function formatPercent(value: number) {
   return `${numberFormatter.format(pct)}%`;
 }
 
+export function formatPercentFraction(value: number | null) {
+  if (value === null || Number.isNaN(value)) {
+    return "—";
+  }
+  return `${numberFormatter.format(value * 100)}%`;
+}
+
 export function formatValue({
   value,
   unit,
