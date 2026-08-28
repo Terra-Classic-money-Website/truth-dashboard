@@ -6,23 +6,23 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
-  group: "pages-branch"
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "20"
           cache: "npm"
@@ -36,29 +36,21 @@ jobs:
         run: npm run build
         working-directory: site
 
-      - name: Publish built site to gh-pages
-        env:
-          DEPLOY_SHA: ${{ github.sha }}
-        run: |
-          set -euo pipefail
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
 
-          git fetch origin gh-pages:refs/remotes/origin/gh-pages
-          publish_dir="$(mktemp -d)"
-          cleanup() {
-            git worktree remove --force "$publish_dir" >/dev/null 2>&1 || true
-          }
-          trap cleanup EXIT
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site/dist
 
-          git worktree add --detach "$publish_dir" origin/gh-pages
-          git -C "$publish_dir" rm -r --ignore-unmatch . >/dev/null
-          cp -R site/dist/. "$publish_dir/"
-          touch "$publish_dir/.nojekyll"
-
-          git -C "$publish_dir" add -A
-          if git -C "$publish_dir" diff --cached --quiet; then
-            echo "No published site changes."
-            exit 0
-          fi
-
-          git -C "$publish_dir" -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Deploy ${DEPLOY_SHA}"
-          git -C "$publish_dir" push origin HEAD:gh-pages
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5
