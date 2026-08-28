@@ -317,7 +317,7 @@ export default function ActiveWallets() {
             <div className="mt-3 space-y-2 text-sm text-slate-400">
               <p>
                 <strong className="text-slate-200">Source:</strong>{" "}
-                {view.method.source} FCD endpoint.
+                {view.method.source}.
               </p>
               <p>
                 <strong className="text-slate-200">Metric definition:</strong>{" "}

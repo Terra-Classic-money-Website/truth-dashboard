@@ -3,18 +3,18 @@
   "dashboardId": "active-wallets",
   "title": "Monthly Active Wallets",
   "subtitle": "Participants per month based on transaction senders and recipients on the Terra Classic L1.",
-  "generatedAt": "2026-02-05",
+  "generatedAt": "2026-08-28",
   "coverage": {
     "start": "2022-06-30",
-    "end": "2026-03-31",
+    "end": "2026-08-31",
     "cadence": "monthly"
   },
   "sources": [
     {
       "id": "active-wallets-monthly",
-      "label": "Active wallets monthly dataset (offline)",
+      "label": "Validated monthly active wallets dataset",
       "type": "dataset",
-      "notes": "Bundled snapshot dataset. Null months removed."
+      "notes": "Bundled monthly snapshot built from validated FCD and archival RPC scan results."
     }
   ],
   "notes": [],
@@ -224,9 +224,29 @@
             "periodEnd": "2026-02-28",
             "v": 17078
           },
-           {
+          {
             "periodEnd": "2026-03-31",
             "v": 13773
+          },
+          {
+            "periodEnd": "2026-04-30",
+            "v": 22997
+          },
+          {
+            "periodEnd": "2026-05-31",
+            "v": 29341
+          },
+          {
+            "periodEnd": "2026-06-30",
+            "v": 22142
+          },
+          {
+            "periodEnd": "2026-07-31",
+            "v": 25893
+          },
+          {
+            "periodEnd": "2026-08-31",
+            "v": 21143
           }
         ]
       },
@@ -251,12 +271,12 @@
       {
         "id": "kpi.mawTotal",
         "label": "Monthly active wallets",
-        "value": 17078,
+        "value": 21143,
         "unit": "count",
         "scale": 1,
-        "asOf": "2026-03-31",
+        "asOf": "2026-08-31",
         "delta": {
-          "value": 0.00405667587747663,
+          "value": -0.1834472637392346,
           "unit": "percent",
           "vs": "prev_period"
         },
@@ -268,7 +288,7 @@
         "value": null,
         "unit": "count",
         "scale": 1,
-        "asOf": "2026-03-31",
+        "asOf": "2026-08-31",
         "delta": null,
         "note": "Not available in dataset"
       },
@@ -278,7 +298,7 @@
         "value": null,
         "unit": "count",
         "scale": 1,
-        "asOf": "2026-03-31",
+        "asOf": "2026-08-31",
         "delta": null,
         "note": "Not available in dataset"
       },
@@ -288,27 +308,27 @@
         "value": null,
         "unit": "percent",
         "scale": 1,
-        "asOf": "2026-03-31",
+        "asOf": "2026-08-31",
         "delta": null,
         "note": "Not available in dataset"
       }
     ],
     "insights": {
       "highlights": [
-        "Activity is down -96.6% from the peak (peak: Aug 22, 498,729).",
-        "Over the last 12 months, the trend slope is -188 wallets/month (smoothed).",
-        "The last month shows growth with MoM change of 0.4%.",
-        "Year-over-year change is -42.5% (vs Feb 25).",
-        "The network spent 9 months below 25,000 active wallets."
+        "Activity is down -95.8% from the peak (peak: Aug 22, 498,729).",
+        "Over the last 12 months, the trend slope is -438 wallets/month (smoothed).",
+        "The latest month shows decline with MoM change of -18.3%.",
+        "Year-over-year change is -6.7% (vs Aug 25).",
+        "The network spent 13 months below 25,000 active wallets."
       ],
       "kpiSnapshot": [
         {
           "id": "kpi.currentMonth",
           "label": "Current month",
-          "value": 17078,
+          "value": 21143,
           "unit": "count",
-          "asOf": "2026-03-31",
-          "note": "Feb 26"
+          "asOf": "2026-08-31",
+          "note": "Aug 26"
         },
         {
           "id": "kpi.allTimePeak",
@@ -321,33 +341,33 @@
         {
           "id": "kpi.drawdown",
           "label": "Drawdown from peak",
-          "value": -0.9657569541775193,
+          "value": -0.9576062350494958,
           "unit": "percent",
-          "asOf": "2026-03-31",
+          "asOf": "2026-08-31",
           "note": "Current vs peak"
         },
         {
           "id": "kpi.roll12Avg",
           "label": "12M rolling average",
-          "value": 23449.916666666668,
+          "value": 23370.25,
           "unit": "count",
-          "asOf": "2026-03-31",
+          "asOf": "2026-08-31",
           "note": "Last 12 months"
         },
         {
           "id": "kpi.trendSlope",
           "label": "12M trend slope",
-          "value": -187.9055944055944,
+          "value": -437.7307692307692,
           "unit": "count",
-          "asOf": "2026-03-31",
+          "asOf": "2026-08-31",
           "note": "wallets / month"
         },
         {
           "id": "kpi.stability",
           "label": "12M stability",
-          "value": 0.2953045157578934,
+          "value": 0.32431753581155615,
           "unit": "percent",
-          "asOf": "2026-03-31",
+          "asOf": "2026-08-31",
           "note": "stdev / mean"
         }
       ]
@@ -414,7 +434,7 @@
             "year": "2024",
             "avgMonthly": 45533.25,
             "median": 42835,
-            "yoy": -0.21044600345358258,
+            "yoy": -0.21044600345358255,
             "volatility": 11681.269067221821,
             "cv": 0.25654371403802323
           },
@@ -422,17 +442,17 @@
             "year": "2025",
             "avgMonthly": 25745.833333333332,
             "median": 23452,
-            "yoy": -0.43457070748665355,
+            "yoy": -0.4345707074866536,
             "volatility": 6715.606932528304,
             "cv": 0.26084247674490907
           },
           {
             "year": "2026",
-            "avgMonthly": 17043.5,
-            "median": 17043.5,
-            "yoy": -0.3380093866321411,
-            "volatility": 34.5,
-            "cv": 0.002024232111948837
+            "avgMonthly": 21172,
+            "median": 21642.5,
+            "yoy": -0.17765334196471916,
+            "volatility": 4771.390965955316,
+            "cv": 0.2253632611919193
           }
         ]
       },
@@ -514,14 +534,14 @@
           {
             "quarter": "2023 Q4",
             "avg": 61409,
-            "qoq": 0.3860929494172793,
+            "qoq": 0.38609294941727934,
             "bestMonth": "Dec 23 (81,772)",
             "worstMonth": "Oct 23 (40,185)"
           },
           {
             "quarter": "2024 Q1",
             "avg": 63776.666666666664,
-            "qoq": 0.03855569487642958,
+            "qoq": 0.038555694876429625,
             "bestMonth": "Mar 24 (71,191)",
             "worstMonth": "Feb 24 (59,596)"
           },
@@ -535,14 +555,14 @@
           {
             "quarter": "2024 Q3",
             "avg": 37079.333333333336,
-            "qoq": -0.1003437259897286,
+            "qoq": -0.10034372598972863,
             "bestMonth": "Sep 24 (42,337)",
             "worstMonth": "Aug 24 (34,272)"
           },
           {
             "quarter": "2024 Q4",
             "avg": 40062,
-            "qoq": 0.08044013736313123,
+            "qoq": 0.08044013736313116,
             "bestMonth": "Dec 24 (47,516)",
             "worstMonth": "Oct 24 (32,791)"
           },
@@ -556,30 +576,44 @@
           {
             "quarter": "2025 Q2",
             "avg": 21496.333333333332,
-            "qoq": -0.24482411354161787,
+            "qoq": -0.24482411354161793,
             "bestMonth": "Apr 25 (23,146)",
             "worstMonth": "Jun 25 (18,710)"
           },
           {
             "quarter": "2025 Q3",
             "avg": 23645.333333333332,
-            "qoq": 0.09997053761106546,
+            "qoq": 0.09997053761106556,
             "bestMonth": "Jul 25 (25,347)",
             "worstMonth": "Aug 25 (22,651)"
           },
           {
             "quarter": "2025 Q4",
             "avg": 29376.333333333332,
-            "qoq": 0.2423734070147739,
+            "qoq": 0.24237340701477383,
             "bestMonth": "Oct 25 (44,342)",
             "worstMonth": "Nov 25 (18,414)"
           },
           {
             "quarter": "2026 Q1",
-            "avg": 17043.5,
-            "qoq": -0.41982207899783275,
+            "avg": 15953.333333333334,
+            "qoq": -0.45693245129299087,
             "bestMonth": "Feb 26 (17,078)",
-            "worstMonth": "Mar 31 (13,773)"
+            "worstMonth": "Mar 26 (13,773)"
+          },
+          {
+            "quarter": "2026 Q2",
+            "avg": 24826.666666666668,
+            "qoq": 0.5562055996656916,
+            "bestMonth": "May 26 (29,341)",
+            "worstMonth": "Jun 26 (22,142)"
+          },
+          {
+            "quarter": "2026 Q3",
+            "avg": 23518,
+            "qoq": -0.05271213748657366,
+            "bestMonth": "Jul 26 (25,893)",
+            "worstMonth": "Aug 26 (21,143)"
           }
         ]
       }
@@ -609,6 +643,10 @@
       ],
       "bottomMonths": [
         {
+          "label": "Mar 26",
+          "value": 13773
+        },
+        {
           "label": "Jan 26",
           "value": 17009
         },
@@ -623,10 +661,6 @@
         {
           "label": "Jun 25",
           "value": 18710
-        },
-        {
-          "label": "May 25",
-          "value": 22633
         }
       ],
       "largestMoMIncrease": {
@@ -640,9 +674,9 @@
         "pct": -0.5686076414401176
       },
       "drawdownRecovery": {
-        "drawdownPct": -0.9657569541775193,
+        "drawdownPct": -0.9576062350494958,
         "from": "2022-08-31",
-        "to": "2026-03-31",
+        "to": "2026-08-31",
         "recovered": false
       }
     },
@@ -651,22 +685,22 @@
         {
           "threshold": 50000,
           "firstReached": "2023-05-31",
-          "lastSeen": "2026-03-31"
+          "lastSeen": "2026-08-31"
         },
         {
           "threshold": 25000,
           "firstReached": "2025-03-31",
-          "lastSeen": "2026-03-31"
+          "lastSeen": "2026-08-31"
         }
       ]
     },
     "method": {
-      "source": "terra-classic-fcd.publicnode.com",
+      "source": "Terra Classic FCD and archival RPC endpoints",
       "metricDefinition": "Monthly Active Wallets = unique addresses observed participating in on-chain transactions in that month.",
-      "dataWindow": "Jun 22 → Feb 26",
+      "dataWindow": "Jun 22 → Aug 26",
       "notes": [
-        "Snapshot compiled from bundled monthly dataset.",
-        "Null months were excluded from the series."
+        "Snapshot compiled from the validated monthly active-wallet dataset.",
+        "Months without a validated result are excluded from the series."
       ]
     }
   }
