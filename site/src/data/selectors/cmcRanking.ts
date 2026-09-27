@@ -269,6 +269,10 @@ export function selectCmcRanking(
   const latestLabel = formatDateTime(latest.capturedAt);
   const currentDeltaText =
     `${Math.abs(currentRankDelta)} position${Math.abs(currentRankDelta) === 1 ? "" : "s"} ${currentRankDelta < 0 ? "better" : currentRankDelta > 0 ? "worse" : "unchanged"} than latest Wayback`;
+  const currentDeltaInsightText = currentDeltaText.replace(
+    "latest Wayback",
+    "the latest Wayback observation",
+  );
 
   return {
     header: {
@@ -321,7 +325,7 @@ export function selectCmcRanking(
     ],
     insights: {
       highlights: [
-        `The latest static CMC observation is ${formatRank(latestEvidence.rank)} on ${latestEvidenceLabel}; it is ${currentDeltaText.toLowerCase()} than the latest Wayback observation.`,
+        `The latest static CMC observation is ${formatRank(latestEvidence.rank)} on ${latestEvidenceLabel}; it is ${currentDeltaInsightText}.`,
         `The latest Wayback position is ${formatRank(latest.rank)} on ${latestLabel}; ${describeRankChange(rankDelta).toLowerCase()}.`,
         `The best observed position was ${formatRank(best.rank)} on ${formatDateTime(best.capturedAt)}, when the page labelled the asset ${best.assetName ?? "Terra Classic"} / ${best.assetSymbol ?? "LUNC"}.`,
         `The selected range median is ${formatRank(medianRank)} across ${observations.length} plotted observations; the worst observed position was ${formatRank(worst.rank)} on ${formatDateTime(worst.capturedAt)}.`,

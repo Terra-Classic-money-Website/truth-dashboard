@@ -277,6 +277,10 @@ export function selectCmcMostViewed(
   const currentDeltaText = currentRankDelta === null
     ? "No latest archive comparison"
     : `${Math.abs(currentRankDelta)} position${Math.abs(currentRankDelta) === 1 ? "" : "s"} ${currentRankDelta < 0 ? "better" : currentRankDelta > 0 ? "worse" : "unchanged"} than latest Wayback`;
+  const currentDeltaInsightText = currentDeltaText.replace(
+    "than latest Wayback",
+    "than the latest Wayback observation",
+  );
 
   return {
     header: {
@@ -362,7 +366,7 @@ export function selectCmcMostViewed(
       highlights: [
         ...(latestEvidence
           ? [
-              `The latest user-provided screenshot shows ${formatRank(latestEvidence.rank)} on ${latestEvidenceLabel}; ${currentDeltaText.toLowerCase()} compared with the latest Wayback observation.`,
+              `The latest user-provided screenshot shows ${formatRank(latestEvidence.rank)} on ${latestEvidenceLabel}; ${currentDeltaInsightText}.`,
             ]
           : []),
         `The latest Wayback position is ${formatRank(latest.rank)} on ${latestLabel}; ${describeRankChange(rankDelta).toLowerCase()}.`,

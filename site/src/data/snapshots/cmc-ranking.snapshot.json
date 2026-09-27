@@ -3,10 +3,10 @@
   "dashboardId": "cmc-ranking",
   "title": "CMC Ranking — Historical",
   "subtitle": "Terra Classic’s observed CoinMarketCap market-cap ranking, reconstructed from archived CMC coin pages and a current keyless CMC API observation.",
-  "generatedAt": "2026-09-21T09:53:28.873Z",
+  "generatedAt": "2026-09-27T12:27:18.317Z",
   "coverage": {
     "start": "2020-02-19",
-    "end": "2026-09-21",
+    "end": "2026-09-27",
     "cadence": "irregular Wayback captures plus latest static API observation"
   },
   "sources": [
@@ -14,7 +14,7 @@
       "id": "wayback-timemap-cmc-coin-page",
       "label": "Internet Archive Wayback Machine",
       "type": "archive",
-      "notes": "Timemap index for https://coinmarketcap.com/currencies/terra-luna/; 726 HTTP 200 HTML captures retained with capture-level provenance."
+      "notes": "Timemap index for https://coinmarketcap.com/currencies/terra-luna/; 729 HTTP 200 HTML captures retained with capture-level provenance."
     },
     {
       "id": "cmc-public-current-rank",
@@ -2762,6 +2762,10 @@
             "v": 137
           },
           {
+            "t": "2025-01-15T19:44:02.000Z",
+            "v": 139
+          },
+          {
             "t": "2025-01-18T08:14:38.000Z",
             "v": 142
           },
@@ -2776,6 +2780,10 @@
           {
             "t": "2025-01-30T13:43:55.000Z",
             "v": 151
+          },
+          {
+            "t": "2025-02-02T19:07:19.000Z",
+            "v": 147
           },
           {
             "t": "2025-02-02T21:02:52.000Z",
@@ -2839,7 +2847,7 @@
           },
           {
             "t": "2025-08-27T00:58:33.000Z",
-            "v": 155
+            "v": 152
           },
           {
             "t": "2025-09-07T03:02:56.000Z",
@@ -2964,6 +2972,10 @@
           {
             "t": "2026-08-29T12:57:10.000Z",
             "v": 106
+          },
+          {
+            "t": "2026-09-21T09:45:02.000Z",
+            "v": 112
           }
         ]
       }
@@ -13095,6 +13107,21 @@
         "error": null
       },
       {
+        "captureTimestamp": "20250115194402",
+        "capturedAt": "2025-01-15T19:44:02.000Z",
+        "observedDate": "2025-01-15",
+        "archiveUrl": "https://web.archive.org/web/20250115194402id_/https://coinmarketcap.com/currencies/terra-luna/",
+        "originalUrl": "https://coinmarketcap.com/currencies/terra-luna/",
+        "digest": "PP74S6VPAZFIFDWLKKGB2Q4SW5CTCZRT",
+        "archiveBytes": 91821,
+        "status": "rank_observed",
+        "rank": 139,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "rankSource": "CoinMarketCap page statistics",
+        "error": null
+      },
+      {
         "captureTimestamp": "20250118081438",
         "capturedAt": "2025-01-18T08:14:38.000Z",
         "observedDate": "2025-01-18",
@@ -13149,6 +13176,21 @@
         "archiveBytes": 92581,
         "status": "rank_observed",
         "rank": 151,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "rankSource": "CoinMarketCap page statistics",
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250202190719",
+        "capturedAt": "2025-02-02T19:07:19.000Z",
+        "observedDate": "2025-02-02",
+        "archiveUrl": "https://web.archive.org/web/20250202190719id_/https://coinmarketcap.com/currencies/terra-luna/",
+        "originalUrl": "https://coinmarketcap.com/currencies/terra-luna/",
+        "digest": "XEQO6G5JCVOVYUBVK2S4A5C7DVVCTZ7X",
+        "archiveBytes": 92665,
+        "status": "rank_observed",
+        "rank": 147,
         "assetName": "Terra Classic",
         "assetSymbol": "LUNC",
         "rankSource": "CoinMarketCap page statistics",
@@ -13388,7 +13430,7 @@
         "digest": "RMSHYFMNE3XXQ7HD24M7NLOIV36XXRGN",
         "archiveBytes": 98583,
         "status": "rank_observed",
-        "rank": 155,
+        "rank": 152,
         "assetName": "Terra Classic",
         "assetSymbol": "LUNC",
         "rankSource": "CoinMarketCap page statistics",
@@ -13858,25 +13900,40 @@
         "assetSymbol": "LUNC",
         "rankSource": "CoinMarketCap page statistics",
         "error": null
+      },
+      {
+        "captureTimestamp": "20260921094502",
+        "capturedAt": "2026-09-21T09:45:02.000Z",
+        "observedDate": "2026-09-21",
+        "archiveUrl": "https://web.archive.org/web/20260921094502id_/https://coinmarketcap.com/currencies/terra-luna/",
+        "originalUrl": "https://coinmarketcap.com/currencies/terra-luna/",
+        "digest": "IEMUW3QIJZXE3PBSZYI3EUZVXVVIA3GF",
+        "archiveBytes": 194147,
+        "status": "rank_observed",
+        "rank": 112,
+        "assetName": "Terra Classic",
+        "assetSymbol": "LUNC",
+        "rankSource": "CoinMarketCap page statistics",
+        "error": null
       }
     ],
     "currentObservation": {
-      "observedDate": "2026-09-21",
-      "recordedAt": "2026-09-21T09:51:00.000Z",
-      "rank": 112,
+      "observedDate": "2026-09-27",
+      "recordedAt": "2026-09-27T12:26:00.000Z",
+      "rank": 117,
       "sourceLabel": "CoinMarketCap public API (keyless current endpoint)",
       "sourceUrl": "https://pro-api.coinmarketcap.com/public-api/v3/cryptocurrency/quotes/latest?id=4172",
-      "evidence": "CMC API asset ID 4172 returned cmc_rank 112; the current endpoint is used only for the latest static observation, not historical backfill."
+      "evidence": "CMC API asset ID 4172 returned cmc_rank 117; the current endpoint is used only for the latest static observation, not historical backfill."
     },
     "stats": {
-      "timemapCaptureCount": 726,
-      "uniqueDigestCount": 512,
-      "fetchedContentCount": 512,
-      "rankObservationCount": 726,
+      "timemapCaptureCount": 729,
+      "uniqueDigestCount": 515,
+      "fetchedContentCount": 515,
+      "rankObservationCount": 729,
       "notObservedCount": 0,
       "parseFailedCount": 0,
       "fetchFailedCount": 0,
-      "uniqueObservationDates": 307
+      "uniqueObservationDates": 309
     }
   }
 }
