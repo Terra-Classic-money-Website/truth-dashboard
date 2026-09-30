@@ -12,6 +12,12 @@ const outputPath = path.join(
 );
 
 const pageUrl = "https://validator.info/terra-classic";
+const captureExclusions = new Map([
+  [
+    "20260614215708",
+    "User flagged this capture’s APR reading as mistaken; retain the source capture as evidence but exclude it from the analysis.",
+  ],
+]);
 const cdxUrl = new URL("https://web.archive.org/cdx/search/cdx");
 cdxUrl.searchParams.set("url", "validator.info/terra-classic");
 cdxUrl.searchParams.set("output", "json");
@@ -169,10 +175,14 @@ function readCdxRows(value) {
 
 function buildStats(observations) {
   const observed = observations.filter((item) => item.status === "apr_observed");
+  const excludedCaptureCount = observations.filter(
+    (item) => item.status === "excluded",
+  ).length;
   return {
     cdxCaptureCount: observations.length,
-    fetchedCaptureCount: observations.filter((item) => item.status !== "fetch_failed").length,
+    fetchedCaptureCount: observations.filter((item) => item.error === null).length,
     aprObservationCount: observed.length,
+    excludedCaptureCount,
     notObservedCount: observations.filter((item) => item.status === "not_observed").length,
     parseFailedCount: observations.filter((item) => item.status === "parse_failed").length,
     fetchFailedCount: observations.filter((item) => item.status === "fetch_failed").length,
@@ -216,23 +226,28 @@ async function main() {
         retries: 2,
       });
       const parsed = parseAprState(html);
+      const exclusionReason = captureExclusions.get(capture.timestamp) ?? null;
+      const status = exclusionReason ? "excluded" : parsed.status;
       console.log(
-        `[${index + 1}/${captures.length}] ${capture.timestamp}: ${parsed.status}${
+        `[${index + 1}/${captures.length}] ${capture.timestamp}: ${status}${
           parsed.apr === null ? "" : ` ${parsed.apr.toFixed(4)}%`
         }`,
       );
-      return { ...base, ...parsed, error: null };
+      return { ...base, ...parsed, status, exclusionReason, error: null };
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
+      const exclusionReason = captureExclusions.get(capture.timestamp) ?? null;
+      const status = exclusionReason ? "excluded" : "fetch_failed";
       console.log(
-        `[${index + 1}/${captures.length}] ${capture.timestamp}: fetch_failed (${message})`,
+        `[${index + 1}/${captures.length}] ${capture.timestamp}: ${status} (${message})`,
       );
       return {
         ...base,
-        status: "fetch_failed",
+        status,
         apr: null,
         luncApr: null,
         ustcApr: null,
+        exclusionReason,
         error: message,
       };
     }
@@ -241,9 +256,12 @@ async function main() {
   const sortedObservations = observations.sort((a, b) =>
     a.capturedAt.localeCompare(b.capturedAt),
   );
-  const aprPoints = sortedObservations
+  const validObservations = sortedObservations
     .filter((item) => item.status === "apr_observed" && item.apr !== null)
-    .map((item) => ({ t: item.capturedAt, v: item.apr }));
+  const aprPoints = validObservations.map((item) => ({
+    t: item.capturedAt,
+    v: item.apr,
+  }));
 
   if (!aprPoints.length) {
     throw new Error("No Validator Info staking APR observations were extracted.");
@@ -258,8 +276,8 @@ async function main() {
       "Validator Info’s displayed Terra Classic staking APR, reconstructed from Internet Archive snapshots.",
     generatedAt: new Date().toISOString(),
     coverage: {
-      start: sortedObservations[0].observedDate,
-      end: sortedObservations[sortedObservations.length - 1].observedDate,
+      start: validObservations[0].observedDate,
+      end: validObservations[validObservations.length - 1].observedDate,
       cadence: "irregular Wayback captures",
     },
     sources: [
@@ -268,7 +286,7 @@ async function main() {
         label: "Internet Archive Wayback Machine",
         type: "archive",
         notes:
-          `CDX captures of ${pageUrl}; ${stats.cdxCaptureCount} HTTP 200 HTML captures retained with capture-level provenance.`,
+          `CDX captures of ${pageUrl}; ${stats.cdxCaptureCount} HTTP 200 HTML captures retained with capture-level provenance${stats.excludedCaptureCount > 0 ? `, including ${stats.excludedCaptureCount} excluded from APR analysis` : ""}.`,
       },
       {
         id: "validator-info-terra-classic",
@@ -290,6 +308,9 @@ async function main() {
       "Each APR value is the aggregate Staking APR displayed by Validator Info at the capture time; it is preserved as published, not recalculated.",
       "Free public chain endpoints expose current and historical inputs such as mint parameters and bonded stake, but there is no canonical on-chain APR time series. Reconstructing this provider’s exact APR would require its calculation method and reward assumptions.",
       "The archive has irregular coverage. The chart plots observed capture values only and does not imply daily values between captures.",
+      ...(stats.excludedCaptureCount > 0
+        ? [`${stats.excludedCaptureCount} capture was retained as source evidence and excluded from APR analysis after being flagged as mistaken.`]
+        : []),
       "Where present, LUNC APR and USTC APR are source-reported contributions to the aggregate APR. A missing contribution breakdown is unknown, not zero.",
       "This is the site’s aggregate network APR, not a validator-specific net rate, guaranteed return, compounded APY, or price-adjusted return.",
     ],

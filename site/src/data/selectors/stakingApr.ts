@@ -160,6 +160,8 @@ export function selectStakingApr(
     isWithinWindow(capture.capturedAt, selectedWindow, referenceDate),
   );
   const captures = capturesInWindow.length ? capturesInWindow : allCaptures;
+  const excludedCaptures = captures.filter((capture) => capture.status === "excluded");
+  const eligibleCaptures = captures.length - excludedCaptures.length;
   const observations = captures.filter(
     (capture): capture is ObservedApr =>
       capture.status === "apr_observed" && capture.apr !== null,
@@ -231,7 +233,7 @@ export function selectStakingApr(
     .reverse();
 
   const selectedRangeLabel = selectedWindow?.label ?? "ALL";
-  const captureRate = captures.length ? observations.length / captures.length : 0;
+  const captureRate = eligibleCaptures ? observations.length / eligibleCaptures : 0;
   const relativeChange = first.apr === 0 ? null : rangeDelta / first.apr;
   const latestGapDays = previous
     ? (toDate(latest.capturedAt).getTime() -
@@ -430,7 +432,8 @@ export function selectStakingApr(
         selectedRangeLabel,
         totalCaptures: captures.length,
         aprObservations: observations.length,
-        unresolvedCaptures: captures.length - observations.length,
+        unresolvedCaptures: eligibleCaptures - observations.length,
+        excludedCaptureCount: excludedCaptures.length,
         resolutionRate: captureRate,
         uniqueObservationDates: new Set(
           observations.map((observation) => observation.observedDate),

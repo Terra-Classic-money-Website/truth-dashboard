@@ -3,10 +3,10 @@
   "dashboardId": "staking-apr",
   "title": "LUNC Staking APR — Historical",
   "subtitle": "Validator Info’s displayed Terra Classic staking APR, reconstructed from Internet Archive snapshots.",
-  "generatedAt": "2026-09-30T12:04:53.280Z",
+  "generatedAt": "2026-09-30T12:50:30.716Z",
   "coverage": {
     "start": "2023-11-29",
-    "end": "2026-06-14",
+    "end": "2026-02-07",
     "cadence": "irregular Wayback captures"
   },
   "sources": [
@@ -14,7 +14,7 @@
       "id": "wayback-cdx-validator-info-staking-apr",
       "label": "Internet Archive Wayback Machine",
       "type": "archive",
-      "notes": "CDX captures of https://validator.info/terra-classic; 22 HTTP 200 HTML captures retained with capture-level provenance."
+      "notes": "CDX captures of https://validator.info/terra-classic; 22 HTTP 200 HTML captures retained with capture-level provenance, including one excluded from APR analysis."
     },
     {
       "id": "validator-info-terra-classic",
@@ -26,14 +26,16 @@
       "id": "user-provided-current-reference",
       "label": "User-provided current reference",
       "type": "reference",
-      "notes": "Current staking APR confirmed at 1.71% on 2026-09-30."
+      "notes": "Current staking APR confirmed at 3.04% on 2026-09-30."
     }
   ],
   "notes": [
     "Each APR value is the aggregate Staking APR displayed by Validator Info at the capture time; it is preserved as published, not recalculated.",
     "Free public chain endpoints expose current and historical inputs such as mint parameters and bonded stake, but there is no canonical on-chain APR time series. Reconstructing this provider’s exact APR would require its calculation method and reward assumptions.",
     "The archive has irregular coverage. The chart plots observed capture values only and does not imply daily values between captures.",
-    "Where present, LUNC APR and USTC APR are source-reported contributions to the aggregate APR. A missing contribution breakdown is unknown, not zero."
+    "1 capture was retained as source evidence and excluded from APR analysis after being flagged as mistaken.",
+    "Where present, LUNC APR and USTC APR are source-reported contributions to the aggregate APR. A missing contribution breakdown is unknown, not zero.",
+    "This is the site’s aggregate network APR, not a validator-specific net rate, guaranteed return, compounded APY, or price-adjusted return."
   ],
   "timeWindows": [
     {
@@ -144,10 +146,6 @@
           {
             "t": "2026-02-07T09:44:08.000Z",
             "v": 4.122303231521059
-          },
-          {
-            "t": "2026-06-14T21:57:08.000Z",
-            "v": 0.4014576273353616
           }
         ]
       }
@@ -165,6 +163,7 @@
         "apr": 20.49500801897076,
         "luncApr": null,
         "ustcApr": null,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -179,6 +178,7 @@
         "apr": 22.58685019932771,
         "luncApr": null,
         "ustcApr": null,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -193,6 +193,7 @@
         "apr": 17.21597387884606,
         "luncApr": null,
         "ustcApr": null,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -207,6 +208,7 @@
         "apr": 15.373188726523553,
         "luncApr": 7.91057744306285,
         "ustcApr": 7.462611283460703,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -221,6 +223,7 @@
         "apr": 12.09039014154973,
         "luncApr": 7.341531356061648,
         "ustcApr": 4.748858785488082,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -235,6 +238,7 @@
         "apr": 12.261623184489485,
         "luncApr": 6.980124222039737,
         "ustcApr": 5.281498962449748,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -249,6 +253,7 @@
         "apr": 11.53784568966336,
         "luncApr": 6.746248430371123,
         "ustcApr": 4.791597259292237,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -263,6 +268,7 @@
         "apr": 11.572598223185631,
         "luncApr": 5.8646619635710175,
         "ustcApr": 5.707936259614613,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -277,6 +283,7 @@
         "apr": 9.736379728238441,
         "luncApr": 5.939600224726015,
         "ustcApr": 3.7967795035124254,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -291,6 +298,7 @@
         "apr": 10.207369373216666,
         "luncApr": 5.609968598166149,
         "ustcApr": 4.5974007750505175,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -305,6 +313,7 @@
         "apr": 9.54280635481404,
         "luncApr": 5.087444486128452,
         "ustcApr": 4.455361868685588,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -319,6 +328,7 @@
         "apr": 9.309706836846495,
         "luncApr": 4.70720108553871,
         "ustcApr": 4.602505751307785,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -333,6 +343,7 @@
         "apr": 8.285282644294806,
         "luncApr": 5.053135830816017,
         "ustcApr": 3.2321468134787903,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -347,6 +358,7 @@
         "apr": 7.371393691713408,
         "luncApr": 4.137504563488068,
         "ustcApr": 3.23388912822534,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -361,6 +373,7 @@
         "apr": 6.7301343206587365,
         "luncApr": 3.879543052375934,
         "ustcApr": 2.8505912682828023,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -375,6 +388,7 @@
         "apr": 6.7301343206587365,
         "luncApr": 3.879543052375934,
         "ustcApr": 2.8505912682828023,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -389,6 +403,7 @@
         "apr": 6.710750495825868,
         "luncApr": 3.651070176011981,
         "ustcApr": 3.059680319813887,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -403,6 +418,7 @@
         "apr": 6.258881812190659,
         "luncApr": 3.429403735119984,
         "ustcApr": 2.829478077070675,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -417,6 +433,7 @@
         "apr": 5.7978456509426834,
         "luncApr": 3.4198110708328007,
         "ustcApr": 2.3780345801098823,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -431,6 +448,7 @@
         "apr": 4.902994230091517,
         "luncApr": 3.087921723419599,
         "ustcApr": 1.8150725066719176,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -445,6 +463,7 @@
         "apr": 4.122303231521059,
         "luncApr": 2.3331244170069794,
         "ustcApr": 1.78917881451408,
+        "exclusionReason": null,
         "error": null
       },
       {
@@ -455,28 +474,30 @@
         "originalUrl": "https://validator.info/terra-classic",
         "digest": "LWVGPFKPQTDEU5B7XH7Z5OAGDSEJZDMT",
         "archiveBytes": 29045,
-        "status": "apr_observed",
+        "status": "excluded",
         "apr": 0.4014576273353616,
         "luncApr": 0.303912027992304,
         "ustcApr": 0.0975455993430576,
+        "exclusionReason": "User flagged this capture’s APR reading as mistaken; retain the source capture as evidence but exclude it from the analysis.",
         "error": null
       }
     ],
+    "currentObservation": {
+      "observedDate": "2026-09-30",
+      "apr": 3.04,
+      "sourceLabel": "User-provided current reference",
+      "evidence": "Current staking APR confirmed at 3.04% on 2026-09-30."
+    },
     "stats": {
       "cdxCaptureCount": 22,
       "fetchedCaptureCount": 22,
-      "aprObservationCount": 22,
+      "aprObservationCount": 21,
+      "excludedCaptureCount": 1,
       "notObservedCount": 0,
       "parseFailedCount": 0,
       "fetchFailedCount": 0,
-      "uniqueObservationDates": 21,
-      "breakdownObservationCount": 19
-    },
-    "currentObservation": {
-      "observedDate": "2026-09-30",
-      "apr": 1.71,
-      "sourceLabel": "User-provided current reference",
-      "evidence": "Current staking APR confirmed at 1.71% on 2026-09-30."
+      "uniqueObservationDates": 20,
+      "breakdownObservationCount": 18
     }
   }
 }

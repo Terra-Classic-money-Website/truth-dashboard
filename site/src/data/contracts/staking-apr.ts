@@ -31,10 +31,12 @@ const captureObservationSchema = z
       "not_observed",
       "parse_failed",
       "fetch_failed",
+      "excluded",
     ]),
     apr: z.number().nonnegative().nullable(),
     luncApr: z.number().nonnegative().nullable(),
     ustcApr: z.number().nonnegative().nullable(),
+    exclusionReason: z.string().nullable(),
     error: z.string().nullable(),
   })
   .strict();
@@ -54,6 +56,7 @@ const aprStatsSchema = z
     cdxCaptureCount: z.number().int().nonnegative(),
     fetchedCaptureCount: z.number().int().nonnegative(),
     aprObservationCount: z.number().int().nonnegative(),
+    excludedCaptureCount: z.number().int().nonnegative(),
     notObservedCount: z.number().int().nonnegative(),
     parseFailedCount: z.number().int().nonnegative(),
     fetchFailedCount: z.number().int().nonnegative(),

@@ -41,6 +41,8 @@ function formatDate(value: string) {
 
 function statusLabel(status: string) {
   switch (status) {
+    case "excluded":
+      return "Excluded (user correction)";
     case "apr_observed":
       return "APR observed";
     case "not_observed":
@@ -194,6 +196,9 @@ export default function StakingAprInsights({
                   {formatNumber(insights.archiveHealth.uniqueObservationDates)} unique observation dates
                 </span>{" "}
                 across the selected range.
+                {insights.archiveHealth.excludedCaptureCount > 0
+                  ? ` ${formatNumber(insights.archiveHealth.excludedCaptureCount)} capture${insights.archiveHealth.excludedCaptureCount === 1 ? " was" : "s were"} excluded by user correction and retained in the evidence table.`
+                  : ""}
                 {insights.archiveHealth.duplicateDateCaptures > 0
                   ? ` ${formatNumber(insights.archiveHealth.duplicateDateCaptures)} extra capture${insights.archiveHealth.duplicateDateCaptures === 1 ? " shares" : "s share"} a date with another observation.`
                   : ""}
@@ -232,7 +237,9 @@ export default function StakingAprInsights({
                 <tr key={row.captureTimestamp} className="text-slate-300">
                   <td className="whitespace-nowrap px-4 py-3">{formatCaptureDate(row.capturedAt)}</td>
                   <td className="whitespace-nowrap px-4 py-3 font-semibold text-amber-200">
-                    {row.apr === null ? "—" : formatApr(row.apr)}
+                    {row.status === "excluded" || row.apr === null
+                      ? "—"
+                      : formatApr(row.apr)}
                   </td>
                   <td className="whitespace-nowrap px-4 py-3">
                     {row.luncApr === null ? "—" : formatApr(row.luncApr)}
