@@ -6,6 +6,7 @@ type Point = {
   t?: string;
   v: number;
   tooltipLabel?: string;
+  color?: string;
 };
 
 type Series = {
@@ -340,11 +341,7 @@ export default function TimeSeriesChart({
                 const gapDays = previous
                   ? (getPointTime(point) - getPointTime(previous)) / 86_400_000
                   : 0;
-                if (
-                  previous &&
-                  maxGapDays !== undefined &&
-                  gapDays > maxGapDays
-                ) {
+                if (previous && maxGapDays !== undefined && gapDays > maxGapDays) {
                   segments.push([]);
                 }
                 segments[segments.length - 1].push(point);
@@ -376,7 +373,7 @@ export default function TimeSeriesChart({
                           cx={xForTime(getPointTime(point))}
                           cy={yForValue(point.v)}
                           r={3.5}
-                          fill={stroke}
+                          fill={point.color ?? stroke}
                           stroke="#0f172a"
                           strokeWidth={1.5}
                         />
@@ -395,13 +392,13 @@ export default function TimeSeriesChart({
                 strokeDasharray="4 4"
               />
             ) : null}
-            {hoverSeriesPoints.map(({ seriesIndex, x, y }) => (
+            {hoverSeriesPoints.map(({ seriesIndex, point, x, y }) => (
               <circle
                 key={`hover-dot-${seriesIndex}`}
                 cx={x}
                 cy={y}
                 r={4}
-                fill={colors[seriesIndex % colors.length]}
+                fill={point.color ?? colors[seriesIndex % colors.length]}
                 stroke="#0f172a"
                 strokeWidth={1.5}
               />

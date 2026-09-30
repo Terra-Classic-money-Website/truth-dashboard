@@ -1,0 +1,482 @@
+{
+  "schemaVersion": "1.0.0",
+  "dashboardId": "staking-apr",
+  "title": "LUNC Staking APR — Historical",
+  "subtitle": "Validator Info’s displayed Terra Classic staking APR, reconstructed from Internet Archive snapshots.",
+  "generatedAt": "2026-09-30T12:04:53.280Z",
+  "coverage": {
+    "start": "2023-11-29",
+    "end": "2026-06-14",
+    "cadence": "irregular Wayback captures"
+  },
+  "sources": [
+    {
+      "id": "wayback-cdx-validator-info-staking-apr",
+      "label": "Internet Archive Wayback Machine",
+      "type": "archive",
+      "notes": "CDX captures of https://validator.info/terra-classic; 22 HTTP 200 HTML captures retained with capture-level provenance."
+    },
+    {
+      "id": "validator-info-terra-classic",
+      "label": "Validator Info — Terra Classic",
+      "type": "website",
+      "notes": "APR and optional LUNC / USTC contribution values are extracted from the page’s server-rendered state."
+    },
+    {
+      "id": "user-provided-current-reference",
+      "label": "User-provided current reference",
+      "type": "reference",
+      "notes": "Current staking APR confirmed at 1.71% on 2026-09-30."
+    }
+  ],
+  "notes": [
+    "Each APR value is the aggregate Staking APR displayed by Validator Info at the capture time; it is preserved as published, not recalculated.",
+    "Free public chain endpoints expose current and historical inputs such as mint parameters and bonded stake, but there is no canonical on-chain APR time series. Reconstructing this provider’s exact APR would require its calculation method and reward assumptions.",
+    "The archive has irregular coverage. The chart plots observed capture values only and does not imply daily values between captures.",
+    "Where present, LUNC APR and USTC APR are source-reported contributions to the aggregate APR. A missing contribution breakdown is unknown, not zero."
+  ],
+  "timeWindows": [
+    {
+      "id": "6m",
+      "label": "6M",
+      "days": 183
+    },
+    {
+      "id": "1y",
+      "label": "1Y",
+      "days": 365
+    },
+    {
+      "id": "2y",
+      "label": "2Y",
+      "days": 730
+    },
+    {
+      "id": "all",
+      "label": "ALL",
+      "days": null
+    }
+  ],
+  "data": {
+    "series": {
+      "stakingApr": {
+        "points": [
+          {
+            "t": "2023-11-29T06:16:38.000Z",
+            "v": 20.49500801897076
+          },
+          {
+            "t": "2023-12-01T07:07:47.000Z",
+            "v": 22.58685019932771
+          },
+          {
+            "t": "2023-12-04T21:22:23.000Z",
+            "v": 17.21597387884606
+          },
+          {
+            "t": "2024-02-24T08:12:03.000Z",
+            "v": 15.373188726523553
+          },
+          {
+            "t": "2024-04-21T07:20:09.000Z",
+            "v": 12.09039014154973
+          },
+          {
+            "t": "2024-05-22T11:45:53.000Z",
+            "v": 12.261623184489485
+          },
+          {
+            "t": "2024-05-24T21:32:00.000Z",
+            "v": 11.53784568966336
+          },
+          {
+            "t": "2024-07-13T01:16:23.000Z",
+            "v": 11.572598223185631
+          },
+          {
+            "t": "2024-08-05T02:22:05.000Z",
+            "v": 9.736379728238441
+          },
+          {
+            "t": "2024-10-16T05:14:58.000Z",
+            "v": 10.207369373216666
+          },
+          {
+            "t": "2024-11-01T21:59:27.000Z",
+            "v": 9.54280635481404
+          },
+          {
+            "t": "2024-12-09T12:20:26.000Z",
+            "v": 9.309706836846495
+          },
+          {
+            "t": "2025-01-14T03:49:39.000Z",
+            "v": 8.285282644294806
+          },
+          {
+            "t": "2025-03-26T00:13:19.000Z",
+            "v": 7.371393691713408
+          },
+          {
+            "t": "2025-06-01T22:03:14.000Z",
+            "v": 6.7301343206587365
+          },
+          {
+            "t": "2025-06-01T22:03:48.000Z",
+            "v": 6.7301343206587365
+          },
+          {
+            "t": "2025-07-10T22:22:05.000Z",
+            "v": 6.710750495825868
+          },
+          {
+            "t": "2025-09-21T15:33:06.000Z",
+            "v": 6.258881812190659
+          },
+          {
+            "t": "2025-10-12T22:45:43.000Z",
+            "v": 5.7978456509426834
+          },
+          {
+            "t": "2025-12-26T12:55:36.000Z",
+            "v": 4.902994230091517
+          },
+          {
+            "t": "2026-02-07T09:44:08.000Z",
+            "v": 4.122303231521059
+          },
+          {
+            "t": "2026-06-14T21:57:08.000Z",
+            "v": 0.4014576273353616
+          }
+        ]
+      }
+    },
+    "observations": [
+      {
+        "captureTimestamp": "20231129061638",
+        "capturedAt": "2023-11-29T06:16:38.000Z",
+        "observedDate": "2023-11-29",
+        "archiveUrl": "https://web.archive.org/web/20231129061638id_/https://www.validator.info/terra-classic",
+        "originalUrl": "https://www.validator.info/terra-classic",
+        "digest": "SVX73BH44I6EUEO64OETLFRPSME4C4KG",
+        "archiveBytes": 19689,
+        "status": "apr_observed",
+        "apr": 20.49500801897076,
+        "luncApr": null,
+        "ustcApr": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20231201070747",
+        "capturedAt": "2023-12-01T07:07:47.000Z",
+        "observedDate": "2023-12-01",
+        "archiveUrl": "https://web.archive.org/web/20231201070747id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "NXOAE4X7332JLD5C5VQ7KJXIVF4DEW4H",
+        "archiveBytes": 19882,
+        "status": "apr_observed",
+        "apr": 22.58685019932771,
+        "luncApr": null,
+        "ustcApr": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20231204212223",
+        "capturedAt": "2023-12-04T21:22:23.000Z",
+        "observedDate": "2023-12-04",
+        "archiveUrl": "https://web.archive.org/web/20231204212223id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "TZMS2KTZTIECZDIIO6YDL7SQNKC3FLSA",
+        "archiveBytes": 20050,
+        "status": "apr_observed",
+        "apr": 17.21597387884606,
+        "luncApr": null,
+        "ustcApr": null,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240224081203",
+        "capturedAt": "2024-02-24T08:12:03.000Z",
+        "observedDate": "2024-02-24",
+        "archiveUrl": "https://web.archive.org/web/20240224081203id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "KGVWEKGHG2CWAC6JE2ZCGZIHOAFHTLSZ",
+        "archiveBytes": 18955,
+        "status": "apr_observed",
+        "apr": 15.373188726523553,
+        "luncApr": 7.91057744306285,
+        "ustcApr": 7.462611283460703,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240421072009",
+        "capturedAt": "2024-04-21T07:20:09.000Z",
+        "observedDate": "2024-04-21",
+        "archiveUrl": "https://web.archive.org/web/20240421072009id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "V3RN2PXAGXS43RIGAULRBV52XZWWHQTH",
+        "archiveBytes": 21150,
+        "status": "apr_observed",
+        "apr": 12.09039014154973,
+        "luncApr": 7.341531356061648,
+        "ustcApr": 4.748858785488082,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240522114553",
+        "capturedAt": "2024-05-22T11:45:53.000Z",
+        "observedDate": "2024-05-22",
+        "archiveUrl": "https://web.archive.org/web/20240522114553id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "HZPPG74BBFO7VYX6C7JVUGQNPB656EYO",
+        "archiveBytes": 15171,
+        "status": "apr_observed",
+        "apr": 12.261623184489485,
+        "luncApr": 6.980124222039737,
+        "ustcApr": 5.281498962449748,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240524213200",
+        "capturedAt": "2024-05-24T21:32:00.000Z",
+        "observedDate": "2024-05-24",
+        "archiveUrl": "https://web.archive.org/web/20240524213200id_/https://www.validator.info/terra-classic",
+        "originalUrl": "https://www.validator.info/terra-classic",
+        "digest": "PF65UWLHN72LYFLLJM4JPXLAUZ5U7KOF",
+        "archiveBytes": 15346,
+        "status": "apr_observed",
+        "apr": 11.53784568966336,
+        "luncApr": 6.746248430371123,
+        "ustcApr": 4.791597259292237,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240713011623",
+        "capturedAt": "2024-07-13T01:16:23.000Z",
+        "observedDate": "2024-07-13",
+        "archiveUrl": "https://web.archive.org/web/20240713011623id_/https://www.validator.info/terra-classic",
+        "originalUrl": "https://www.validator.info/terra-classic",
+        "digest": "OR2VNMZ5IZF6B5CTQI5VLGY4GBRSK6DF",
+        "archiveBytes": 22811,
+        "status": "apr_observed",
+        "apr": 11.572598223185631,
+        "luncApr": 5.8646619635710175,
+        "ustcApr": 5.707936259614613,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20240805022205",
+        "capturedAt": "2024-08-05T02:22:05.000Z",
+        "observedDate": "2024-08-05",
+        "archiveUrl": "https://web.archive.org/web/20240805022205id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "UW3N5NU3ZN3UC3GYWX7HY7P6ZDTTFB5H",
+        "archiveBytes": 22731,
+        "status": "apr_observed",
+        "apr": 9.736379728238441,
+        "luncApr": 5.939600224726015,
+        "ustcApr": 3.7967795035124254,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20241016051458",
+        "capturedAt": "2024-10-16T05:14:58.000Z",
+        "observedDate": "2024-10-16",
+        "archiveUrl": "https://web.archive.org/web/20241016051458id_/https://www.validator.info/terra-classic",
+        "originalUrl": "https://www.validator.info/terra-classic",
+        "digest": "EIZOR4O42IPTX4R7XQ4PAYBUMFBSF7CP",
+        "archiveBytes": 24309,
+        "status": "apr_observed",
+        "apr": 10.207369373216666,
+        "luncApr": 5.609968598166149,
+        "ustcApr": 4.5974007750505175,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20241101215927",
+        "capturedAt": "2024-11-01T21:59:27.000Z",
+        "observedDate": "2024-11-01",
+        "archiveUrl": "https://web.archive.org/web/20241101215927id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "TH45LBHBM64M2HPUYNXKDQJGFJOWP4BL",
+        "archiveBytes": 24008,
+        "status": "apr_observed",
+        "apr": 9.54280635481404,
+        "luncApr": 5.087444486128452,
+        "ustcApr": 4.455361868685588,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20241209122026",
+        "capturedAt": "2024-12-09T12:20:26.000Z",
+        "observedDate": "2024-12-09",
+        "archiveUrl": "https://web.archive.org/web/20241209122026id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "XFKXZ2PKO35UJ22SDNMSQGOUWK4GHDCL",
+        "archiveBytes": 25435,
+        "status": "apr_observed",
+        "apr": 9.309706836846495,
+        "luncApr": 4.70720108553871,
+        "ustcApr": 4.602505751307785,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250114034939",
+        "capturedAt": "2025-01-14T03:49:39.000Z",
+        "observedDate": "2025-01-14",
+        "archiveUrl": "https://web.archive.org/web/20250114034939id_/https://www.validator.info/terra-classic",
+        "originalUrl": "https://www.validator.info/terra-classic",
+        "digest": "R32NOUVL5MKIE2ZHFAIONJSNKU2APVZT",
+        "archiveBytes": 24750,
+        "status": "apr_observed",
+        "apr": 8.285282644294806,
+        "luncApr": 5.053135830816017,
+        "ustcApr": 3.2321468134787903,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250326001319",
+        "capturedAt": "2025-03-26T00:13:19.000Z",
+        "observedDate": "2025-03-26",
+        "archiveUrl": "https://web.archive.org/web/20250326001319id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "WV5JQZR6P4NWSPA5HS2BP2Z5RXTWTFRK",
+        "archiveBytes": 26826,
+        "status": "apr_observed",
+        "apr": 7.371393691713408,
+        "luncApr": 4.137504563488068,
+        "ustcApr": 3.23388912822534,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250601220314",
+        "capturedAt": "2025-06-01T22:03:14.000Z",
+        "observedDate": "2025-06-01",
+        "archiveUrl": "https://web.archive.org/web/20250601220314id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "JKJXIROO2533BOJ6TABSYU4OVBJNGSSW",
+        "archiveBytes": 26379,
+        "status": "apr_observed",
+        "apr": 6.7301343206587365,
+        "luncApr": 3.879543052375934,
+        "ustcApr": 2.8505912682828023,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250601220348",
+        "capturedAt": "2025-06-01T22:03:48.000Z",
+        "observedDate": "2025-06-01",
+        "archiveUrl": "https://web.archive.org/web/20250601220348id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "WV4SRU5FWDETTENJG2YTQBOVZOI63FJW",
+        "archiveBytes": 26590,
+        "status": "apr_observed",
+        "apr": 6.7301343206587365,
+        "luncApr": 3.879543052375934,
+        "ustcApr": 2.8505912682828023,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250710222205",
+        "capturedAt": "2025-07-10T22:22:05.000Z",
+        "observedDate": "2025-07-10",
+        "archiveUrl": "https://web.archive.org/web/20250710222205id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "PERKKTIUG7MGQPMF2UZYBLVHKWD6R77K",
+        "archiveBytes": 27217,
+        "status": "apr_observed",
+        "apr": 6.710750495825868,
+        "luncApr": 3.651070176011981,
+        "ustcApr": 3.059680319813887,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20250921153306",
+        "capturedAt": "2025-09-21T15:33:06.000Z",
+        "observedDate": "2025-09-21",
+        "archiveUrl": "https://web.archive.org/web/20250921153306id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "B3QVPSGPV3LQIBWMVIMZRDPFFAP3ZOOQ",
+        "archiveBytes": 27571,
+        "status": "apr_observed",
+        "apr": 6.258881812190659,
+        "luncApr": 3.429403735119984,
+        "ustcApr": 2.829478077070675,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20251012224543",
+        "capturedAt": "2025-10-12T22:45:43.000Z",
+        "observedDate": "2025-10-12",
+        "archiveUrl": "https://web.archive.org/web/20251012224543id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "FOMSJSWDIR3SIYHUH6MADBME2JY4P6ZO",
+        "archiveBytes": 25418,
+        "status": "apr_observed",
+        "apr": 5.7978456509426834,
+        "luncApr": 3.4198110708328007,
+        "ustcApr": 2.3780345801098823,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20251226125536",
+        "capturedAt": "2025-12-26T12:55:36.000Z",
+        "observedDate": "2025-12-26",
+        "archiveUrl": "https://web.archive.org/web/20251226125536id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "RBORJNIIENGCTEGK42DEQVLMHQJN5Y4V",
+        "archiveBytes": 27642,
+        "status": "apr_observed",
+        "apr": 4.902994230091517,
+        "luncApr": 3.087921723419599,
+        "ustcApr": 1.8150725066719176,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20260207094408",
+        "capturedAt": "2026-02-07T09:44:08.000Z",
+        "observedDate": "2026-02-07",
+        "archiveUrl": "https://web.archive.org/web/20260207094408id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "AXX2HGQEN75MNK2GXGKVXSP3GS77TGGN",
+        "archiveBytes": 28622,
+        "status": "apr_observed",
+        "apr": 4.122303231521059,
+        "luncApr": 2.3331244170069794,
+        "ustcApr": 1.78917881451408,
+        "error": null
+      },
+      {
+        "captureTimestamp": "20260614215708",
+        "capturedAt": "2026-06-14T21:57:08.000Z",
+        "observedDate": "2026-06-14",
+        "archiveUrl": "https://web.archive.org/web/20260614215708id_/https://validator.info/terra-classic",
+        "originalUrl": "https://validator.info/terra-classic",
+        "digest": "LWVGPFKPQTDEU5B7XH7Z5OAGDSEJZDMT",
+        "archiveBytes": 29045,
+        "status": "apr_observed",
+        "apr": 0.4014576273353616,
+        "luncApr": 0.303912027992304,
+        "ustcApr": 0.0975455993430576,
+        "error": null
+      }
+    ],
+    "stats": {
+      "cdxCaptureCount": 22,
+      "fetchedCaptureCount": 22,
+      "aprObservationCount": 22,
+      "notObservedCount": 0,
+      "parseFailedCount": 0,
+      "fetchFailedCount": 0,
+      "uniqueObservationDates": 21,
+      "breakdownObservationCount": 19
+    },
+    "currentObservation": {
+      "observedDate": "2026-09-30",
+      "apr": 1.71,
+      "sourceLabel": "User-provided current reference",
+      "evidence": "Current staking APR confirmed at 1.71% on 2026-09-30."
+    }
+  }
+}

@@ -11,6 +11,7 @@
     "build:active-wallets": "node scripts/build-active-wallets-snapshot.mjs",
     "build:cmc-most-viewed": "node scripts/build-cmc-most-viewed-snapshot.mjs",
     "build:cmc-ranking": "node scripts/build-cmc-ranking-snapshot.mjs",
+    "build:staking-apr": "node scripts/build-staking-apr-snapshot.mjs",
     "build:expenditures": "node scripts/build-expenditures-snapshot.mjs",
     "lint": "eslint .",
     "preview": "vite preview"

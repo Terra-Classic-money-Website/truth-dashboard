@@ -9,6 +9,7 @@ import GovernanceValidators from "./pages/GovernanceValidators";
 import Volume from "./pages/Volume";
 import CmcMostViewedRank from "./pages/CmcMostViewedRank";
 import CmcRanking from "./pages/CmcRanking";
+import StakingApr from "./pages/StakingApr";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/dex-volume" element={<DexVolume />} />
         <Route path="/cmc-most-viewed-rank" element={<CmcMostViewedRank />} />
         <Route path="/cmc-ranking" element={<CmcRanking />} />
+        <Route path="/staking-apr" element={<StakingApr />} />
         <Route path="/community-pool" element={<CommunityPool />} />
         <Route
           path="/governance/participation"

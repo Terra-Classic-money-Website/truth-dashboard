@@ -8,10 +8,12 @@ import governanceValidatorsJson from "./snapshots/governance-validators.snapshot
 import luncVolumeJson from "./snapshots/lunc-volume.snapshot.json";
 import cmcMostViewedJson from "./snapshots/cmc-most-viewed-rank.snapshot.json";
 import cmcRankingJson from "./snapshots/cmc-ranking.snapshot.json";
+import stakingAprJson from "./snapshots/staking-apr.snapshot.json";
 import {
   activeWalletsSnapshotSchema,
   cmcMostViewedSnapshotSchema,
   cmcRankingSnapshotSchema,
+  stakingAprSnapshotSchema,
   communityPoolSnapshotSchema,
   dexVolumeSnapshotSchema,
   governanceParticipationSnapshotSchema,
@@ -26,6 +28,7 @@ export type DashboardId =
   | "lunc-volume"
   | "cmc-most-viewed-rank"
   | "cmc-ranking"
+  | "staking-apr"
   | "community-pool"
   | "governance-participation"
   | "governance-validators"
@@ -52,6 +55,10 @@ type SnapshotMap = {
     raw: unknown;
     schema: typeof cmcRankingSnapshotSchema;
   };
+  "staking-apr": {
+    raw: unknown;
+    schema: typeof stakingAprSnapshotSchema;
+  };
   "community-pool": {
     raw: unknown;
     schema: typeof communityPoolSnapshotSchema;
@@ -76,6 +83,7 @@ type SnapshotById = {
   "lunc-volume": z.infer<typeof luncVolumeSnapshotSchema>;
   "cmc-most-viewed-rank": z.infer<typeof cmcMostViewedSnapshotSchema>;
   "cmc-ranking": z.infer<typeof cmcRankingSnapshotSchema>;
+  "staking-apr": z.infer<typeof stakingAprSnapshotSchema>;
   "community-pool": z.infer<typeof communityPoolSnapshotSchema>;
   "governance-participation": z.infer<typeof governanceParticipationSnapshotSchema>;
   "governance-validators": z.infer<typeof governanceValidatorsSnapshotSchema>;
@@ -102,6 +110,10 @@ const snapshots: SnapshotMap = {
   "cmc-ranking": {
     raw: cmcRankingJson,
     schema: cmcRankingSnapshotSchema,
+  },
+  "staking-apr": {
+    raw: stakingAprJson,
+    schema: stakingAprSnapshotSchema,
   },
   "community-pool": {
     raw: communityPoolJson,

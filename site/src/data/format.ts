@@ -4,6 +4,11 @@ const numberFormatter = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 2,
 });
 
+const percentPointFormatter = new Intl.NumberFormat("en-US", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
 const compactFormatter = new Intl.NumberFormat("en-US", {
   notation: "compact",
   maximumFractionDigits: 2,
@@ -47,6 +52,16 @@ export function formatValue({
   if (unit === "percent") {
     return formatPercent(value);
   }
+  if (unit === "percent_points") {
+    return `${percentPointFormatter.format(value)}%`;
+  }
+  if (unit === "percentage_points") {
+    return `${percentPointFormatter.format(value)} pp`;
+  }
+  if (unit === "signed_percentage_points") {
+    const sign = value > 0 ? "+" : "";
+    return `${sign}${percentPointFormatter.format(value)} pp`;
+  }
   if (unit === "usd") {
     return usdFormatter.format(value);
   }
@@ -87,7 +102,11 @@ export function formatDelta(delta: {
     return `${positions} position${positions === 1 ? "" : "s"} ${direction} vs ${vs}`;
   }
   const value =
-    delta.unit === "percent" ? formatPercent(delta.value) : formatNumber(delta.value);
+    delta.unit === "percent"
+      ? formatPercent(delta.value)
+      : delta.unit === "percentage_points"
+        ? `${formatNumber(delta.value)} pp`
+        : formatNumber(delta.value);
   const vs = delta.vs.replace(/_/g, " ");
   return `${value} vs ${vs}`;
 }

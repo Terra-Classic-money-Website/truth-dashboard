@@ -4,6 +4,7 @@ export * from "./dex-volume";
 export * from "./lunc-volume";
 export * from "./cmc-most-viewed";
 export * from "./cmc-ranking";
+export * from "./staking-apr";
 export * from "./community-pool";
 export * from "./expenditures";
 export * from "./governance-participation";
