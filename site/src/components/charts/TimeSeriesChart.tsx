@@ -150,12 +150,14 @@ export default function TimeSeriesChart({
     }
     const maxTicks = Math.max(2, Math.floor(innerWidth / minXTickGap));
     const step = Math.max(1, Math.ceil(xTickCandidates.length / maxTicks));
-    return xTickCandidates.filter((_, index) => {
+    const lastTick = xTickCandidates[xTickCandidates.length - 1];
+    return xTickCandidates.filter((tick, index) => {
       const isEdge =
         index === 0 || index === xTickCandidates.length - 1;
-      return isEdge || index % step === 0;
+      const gapToLastTick = ((lastTick - tick) / timeRange) * innerWidth;
+      return isEdge || (index % step === 0 && gapToLastTick >= minXTickGap);
     });
-  }, [forceAllXTicks, innerWidth, minXTickGap, xTickCandidates]);
+  }, [forceAllXTicks, innerWidth, minXTickGap, timeRange, xTickCandidates]);
 
   const buildTicks = () => {
     const targetCount = 6;

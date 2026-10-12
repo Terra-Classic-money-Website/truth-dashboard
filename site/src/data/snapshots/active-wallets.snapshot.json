@@ -3,18 +3,18 @@
   "dashboardId": "active-wallets",
   "title": "Monthly Active Wallets",
   "subtitle": "Participants per month based on transaction senders and recipients on the Terra Classic L1.",
-  "generatedAt": "2026-08-28",
+  "generatedAt": "2026-10-12",
   "coverage": {
     "start": "2022-06-30",
-    "end": "2026-08-31",
+    "end": "2026-09-30",
     "cadence": "monthly"
   },
   "sources": [
     {
       "id": "active-wallets-monthly",
-      "label": "Validated monthly active wallets dataset",
+      "label": "Monthly active wallets dataset",
       "type": "dataset",
-      "notes": "Bundled monthly snapshot built from validated FCD and archival RPC scan results."
+      "notes": "Bundled monthly snapshot built from completed FCD and archival RPC scans."
     }
   ],
   "notes": [],
@@ -246,7 +246,11 @@
           },
           {
             "periodEnd": "2026-08-31",
-            "v": 21143
+            "v": 22735
+          },
+          {
+            "periodEnd": "2026-09-30",
+            "v": 19415
           }
         ]
       },
@@ -271,12 +275,12 @@
       {
         "id": "kpi.mawTotal",
         "label": "Monthly active wallets",
-        "value": 21143,
+        "value": 19415,
         "unit": "count",
         "scale": 1,
-        "asOf": "2026-08-31",
+        "asOf": "2026-09-30",
         "delta": {
-          "value": -0.1834472637392346,
+          "value": -0.1460303496811084,
           "unit": "percent",
           "vs": "prev_period"
         },
@@ -288,7 +292,7 @@
         "value": null,
         "unit": "count",
         "scale": 1,
-        "asOf": "2026-08-31",
+        "asOf": "2026-09-30",
         "delta": null,
         "note": "Not available in dataset"
       },
@@ -298,7 +302,7 @@
         "value": null,
         "unit": "count",
         "scale": 1,
-        "asOf": "2026-08-31",
+        "asOf": "2026-09-30",
         "delta": null,
         "note": "Not available in dataset"
       },
@@ -308,27 +312,27 @@
         "value": null,
         "unit": "percent",
         "scale": 1,
-        "asOf": "2026-08-31",
+        "asOf": "2026-09-30",
         "delta": null,
         "note": "Not available in dataset"
       }
     ],
     "insights": {
       "highlights": [
-        "Activity is down -95.8% from the peak (peak: Aug 22, 498,729).",
-        "Over the last 12 months, the trend slope is -438 wallets/month (smoothed).",
-        "The latest month shows decline with MoM change of -18.3%.",
-        "Year-over-year change is -6.7% (vs Aug 25).",
-        "The network spent 13 months below 25,000 active wallets."
+        "Activity is down -96.1% from the peak (peak: Aug 22, 498,729).",
+        "Over the last 12 months, the trend slope is -559 wallets/month (smoothed).",
+        "The latest month shows decline with MoM change of -14.6%.",
+        "Year-over-year change is -15.4% (vs Sep 25).",
+        "The network spent 14 months below 25,000 active wallets."
       ],
       "kpiSnapshot": [
         {
           "id": "kpi.currentMonth",
           "label": "Current month",
-          "value": 21143,
+          "value": 19415,
           "unit": "count",
-          "asOf": "2026-08-31",
-          "note": "Aug 26"
+          "asOf": "2026-09-30",
+          "note": "Sep 26"
         },
         {
           "id": "kpi.allTimePeak",
@@ -341,33 +345,33 @@
         {
           "id": "kpi.drawdown",
           "label": "Drawdown from peak",
-          "value": -0.9576062350494958,
+          "value": -0.9610710425902644,
           "unit": "percent",
-          "asOf": "2026-08-31",
+          "asOf": "2026-09-30",
           "note": "Current vs peak"
         },
         {
           "id": "kpi.roll12Avg",
           "label": "12M rolling average",
-          "value": 23370.25,
+          "value": 23209.333333333332,
           "unit": "count",
-          "asOf": "2026-08-31",
+          "asOf": "2026-09-30",
           "note": "Last 12 months"
         },
         {
           "id": "kpi.trendSlope",
           "label": "12M trend slope",
-          "value": -437.7307692307692,
+          "value": -559.4055944055945,
           "unit": "count",
-          "asOf": "2026-08-31",
+          "asOf": "2026-09-30",
           "note": "wallets / month"
         },
         {
           "id": "kpi.stability",
           "label": "12M stability",
-          "value": 0.32431753581155615,
+          "value": 0.32906475193696844,
           "unit": "percent",
-          "asOf": "2026-08-31",
+          "asOf": "2026-09-30",
           "note": "stdev / mean"
         }
       ]
@@ -448,11 +452,11 @@
           },
           {
             "year": "2026",
-            "avgMonthly": 21172,
-            "median": 21642.5,
-            "yoy": -0.17765334196471916,
-            "volatility": 4771.390965955316,
-            "cv": 0.2253632611919193
+            "avgMonthly": 21153.666666666668,
+            "median": 22142,
+            "yoy": -0.17836543129956295,
+            "volatility": 4566.247255679438,
+            "cv": 0.21586079272369352
           }
         ]
       },
@@ -610,10 +614,10 @@
           },
           {
             "quarter": "2026 Q3",
-            "avg": 23518,
-            "qoq": -0.05271213748657366,
+            "avg": 22681,
+            "qoq": -0.08642588614393132,
             "bestMonth": "Jul 26 (25,893)",
-            "worstMonth": "Aug 26 (21,143)"
+            "worstMonth": "Sep 26 (19,415)"
           }
         ]
       }
@@ -674,9 +678,9 @@
         "pct": -0.5686076414401176
       },
       "drawdownRecovery": {
-        "drawdownPct": -0.9576062350494958,
+        "drawdownPct": -0.9610710425902644,
         "from": "2022-08-31",
-        "to": "2026-08-31",
+        "to": "2026-09-30",
         "recovered": false
       }
     },
@@ -685,22 +689,22 @@
         {
           "threshold": 50000,
           "firstReached": "2023-05-31",
-          "lastSeen": "2026-08-31"
+          "lastSeen": "2026-09-30"
         },
         {
           "threshold": 25000,
           "firstReached": "2025-03-31",
-          "lastSeen": "2026-08-31"
+          "lastSeen": "2026-09-30"
         }
       ]
     },
     "method": {
       "source": "Terra Classic FCD and archival RPC endpoints",
       "metricDefinition": "Monthly Active Wallets = unique addresses observed participating in on-chain transactions in that month.",
-      "dataWindow": "Jun 22 → Aug 26",
+      "dataWindow": "Jun 22 → Sep 26",
       "notes": [
-        "Snapshot compiled from the validated monthly active-wallet dataset.",
-        "Months without a validated result are excluded from the series."
+        "Snapshot compiled from the monthly active-wallet scan results.",
+        "Months without a numeric scan result are excluded from the series."
       ]
     }
   }

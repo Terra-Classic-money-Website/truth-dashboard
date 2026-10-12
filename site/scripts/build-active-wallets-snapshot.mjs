@@ -13,10 +13,11 @@ const importedPoints = [
   { periodEnd: "2026-05-31", v: 29_341 },
   { periodEnd: "2026-06-30", v: 22_142 },
   { periodEnd: "2026-07-31", v: 25_893 },
-  { periodEnd: "2026-08-31", v: 21_143 },
+  { periodEnd: "2026-08-31", v: 22_735 },
+  { periodEnd: "2026-09-30", v: 19_415 },
 ];
 
-const generatedAt = "2026-08-28";
+const generatedAt = "2026-10-12";
 const monthFormatter = new Intl.DateTimeFormat("en-US", {
   month: "short",
   year: "2-digit",
@@ -249,9 +250,9 @@ function main() {
   snapshot.sources = [
     {
       id: "active-wallets-monthly",
-      label: "Validated monthly active wallets dataset",
+      label: "Monthly active wallets dataset",
       type: "dataset",
-      notes: "Bundled monthly snapshot built from validated FCD and archival RPC scan results.",
+      notes: "Bundled monthly snapshot built from completed FCD and archival RPC scans.",
     },
   ];
   snapshot.data.series.mawTotal.points = points;
@@ -338,8 +339,8 @@ function main() {
       "Monthly Active Wallets = unique addresses observed participating in on-chain transactions in that month.",
     dataWindow: `${formatMonth(points[0].periodEnd)} → ${formatMonth(latest.periodEnd)}`,
     notes: [
-      "Snapshot compiled from the validated monthly active-wallet dataset.",
-      "Months without a validated result are excluded from the series.",
+      "Snapshot compiled from the monthly active-wallet scan results.",
+      "Months without a numeric scan result are excluded from the series.",
     ],
   };
 
