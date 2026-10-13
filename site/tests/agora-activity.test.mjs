@@ -105,32 +105,32 @@ test("former-validator identity is excluded from today's bonded population", () 
   assert.equal(snapshot.data.validators.some(v => v.address === retired.operator_address), false);
 });
 
-test("plain-English insights follow the selected window and distinguish unanswered topics from missing validator responses", () => {
+test("plain-English insights explain implications without repeating the KPI figures", () => {
   const recent = deriveAgoraInsights(deriveAgoraActivity(snapshot, "90d"));
   assert.equal(recent.length, 5);
-  assert.match(recent.find(h => h.id === "participation").text, /Only 11 of 88.*22\.3%/);
-  assert.match(recent.find(h => h.id === "validator-replies").text, /Most topics.*18 of 27/);
-  assert.match(recent.find(h => h.id === "unanswered-topics").text, /12 of 27.*no human reply/);
-  assert.match(recent.find(h => h.id === "identity-gap").text, /70 of 88.*does not prove inactivity/);
-  const lifetime = deriveAgoraInsights(deriveAgoraActivity(snapshot, "all"));
-  assert.match(lifetime.find(h => h.id === "participation").text, /17 of 88/);
-  assert.match(lifetime.find(h => h.id === "validator-replies").text, /111 of 170/);
-  assert.match(lifetime.find(h => h.id === "unanswered-topics").text, /61 of 170/);
+  assert.match(recent.find(h => h.id === "accountability").text, /harder to hold them accountable/);
+  assert.match(recent.find(h => h.id === "validator-feedback").text, /question and improve ideas/);
+  assert.match(recent.find(h => h.id === "public-debate").text, /compare arguments/);
+  assert.match(recent.find(h => h.id === "representation").text, /should not be mistaken for broad validator agreement/);
+  assert.match(recent.find(h => h.id === "transparency").text, /should link their Agora accounts/);
+  assert.doesNotMatch(recent.map(h => h.text).join(" "), /\d|%|inactive/);
 });
 
-test("insights remain brief, qualify candidate estimates and avoid unsupported majority claims", () => {
+test("insights remain brief, qualify candidate estimates and change when the evidence no longer supports criticism", () => {
   const estimated = deriveAgoraInsights(deriveAgoraActivity(snapshot, "90d", true), true);
-  assert.match(estimated.find(h => h.id === "participation").text, /unverified matches, an estimated 13 of 88/);
-  assert.match(estimated.find(h => h.id === "validator-replies").text, /known or possible/);
-  assert.match(estimated.find(h => h.id === "concentration").text, /estimated validator messages/);
-  const year = deriveAgoraInsights(deriveAgoraActivity(snapshot, "365d"));
-  const concentration = year.find(h => h.id === "concentration");
-  assert.match(concentration.text, /48\.5%/);
-  assert.doesNotMatch(concentration.text, /most/i);
-  const halfAnswered = deriveAgoraActivity(snapshot, "90d");
-  halfAnswered.topicRows = halfAnswered.topicRows.slice(0, 2);
-  halfAnswered.topicsWithValidatorResponse = 1;
-  assert.doesNotMatch(deriveAgoraInsights(halfAnswered).find(h => h.id === "validator-replies").text, /most/i);
+  assert.match(estimated.find(h => h.id === "accountability").text, /unverified matches included/);
+  assert.match(estimated.find(h => h.id === "validator-feedback").text, /known or possible/);
+  const broad = deriveAgoraActivity(snapshot, "90d");
+  broad.activeRows = broad.rows.slice(0, 44);
+  broad.topicsWithValidatorResponse = broad.topicRows.length;
+  broad.noReplies = 0;
+  broad.topThreeShare = 20;
+  const insights = deriveAgoraInsights(broad);
+  assert.doesNotMatch(insights.find(h => h.id === "accountability").text, /little public evidence/);
+  assert.equal(insights.some(h => h.id === "validator-feedback" || h.id === "public-debate"), false);
+  assert.doesNotMatch(insights.find(h => h.id === "representation").text, /small circle/);
+  broad.topicsWithValidatorResponse = Math.floor(broad.topicRows.length / 2) + 1;
+  assert.match(deriveAgoraInsights(broad).find(h => h.id === "validator-feedback").text, /Some discussions/);
   for (const window of ["30d", "90d", "365d", "all"]) {
     for (const candidates of [false, true]) {
       const insights = deriveAgoraInsights(deriveAgoraActivity(snapshot, window, candidates), candidates);
@@ -139,13 +139,13 @@ test("insights remain brief, qualify candidate estimates and avoid unsupported m
   }
 });
 
-test("insights handle empty discussion without unsupported topic rates or concentration claims", () => {
+test("insights handle empty discussion without unsupported criticism of participation or responses", () => {
   const empty = structuredClone(snapshot);
   empty.data.posts = [];
   empty.data.topics = [];
   const insights = deriveAgoraInsights(deriveAgoraActivity(empty, "30d"));
-  assert.match(insights.find(h => h.id === "no-topics").text, /no topic response rate/);
-  assert.equal(insights.some(h => h.id === "validator-replies"), false);
-  assert.match(insights.find(h => h.id === "concentration").text, /No writing/);
+  assert.match(insights.find(h => h.id === "no-topics").text, /cannot assess/);
+  assert.equal(insights.some(h => h.id === "validator-feedback" || h.id === "public-debate"), false);
+  assert.match(insights.find(h => h.id === "representation").text, /no public record of their views/);
   assert.doesNotMatch(JSON.stringify(insights), /NaN|Infinity|undefined/);
 });
