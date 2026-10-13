@@ -1,0 +1,222 @@
+[
+  {
+    "address": "terravaloper1uml7n30kyndkmjvrgy6d63kffpn6hvztx3fxr6",
+    "username": "fragwuerdig",
+    "confidence": "supported",
+    "source": "owner",
+    "basis": "Account-to-validator association supplied by Dawid, the dashboard owner, on 13 October 2026.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/u/fragwuerdig",
+      "https://terra-classic-lcd.publicnode.com/cosmos/staking/v1beta1/validators/terravaloper1uml7n30kyndkmjvrgy6d63kffpn6hvztx3fxr6"
+    ]
+  },
+  {
+    "address": "terravaloper1ufc3rfz62ez73n5e9t8kc8nkdp8sfpxtyqkq7l",
+    "username": "fragwuerdig",
+    "confidence": "supported",
+    "source": "owner",
+    "basis": "Account-to-validator association supplied by Dawid, the dashboard owner, on 13 October 2026.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/u/fragwuerdig",
+      "https://terra-classic-lcd.publicnode.com/cosmos/staking/v1beta1/validators/terravaloper1ufc3rfz62ez73n5e9t8kc8nkdp8sfpxtyqkq7l"
+    ]
+  },
+  {
+    "address": "terravaloper1aa6f2qeu0hrqpsxe4rggz0k7e43jfce43arz82",
+    "username": "Raider",
+    "confidence": "supported",
+    "source": "owner",
+    "basis": "Account-to-validator association supplied by Dawid, the dashboard owner, on 13 October 2026.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/u/Raider",
+      "https://terra-classic-lcd.publicnode.com/cosmos/staking/v1beta1/validators/terravaloper1aa6f2qeu0hrqpsxe4rggz0k7e43jfce43arz82"
+    ]
+  },
+  {
+    "address": "terravaloper1c7dhgf6lx6fy829tf30tvawj86u0gprda2eg4m",
+    "username": "ClassicDAO",
+    "confidence": "supported",
+    "source": "owner",
+    "basis": "Account-to-validator association supplied by Dawid, the dashboard owner, on 13 October 2026.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/u/ClassicDAO",
+      "https://terra-classic-lcd.publicnode.com/cosmos/staking/v1beta1/validators/terravaloper1c7dhgf6lx6fy829tf30tvawj86u0gprda2eg4m"
+    ]
+  },
+  {
+    "address": "terravaloper1yz3hv2k3a5z3tuu7fufcf7xvn2aawcu7c99lag",
+    "username": "ClassicDAO",
+    "confidence": "supported",
+    "source": "owner",
+    "basis": "Account-to-validator association supplied by Dawid, the dashboard owner, on 13 October 2026.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/u/ClassicDAO",
+      "https://terra-classic-lcd.publicnode.com/cosmos/staking/v1beta1/validators/terravaloper1yz3hv2k3a5z3tuu7fufcf7xvn2aawcu7c99lag"
+    ]
+  },
+  {
+    "address": "terravaloper1mdwa04dyd8ucqx7hpsp6twuhke3vmw7lacmkyf",
+    "username": "Vegas",
+    "confidence": "supported",
+    "source": "owner",
+    "basis": "Account-to-validator association supplied by Dawid, the dashboard owner, on 13 October 2026.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/u/Vegas",
+      "https://terra-classic-lcd.publicnode.com/cosmos/staking/v1beta1/validators/terravaloper1mdwa04dyd8ucqx7hpsp6twuhke3vmw7lacmkyf"
+    ]
+  },
+  {
+    "address": "terravaloper1suphyxuf7xqf2tz8vcsnlferzulskjm236dn3g",
+    "username": "webjojo",
+    "confidence": "supported",
+    "source": "owner",
+    "basis": "Account-to-validator association supplied by Dawid, the dashboard owner, on 13 October 2026.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/u/webjojo",
+      "https://terra-classic-lcd.publicnode.com/cosmos/staking/v1beta1/validators/terravaloper1suphyxuf7xqf2tz8vcsnlferzulskjm236dn3g"
+    ]
+  },
+  {
+    "address": "terravaloper1aa6f2qeu0hrqpsxe4rggz0k7e43jfce43arz82",
+    "username": "Hexxagon",
+    "confidence": "supported",
+    "source": "owner",
+    "basis": "Account-to-validator association supplied by Dawid, the dashboard owner, on 13 October 2026.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/u/Hexxagon",
+      "https://terra-classic-lcd.publicnode.com/cosmos/staking/v1beta1/validators/terravaloper1aa6f2qeu0hrqpsxe4rggz0k7e43jfce43arz82"
+    ]
+  },
+  {
+    "address": "terravaloper1dj4hyxw2r0rmhf8frvxre4xmttfm9p9922psdg",
+    "username": "Battle-Force",
+    "confidence": "supported",
+    "source": "owner",
+    "basis": "Account-to-validator association supplied by Dawid, the dashboard owner, on 13 October 2026.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/u/Battle-Force",
+      "https://terra-classic-lcd.publicnode.com/cosmos/staking/v1beta1/validators/terravaloper1dj4hyxw2r0rmhf8frvxre4xmttfm9p9922psdg"
+    ]
+  },
+  {
+    "address": "terravaloper1f337thg2cxu6yny9hquec42p4s2a27awyu8cgf",
+    "username": "Lunanauts_Statsbin",
+    "confidence": "supported",
+    "source": "owner",
+    "basis": "Account-to-validator association supplied by Dawid, the dashboard owner, on 13 October 2026.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/u/Lunanauts_Statsbin",
+      "https://terra-classic-lcd.publicnode.com/cosmos/staking/v1beta1/validators/terravaloper1f337thg2cxu6yny9hquec42p4s2a27awyu8cgf"
+    ]
+  },
+  {
+    "address": "terravaloper1uymwfafhq8fruvcjq8k67a29nqzrxnv9m6m427",
+    "username": "Rexyz123",
+    "confidence": "supported",
+    "source": "owner",
+    "basis": "Account-to-validator association supplied by Dawid, the dashboard owner, on 13 October 2026.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/u/Rexyz123",
+      "https://terra-classic-lcd.publicnode.com/cosmos/staking/v1beta1/validators/terravaloper1uymwfafhq8fruvcjq8k67a29nqzrxnv9m6m427"
+    ]
+  },
+  {
+    "address": "terravaloper1tpakapf24q0gpk35wfne8lxut6wpwf75df4qkq",
+    "username": "PinkUnicorn80",
+    "confidence": "supported",
+    "source": "owner",
+    "basis": "Account-to-validator association supplied by Dawid, the dashboard owner, on 13 October 2026.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/u/PinkUnicorn80",
+      "https://terra-classic-lcd.publicnode.com/cosmos/staking/v1beta1/validators/terravaloper1tpakapf24q0gpk35wfne8lxut6wpwf75df4qkq"
+    ]
+  },
+  {
+    "address": "terravaloper17460j07rlktalgkll35zvz0efv60mv79m25hat",
+    "username": "CostasPieri2",
+    "confidence": "supported",
+    "source": "owner",
+    "basis": "Account-to-validator association supplied by Dawid, the dashboard owner, on 13 October 2026.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/u/CostasPieri2",
+      "https://terra-classic-lcd.publicnode.com/cosmos/staking/v1beta1/validators/terravaloper17460j07rlktalgkll35zvz0efv60mv79m25hat"
+    ]
+  },
+  {
+    "address": "terravaloper1ufc3rfz62ez73n5e9t8kc8nkdp8sfpxtyqkq7l",
+    "username": "jurisprotocol",
+    "confidence": "supported",
+    "source": "public",
+    "basis": "The branded account explicitly speaks as a validator and links to Juris Protocol documentation.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/t/442/33",
+      "https://agora.terra-classic.io/u/jurisprotocol"
+    ]
+  },
+  {
+    "address": "terravaloper1c4n2dwh462k778thupuu2x3m59mn5hts0umayz",
+    "username": "Nalxim",
+    "confidence": "supported",
+    "source": "public",
+    "basis": "The account identifies Nalximnode as its own validator in a public reply.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/t/353/8",
+      "https://agora.terra-classic.io/u/Nalxim"
+    ]
+  },
+  {
+    "address": "terravaloper1f337thg2cxu6yny9hquec42p4s2a27awyu8cgf",
+    "username": "StatsBin",
+    "confidence": "supported",
+    "source": "public",
+    "basis": "The branded StatsBin account states that the proposal applies to its own validator; the active on-chain validator carries the StatsBin brand.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/t/560/9",
+      "https://agora.terra-classic.io/u/StatsBin"
+    ]
+  },
+  {
+    "address": "terravaloper18kdk2kf8uvzs5gghky23hv4q7wdnk0ff2etv7c",
+    "username": "GARUDA",
+    "confidence": "supported",
+    "source": "public",
+    "basis": "The account identifies the proposal author as Garuda Universe and describes the Garuda DeFi project linked by the on-chain validator.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/t/24/1",
+      "https://agora.terra-classic.io/u/GARUDA"
+    ]
+  },
+  {
+    "address": "terravaloper1csj849g63q7dkgx02djsjjq8ph3ce60mg5tu53",
+    "username": "0Fee-USTCAirdrops",
+    "confidence": "candidate",
+    "source": "name",
+    "basis": "The directory display name is LuncCommunity.com, matching the on-chain brand. Ownership has not been independently corroborated.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/t/94/1",
+      "https://agora.terra-classic.io/u/0Fee-USTCAirdrops"
+    ]
+  },
+  {
+    "address": "terravaloper1f337thg2cxu6yny9hquec42p4s2a27awyu8cgf",
+    "username": "Lunanauts",
+    "confidence": "candidate",
+    "source": "name",
+    "basis": "Lunanauts is the previous StatsBin brand, but this separate account has not been confirmed as the current validator representative.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/t/386/1",
+      "https://agora.terra-classic.io/u/Lunanauts"
+    ]
+  },
+  {
+    "address": "terravaloper1hu38853yqlr7g80yuz0sp88wtnr9r7pnuvf5an",
+    "username": "Terraport",
+    "confidence": "supported",
+    "source": "public",
+    "basis": "The branded account identifies Terraport as the proposer and introduces the Terraport platform; the on-chain validator uses the same project name and official domain.",
+    "evidenceUrls": [
+      "https://agora.terra-classic.io/t/10/1",
+      "https://agora.terra-classic.io/u/Terraport"
+    ]
+  }
+]

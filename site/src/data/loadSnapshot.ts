@@ -9,6 +9,7 @@ import luncVolumeJson from "./snapshots/lunc-volume.snapshot.json";
 import cmcMostViewedJson from "./snapshots/cmc-most-viewed-rank.snapshot.json";
 import cmcRankingJson from "./snapshots/cmc-ranking.snapshot.json";
 import stakingAprJson from "./snapshots/staking-apr.snapshot.json";
+import agoraActivityJson from "./snapshots/agora-activity.snapshot.json";
 import {
   activeWalletsSnapshotSchema,
   cmcMostViewedSnapshotSchema,
@@ -20,6 +21,7 @@ import {
   governanceProposalsSnapshotSchema,
   governanceValidatorsSnapshotSchema,
   luncVolumeSnapshotSchema,
+  agoraActivitySnapshotSchema,
 } from "./contracts";
 
 export type DashboardId =
@@ -32,9 +34,14 @@ export type DashboardId =
   | "community-pool"
   | "governance-participation"
   | "governance-validators"
-  | "governance-proposals";
+  | "governance-proposals"
+  | "agora-activity";
 
 type SnapshotMap = {
+  "agora-activity": {
+    raw: unknown;
+    schema: typeof agoraActivitySnapshotSchema;
+  };
   "active-wallets": {
     raw: unknown;
     schema: typeof activeWalletsSnapshotSchema;
@@ -78,6 +85,7 @@ type SnapshotMap = {
 };
 
 type SnapshotById = {
+  "agora-activity": z.infer<typeof agoraActivitySnapshotSchema>;
   "active-wallets": z.infer<typeof activeWalletsSnapshotSchema>;
   "dex-volume": z.infer<typeof dexVolumeSnapshotSchema>;
   "lunc-volume": z.infer<typeof luncVolumeSnapshotSchema>;
@@ -91,6 +99,10 @@ type SnapshotById = {
 };
 
 const snapshots: SnapshotMap = {
+  "agora-activity": {
+    raw: agoraActivityJson,
+    schema: agoraActivitySnapshotSchema,
+  },
   "active-wallets": {
     raw: activeWalletsJson,
     schema: activeWalletsSnapshotSchema,

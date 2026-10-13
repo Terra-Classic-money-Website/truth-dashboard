@@ -10,3 +10,4 @@ export * from "./expenditures";
 export * from "./governance-participation";
 export * from "./governance-validators";
 export * from "./governance-proposals";
+export * from "./agora-activity";

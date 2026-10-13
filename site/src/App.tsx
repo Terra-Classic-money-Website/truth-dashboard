@@ -6,6 +6,7 @@ import DexVolume from "./pages/DexVolume";
 import GovernanceParticipation from "./pages/GovernanceParticipation";
 import GovernanceProposals from "./pages/GovernanceProposals";
 import GovernanceValidators from "./pages/GovernanceValidators";
+import AgoraActivity from "./pages/AgoraActivity";
 import Volume from "./pages/Volume";
 import CmcMostViewedRank from "./pages/CmcMostViewedRank";
 import CmcRanking from "./pages/CmcRanking";
@@ -29,6 +30,7 @@ function App() {
         />
         <Route path="/governance/validators" element={<GovernanceValidators />} />
         <Route path="/governance/proposals" element={<GovernanceProposals />} />
+        <Route path="/governance/agora" element={<AgoraActivity />} />
         <Route path="*" element={<Navigate to="/active-wallets" replace />} />
       </Route>
     </Routes>

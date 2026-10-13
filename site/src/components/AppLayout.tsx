@@ -24,6 +24,7 @@ const governanceLinks: NavItem[] = [
   { label: "Participation", to: "/governance/participation" },
   { label: "Validators", to: "/governance/validators" },
   { label: "Proposals", to: "/governance/proposals" },
+  { label: "Validator activity on Agora", to: "/governance/agora" },
 ];
 
 const navLinkClasses = ({ isActive }: { isActive: boolean }) =>

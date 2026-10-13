@@ -12,6 +12,9 @@
     "build:cmc-most-viewed": "node scripts/build-cmc-most-viewed-snapshot.mjs",
     "build:cmc-ranking": "node scripts/build-cmc-ranking-snapshot.mjs",
     "build:staking-apr": "node scripts/build-staking-apr-snapshot.mjs",
+    "collect:agora": "node scripts/collect-agora-evidence.mjs",
+    "build:agora": "node scripts/build-agora-activity-snapshot.mjs",
+    "test:agora": "node --test tests/agora-activity.test.mjs",
     "build:expenditures": "node scripts/build-expenditures-snapshot.mjs",
     "lint": "eslint .",
     "preview": "vite preview"

@@ -1,0 +1,101 @@
+.agora-page { --agora-writing: #34d399; --agora-quiet: #60a5fa; --agora-no-writing: #fb7185; --agora-candidate: #fbbf24; --agora-unknown: #64748b; }
+.agora-page :is(a, button, input, select, summary, [tabindex]):focus-visible { outline: 2px solid #60a5fa; outline-offset: 4px; }
+.agora-page a { text-underline-offset: 3px; }
+.agora-page a:hover { text-decoration: underline; }
+.agora-page .text-slate-500 { color: #94a3b8; }
+.agora-button { padding: 8px 12px; border: 1px solid #475569; border-radius: 8px; background: transparent; color: #cbd5e1; font-size: 13px; cursor: pointer; }
+.agora-button:hover { background: #1e293b; }
+.agora-button[aria-pressed="true"] { background: #334155; border-color: #94a3b8; color: #fff; }
+.agora-source-link { color: #93c5fd; font-size: 13px; }
+.agora-candidate-toggle { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #cbd5e1; cursor: pointer; }
+.agora-candidate-toggle input { width: 16px; height: 16px; accent-color: #fbbf24; }
+.agora-measurement-note { margin-top: -12px; max-width: 100ch; }
+.agora-distribution-head, .agora-distribution-row { display: grid; grid-template-columns: minmax(180px, 1.15fr) minmax(130px, 1fr) minmax(130px, 1fr); gap: 24px; align-items: center; }
+.agora-distribution-head { margin-top: 24px; margin-bottom: 14px; }
+.agora-distribution-row + .agora-distribution-row { margin-top: 16px; }
+.agora-bar-value { display: flex; gap: 12px; align-items: center; font-size: 13px; color: #e2e8f0; font-variant-numeric: tabular-nums; }
+.agora-bar-value > span { min-width: 98px; white-space: nowrap; }
+.agora-bar-value small { color: #94a3b8; font-size: 11px; }
+.agora-bar-track { flex: 1; min-width: 24px; height: 9px; background: #1e293b; border-radius: 2px; overflow: hidden; }
+.agora-fill { height: 100%; display: block; }
+.agora-fill.writing, .agora-swatch.writing { background: var(--agora-writing); }
+.agora-fill.quiet { background: var(--agora-quiet); }
+.agora-fill.no-writing { background: var(--agora-no-writing); }
+.agora-fill.candidate { background: var(--agora-candidate); }
+.agora-fill.unmatched, .agora-swatch.unknown { background: var(--agora-unknown); }
+.agora-legend { display: inline-flex; align-items: center; gap: 7px; }
+.agora-swatch { width: 9px; height: 9px; border-radius: 2px; }
+.agora-timeline { width: 100%; }
+.agora-discussion-grid { display: grid; gap: 20px; }
+@media (min-width: 1280px) { .agora-discussion-grid { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); } }
+.agora-gridline { stroke: #334155; stroke-width: 1; }
+.agora-axis { fill: #94a3b8; font-size: 13px; }
+.agora-other-bar { fill: #64748b; }
+.agora-validator-bar { fill: #34d399; }
+.agora-month { cursor: default; }
+.agora-month:hover .agora-other-bar, .agora-month:focus .agora-other-bar { fill: #94a3b8; }
+.agora-concentration { display: grid; grid-template-columns: 1fr auto; gap: 14px 20px; font-size: 13px; }
+.agora-concentration strong { font-size: 16px; color: #fff; font-variant-numeric: tabular-nums; }
+.agora-writers li { display: flex; justify-content: space-between; gap: 10px; padding: 9px 0; border-top: 1px solid #334155; font-size: 13px; color: #cbd5e1; }
+.agora-table-controls { display: flex; flex-wrap: wrap; align-items: end; gap: 14px; }
+.agora-table-controls label, .agora-category-label { display: flex; flex-direction: column; gap: 7px; font-size: 12px; color: #94a3b8; }
+.agora-table-controls label:first-child { flex: 1; min-width: 190px; }
+.agora-page :is(input[type="search"], select) { min-height: 36px; border: 1px solid #475569; border-radius: 7px; padding: 7px 10px; background: #0f172a; color: #e2e8f0; font-size: 13px; }
+.agora-page input::placeholder { color: #94a3b8; }
+.agora-table-scroll { max-height: 580px; overflow-y: auto; overscroll-behavior: contain; border: 1px solid #334155; border-radius: 10px; }
+.agora-table { width: 100%; min-width: 1120px; text-align: left; border-collapse: separate; border-spacing: 0; font-size: 13px; color: #cbd5e1; font-variant-numeric: tabular-nums; }
+.agora-table thead { position: sticky; top: 0; z-index: 1; background: #0f172a; }
+.agora-table :is(th, td) { padding: 13px 14px; vertical-align: top; border-bottom: 1px solid #334155; }
+.agora-table thead th { font-size: 11px; font-weight: 500; color: #94a3b8; white-space: nowrap; }
+.agora-table tbody th { font-weight: 500; width: 260px; min-width: 260px; }
+.agora-table tbody td { white-space: nowrap; }
+.agora-table tbody tr:hover { background: #1e293b66; }
+.agora-validator-name { color: #f1f5f9; line-height: 1.6; }
+.agora-rank { display: block; font-size: 11px; margin-bottom: 2px; }
+.agora-account-name + .agora-account-name { margin-top: 10px; }
+.agora-account-name small { display: block; color: #94a3b8; font-size: 10px; margin-top: 3px; }
+.agora-status { display: inline-block; max-width: 148px; white-space: normal; font-size: 12px; line-height: 1.5; color: #cbd5e1; }
+.agora-status.writing { color: #6ee7b7; }
+.agora-status.candidate { color: #fcd34d; }
+.agora-account-evidence { margin-top: 9px; font-weight: 400; }
+.agora-account-evidence summary { color: #93c5fd; font-size: 11px; cursor: pointer; }
+.agora-evidence-content { margin-top: 12px; font-size: 12px; line-height: 1.6; color: #cbd5e1; overflow-wrap: anywhere; }
+.agora-evidence-content a { color: #93c5fd; }
+.agora-account-proof { margin-bottom: 20px; }
+.agora-account-proof p { margin: 8px 0; }
+.agora-evidence-label { display: block; color: #94a3b8; font-size: 11px; margin-top: 3px; }
+.agora-topic-summary { display: flex; flex-wrap: wrap; gap: 16px 28px; color: #94a3b8; font-size: 12px; }
+.agora-topic-summary strong { display: block; color: #f1f5f9; font-size: 17px; margin-bottom: 3px; }
+.agora-topic-table { min-width: 840px; }
+.agora-topic-table tbody th { width: 50%; min-width: 340px; line-height: 1.6; }
+.agora-topic-table small { margin-top: 4px; font-weight: 400; }
+.agora-method summary { font-size: 16px; font-weight: 600; color: #f1f5f9; cursor: pointer; }
+.agora-method a { color: #93c5fd; text-decoration: underline; }
+.theme-light .agora-page { --agora-writing: #047857; --agora-quiet: #2563eb; --agora-no-writing: #be123c; --agora-candidate: #b45309; --agora-unknown: #64748b; }
+.theme-light .agora-page .text-slate-500 { color: #475569; }
+.theme-light .agora-page .text-amber-200 { color: #92400e; }
+.theme-light .agora-button { color: #334155; border-color: #94a3b8; }
+.theme-light .agora-button:hover, .theme-light .agora-button[aria-pressed="true"] { background: #e2e8f0; color: #0f172a; }
+.theme-light .agora-page :is(input[type="search"], select), .theme-light .agora-table thead { background: #f8fafc; color: #0f172a; }
+.theme-light .agora-page :is(input::placeholder, .agora-table-controls label, .agora-category-label, .agora-table thead th, .agora-account-name small, .agora-evidence-label, .agora-topic-summary, .agora-bar-value small) { color: #475569; }
+.theme-light .agora-page :is(.agora-candidate-toggle, .agora-bar-value, .agora-writers li, .agora-table, .agora-evidence-content) { color: #334155; }
+.theme-light .agora-page :is(.agora-source-link, .agora-account-evidence summary, .agora-method a, .agora-evidence-content a) { color: #1d4ed8; }
+.theme-light .agora-page :is(.agora-validator-name, .agora-concentration strong, .agora-topic-summary strong, .agora-method summary) { color: #0f172a; }
+.theme-light .agora-status { color: #334155; }
+.theme-light .agora-status.writing { color: #047857; }
+.theme-light .agora-status.candidate { color: #92400e; }
+.theme-light .agora-table tbody tr:hover { background: #e2e8f055; }
+.theme-light .agora-page :is(.agora-table-scroll, .agora-table th, .agora-table td, .agora-writers li) { border-color: #cbd5e1; }
+.theme-light .agora-bar-track { background: #e2e8f0; }
+.theme-light .agora-validator-bar { fill: #047857; }
+.theme-light .agora-axis { fill: #475569; }
+.theme-light .agora-gridline { stroke: #cbd5e1; }
+@media (max-width: 700px) {
+  .agora-distribution-head, .agora-distribution-row { grid-template-columns: minmax(140px, 1fr) minmax(70px, 0.7fr) minmax(65px, 0.6fr); gap: 10px; }
+  .agora-bar-value { flex-direction: column; align-items: stretch; gap: 5px; font-size: 12px; }
+  .agora-bar-value > span { min-width: 0; }
+  .agora-bar-value small { display: block; }
+  .agora-bar-track { flex: none; height: 6px; }
+  .agora-distribution-row > span { font-size: 12px; }
+  .agora-table-scroll { max-height: 430px; }
+}
