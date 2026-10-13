@@ -183,8 +183,6 @@ export default function AgoraActivity() {
         {includeCandidates && <p className="mt-2 text-sm text-amber-200" role="status">Candidate mode: these totals include unverified account associations. They are estimates, not established validator participation.</p>}
       </Card>
 
-      <AgoraActivityInsights view={view} includeCandidates={includeCandidates} />
-
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <KpiCard label={includeCandidates ? "Estimated validator writers" : "Observed validator writers"} value={`${view.activeRows.length} / ${view.rows.length}`} accent="emerald" helper={`${percent(view.activeRows.length, view.rows.length)} of bonded validators · ${percent(view.activePower)} of current voting power`} />
         <KpiCard label="No identifiable account" value={`${noMatch.count} / ${view.rows.length}`} accent="sky" helper={`${percent(noMatch.power)} of current voting power · participation unknown`} />
@@ -274,6 +272,8 @@ export default function AgoraActivity() {
           </div>
         </details>
       </Card>
+
+      <AgoraActivityInsights view={view} includeCandidates={includeCandidates} />
     </div>
   );
 }
