@@ -10,6 +10,8 @@
 .agora-candidate-toggle { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #cbd5e1; cursor: pointer; }
 .agora-candidate-toggle input { width: 16px; height: 16px; accent-color: #fbbf24; }
 .agora-measurement-note { margin-top: -12px; max-width: 100ch; }
+.agora-insights-list { margin-top: 12px; padding-left: 20px; list-style: disc; }
+.agora-insights-list li + li { margin-top: 8px; }
 .agora-distribution-head, .agora-distribution-row { display: grid; grid-template-columns: minmax(180px, 1.15fr) minmax(130px, 1fr) minmax(130px, 1fr); gap: 24px; align-items: center; }
 .agora-distribution-head { margin-top: 24px; margin-bottom: 14px; }
 .agora-distribution-row + .agora-distribution-row { margin-top: 16px; }

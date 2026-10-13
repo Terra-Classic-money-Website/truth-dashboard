@@ -7,6 +7,7 @@ import { getSnapshot } from "../data/loadSnapshot";
 import { AGORA_WINDOWS, deriveAgoraActivity, type AgoraWindow } from "../data/selectors/agoraActivity";
 import "./agora-activity.css";
 import useViewportWidth from "../hooks/useViewportWidth";
+import AgoraActivityInsights from "../components/AgoraActivityInsights";
 
 type View = ReturnType<typeof deriveAgoraActivity>;
 type ValidatorRow = View["rows"][number];
@@ -181,6 +182,8 @@ export default function AgoraActivity() {
         <label className="agora-candidate-toggle mt-4"><input type="checkbox" checked={includeCandidates} onChange={e => setIncludeCandidates(e.target.checked)} />Include unverified name matches in the activity estimates</label>
         {includeCandidates && <p className="mt-2 text-sm text-amber-200" role="status">Candidate mode: these totals include unverified account associations. They are estimates, not established validator participation.</p>}
       </Card>
+
+      <AgoraActivityInsights view={view} includeCandidates={includeCandidates} />
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <KpiCard label={includeCandidates ? "Estimated validator writers" : "Observed validator writers"} value={`${view.activeRows.length} / ${view.rows.length}`} accent="emerald" helper={`${percent(view.activeRows.length, view.rows.length)} of bonded validators · ${percent(view.activePower)} of current voting power`} />

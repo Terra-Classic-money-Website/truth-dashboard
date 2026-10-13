@@ -3,6 +3,7 @@ import fs from "node:fs";
 import test from "node:test";
 import { agoraActivitySnapshotSchema } from "../src/data/contracts/agora-activity.ts";
 import { deriveAgoraActivity } from "../src/data/selectors/agoraActivity.ts";
+import { deriveAgoraInsights } from "../src/data/selectors/agoraInsights.ts";
 
 const snapshot = agoraActivitySnapshotSchema.parse(JSON.parse(fs.readFileSync(new URL("../src/data/snapshots/agora-activity.snapshot.json", import.meta.url))));
 const evidence = JSON.parse(fs.readFileSync(new URL("../research/agora/public-evidence.json", import.meta.url)));
@@ -102,4 +103,49 @@ test("former-validator identity is excluded from today's bonded population", () 
   const retired = evidence.validators.find(v => v.operator_address === "terravaloper13avdm9rqxpftv3vrkaqaakakgh30909x8c07v3");
   assert.equal(retired.status, "BOND_STATUS_UNBONDED");
   assert.equal(snapshot.data.validators.some(v => v.address === retired.operator_address), false);
+});
+
+test("plain-English insights follow the selected window and distinguish unanswered topics from missing validator responses", () => {
+  const recent = deriveAgoraInsights(deriveAgoraActivity(snapshot, "90d"));
+  assert.equal(recent.length, 5);
+  assert.match(recent.find(h => h.id === "participation").text, /Only 11 of 88.*22\.3%/);
+  assert.match(recent.find(h => h.id === "validator-replies").text, /Most topics.*18 of 27/);
+  assert.match(recent.find(h => h.id === "unanswered-topics").text, /12 of 27.*no human reply/);
+  assert.match(recent.find(h => h.id === "identity-gap").text, /70 of 88.*does not prove inactivity/);
+  const lifetime = deriveAgoraInsights(deriveAgoraActivity(snapshot, "all"));
+  assert.match(lifetime.find(h => h.id === "participation").text, /17 of 88/);
+  assert.match(lifetime.find(h => h.id === "validator-replies").text, /111 of 170/);
+  assert.match(lifetime.find(h => h.id === "unanswered-topics").text, /61 of 170/);
+});
+
+test("insights remain brief, qualify candidate estimates and avoid unsupported majority claims", () => {
+  const estimated = deriveAgoraInsights(deriveAgoraActivity(snapshot, "90d", true), true);
+  assert.match(estimated.find(h => h.id === "participation").text, /unverified matches, an estimated 13 of 88/);
+  assert.match(estimated.find(h => h.id === "validator-replies").text, /known or possible/);
+  assert.match(estimated.find(h => h.id === "concentration").text, /estimated validator messages/);
+  const year = deriveAgoraInsights(deriveAgoraActivity(snapshot, "365d"));
+  const concentration = year.find(h => h.id === "concentration");
+  assert.match(concentration.text, /48\.5%/);
+  assert.doesNotMatch(concentration.text, /most/i);
+  const halfAnswered = deriveAgoraActivity(snapshot, "90d");
+  halfAnswered.topicRows = halfAnswered.topicRows.slice(0, 2);
+  halfAnswered.topicsWithValidatorResponse = 1;
+  assert.doesNotMatch(deriveAgoraInsights(halfAnswered).find(h => h.id === "validator-replies").text, /most/i);
+  for (const window of ["30d", "90d", "365d", "all"]) {
+    for (const candidates of [false, true]) {
+      const insights = deriveAgoraInsights(deriveAgoraActivity(snapshot, window, candidates), candidates);
+      assert.ok(insights.every(h => h.text.split(/\s+/).length <= 27));
+    }
+  }
+});
+
+test("insights handle empty discussion without unsupported topic rates or concentration claims", () => {
+  const empty = structuredClone(snapshot);
+  empty.data.posts = [];
+  empty.data.topics = [];
+  const insights = deriveAgoraInsights(deriveAgoraActivity(empty, "30d"));
+  assert.match(insights.find(h => h.id === "no-topics").text, /no topic response rate/);
+  assert.equal(insights.some(h => h.id === "validator-replies"), false);
+  assert.match(insights.find(h => h.id === "concentration").text, /No writing/);
+  assert.doesNotMatch(JSON.stringify(insights), /NaN|Infinity|undefined/);
 });
