@@ -3,7 +3,7 @@
   "dashboardId": "active-wallets",
   "title": "Monthly Active Wallets",
   "subtitle": "Participants per month based on transaction senders and recipients on the Terra Classic L1.",
-  "generatedAt": "2026-10-12",
+  "generatedAt": "2026-10-14",
   "coverage": {
     "start": "2022-06-30",
     "end": "2026-09-30",
@@ -250,7 +250,7 @@
           },
           {
             "periodEnd": "2026-09-30",
-            "v": 19415
+            "v": 19413
           }
         ]
       },
@@ -275,12 +275,12 @@
       {
         "id": "kpi.mawTotal",
         "label": "Monthly active wallets",
-        "value": 19415,
+        "value": 19413,
         "unit": "count",
         "scale": 1,
         "asOf": "2026-09-30",
         "delta": {
-          "value": -0.1460303496811084,
+          "value": -0.14611831977127776,
           "unit": "percent",
           "vs": "prev_period"
         },
@@ -329,7 +329,7 @@
         {
           "id": "kpi.currentMonth",
           "label": "Current month",
-          "value": 19415,
+          "value": 19413,
           "unit": "count",
           "asOf": "2026-09-30",
           "note": "Sep 26"
@@ -345,7 +345,7 @@
         {
           "id": "kpi.drawdown",
           "label": "Drawdown from peak",
-          "value": -0.9610710425902644,
+          "value": -0.9610750527841774,
           "unit": "percent",
           "asOf": "2026-09-30",
           "note": "Current vs peak"
@@ -353,7 +353,7 @@
         {
           "id": "kpi.roll12Avg",
           "label": "12M rolling average",
-          "value": 23209.333333333332,
+          "value": 23209.166666666668,
           "unit": "count",
           "asOf": "2026-09-30",
           "note": "Last 12 months"
@@ -361,7 +361,7 @@
         {
           "id": "kpi.trendSlope",
           "label": "12M trend slope",
-          "value": -559.4055944055945,
+          "value": -559.4825174825174,
           "unit": "count",
           "asOf": "2026-09-30",
           "note": "wallets / month"
@@ -369,7 +369,7 @@
         {
           "id": "kpi.stability",
           "label": "12M stability",
-          "value": 0.32906475193696844,
+          "value": 0.32907068345371177,
           "unit": "percent",
           "asOf": "2026-09-30",
           "note": "stdev / mean"
@@ -452,11 +452,11 @@
           },
           {
             "year": "2026",
-            "avgMonthly": 21153.666666666668,
+            "avgMonthly": 21153.444444444445,
             "median": 22142,
-            "yoy": -0.17836543129956295,
-            "volatility": 4566.247255679438,
-            "cv": 0.21586079272369352
+            "yoy": -0.17837406268543987,
+            "volatility": 4566.331912575176,
+            "cv": 0.21586706243362827
           }
         ]
       },
@@ -614,10 +614,10 @@
           },
           {
             "quarter": "2026 Q3",
-            "avg": 22681,
-            "qoq": -0.08642588614393132,
+            "avg": 22680.333333333332,
+            "qoq": -0.08645273899033312,
             "bestMonth": "Jul 26 (25,893)",
-            "worstMonth": "Sep 26 (19,415)"
+            "worstMonth": "Sep 26 (19,413)"
           }
         ]
       }
@@ -678,7 +678,7 @@
         "pct": -0.5686076414401176
       },
       "drawdownRecovery": {
-        "drawdownPct": -0.9610710425902644,
+        "drawdownPct": -0.9610750527841774,
         "from": "2022-08-31",
         "to": "2026-09-30",
         "recovered": false
