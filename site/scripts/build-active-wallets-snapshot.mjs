@@ -15,9 +15,10 @@ const importedPoints = [
   { periodEnd: "2026-07-31", v: 25_893 },
   { periodEnd: "2026-08-31", v: 22_735 },
   { periodEnd: "2026-09-30", v: 19_413 },
+  { periodEnd: "2026-10-31", v: 18_696 },
 ];
 
-const generatedAt = "2026-10-14";
+const generatedAt = "2026-11-05";
 const monthFormatter = new Intl.DateTimeFormat("en-US", {
   month: "short",
   year: "2-digit",
